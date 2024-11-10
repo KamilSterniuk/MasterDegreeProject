@@ -4,6 +4,8 @@ from ui.main_window import MainWindow
 from ui.settings_window import SettingsWindow
 from ui.survey_window import SurveyWindow
 from ui.stai_window import StaiWindow
+from ui.rest_window import RestWindow
+from ui.asmr_select_window import AsmrSelectWindow
 
 class MainApp(QMainWindow):
     def __init__(self):
@@ -23,6 +25,8 @@ class MainApp(QMainWindow):
         self.settings_window = SettingsWindow(self)
         self.survey_window = SurveyWindow(self)
         self.stai_window = StaiWindow(self)
+        self.rest_window = RestWindow()
+        self.asm_select_window = AsmrSelectWindow()
 
         # Dodaj tytuł na górze
         title_label = QLabel("Attention Concentration Test with EEG and Eye-Tracking")
@@ -39,6 +43,8 @@ class MainApp(QMainWindow):
         self.stacked_widget.addWidget(self.settings_window)
         self.stacked_widget.addWidget(self.survey_window)
         self.stacked_widget.addWidget(self.stai_window)
+        self.stacked_widget.addWidget(self.rest_window)
+        self.stacked_widget.addWidget(self.asm_select_window)
 
         # Wyświetl ekran główny
         self.stacked_widget.setCurrentWidget(self.main_window)
@@ -58,6 +64,12 @@ class MainApp(QMainWindow):
         self.stai_window.update_asmr_status(self.asmr_enabled)
         self.stacked_widget.setCurrentWidget(self.stai_window)
 
+    def show_rest_or_asmr(self):
+        # Przeniesienie do odpowiedniego okna na podstawie stanu ASMR
+        if self.asmr_enabled:
+            self.stacked_widget.setCurrentWidget(self.asm_select_window)
+        else:
+            self.stacked_widget.setCurrentWidget(self.rest_window)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

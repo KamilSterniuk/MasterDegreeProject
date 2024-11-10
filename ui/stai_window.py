@@ -148,6 +148,7 @@ class StaiWindow(QWidget):
         self.submit_button.setVisible(all_answered)  # Pokaż przycisk tylko, jeśli wszystkie odpowiedzi są udzielone
 
     def submit_answers(self):
+        # Zbieranie odpowiedzi (możesz to zachować do dalszego przetwarzania)
         answers = []
         for group in self.button_groups:
             selected_button = group.checkedButton()
@@ -157,3 +158,8 @@ class StaiWindow(QWidget):
                 answers.append("No response")
 
         print("STAI Answers:", answers)
+
+        # Przeniesienie do odpowiedniego okna w zależności od stanu ASMR
+        self.main_app.show_rest_or_asmr()
+
+
