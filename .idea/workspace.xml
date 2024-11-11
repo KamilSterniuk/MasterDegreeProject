@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="STAI interface">
-      <change afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/rest_window.py" afterDir="false" />
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="STAI transition">
+      <change afterPath="$PROJECT_DIR$/videos/ASMR_short1.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/videos/thumbnails/thumb1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/stai_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\stern\PycharmProjects\masterProject\videos\thumbnails" />
+      <recent name="C:\Users\stern\PycharmProjects\masterProject\videos" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\ui" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject" />
     </key>
@@ -120,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731267407201</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="STAI transition">
+      <option name="closed" value="true" />
+      <created>1731268789205</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731268789205</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +146,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="basic interface" />
     <MESSAGE value="STAI interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="STAI interface" />
+    <MESSAGE value="STAI transition" />
+    <option name="LAST_COMMIT_MESSAGE" value="STAI transition" />
   </component>
 </project>
