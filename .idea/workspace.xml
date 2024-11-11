@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="STAI transition">
-      <change afterPath="$PROJECT_DIR$/videos/ASMR_short1.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/videos/thumbnails/thumb1.png" afterDir="false" />
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="asmr selection v1">
+      <change afterPath="$PROJECT_DIR$/ui/asmr_play_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
     </list>
@@ -25,18 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "KamilSterniuk"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;KamilSterniuk&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/KamilSterniuk/MasterDegreeProject.git",
-    "accountId": "8ba666cb-ae0b-4dba-8b20-9bee8c180d39"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KamilSterniuk/MasterDegreeProject.git&quot;,
+    &quot;accountId&quot;: &quot;8ba666cb-ae0b-4dba-8b20-9bee8c180d39&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -53,10 +52,13 @@
     "Python.main_window.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/stern/PycharmProjects/masterProject/main.py"
+    "last_opened_file_path": "C:/Users/stern/PycharmProjects/masterProject/videos"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\stern\PycharmProjects\masterProject\videos" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\stern\PycharmProjects\masterProject\videos\thumbnails" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\videos" />
@@ -129,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731268789205</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="asmr selection v1">
+      <option name="closed" value="true" />
+      <created>1731282592578</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731282592578</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,6 +157,7 @@
     <MESSAGE value="basic interface" />
     <MESSAGE value="STAI interface" />
     <MESSAGE value="STAI transition" />
-    <option name="LAST_COMMIT_MESSAGE" value="STAI transition" />
+    <MESSAGE value="asmr selection v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="asmr selection v1" />
   </component>
 </project>

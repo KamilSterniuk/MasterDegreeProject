@@ -1,8 +1,9 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QHBoxLayout, QLabel, QRadioButton, QButtonGroup
 from PySide6.QtGui import QPalette, QColor, QPixmap
-from PySide6.QtMultimedia import QMediaPlayer
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import Qt, QUrl
+from ui.asmr_play_window import AsmrPlayWindow
 
 class AsmrSelectWindow(QWidget):
     def __init__(self):
@@ -23,7 +24,7 @@ class AsmrSelectWindow(QWidget):
         grid_layout = QGridLayout()
         grid_layout.setSpacing(10)
 
-        # Utwórz listę przechowującą obiekty QMediaPlayer i QVideoWidget
+        # Utwórz listę przechowującą obiekty QMediaPlayer, QAudioOutput i QVideoWidget
         self.players = []
 
         # Ścieżki do plików wideo i miniatur
@@ -52,8 +53,12 @@ class AsmrSelectWindow(QWidget):
         self.radio_button_group.buttonClicked.connect(self.show_confirm_button)  # Połącz z funkcją wyświetlającą przycisk
 
         for i in range(7):
-            # Inicjalizuj odtwarzacz multimediów i widget wideo
+            # Inicjalizuj odtwarzacz multimediów i wyjście audio
             player = QMediaPlayer(self)
+            audio_output = QAudioOutput(self)  # Dodaj wyjście audio
+            player.setAudioOutput(audio_output)  # Połącz wyjście audio z odtwarzaczem
+            audio_output.setVolume(1.0)  # Ustaw głośność na 100% (1.0 to maksymalna głośność)
+
             video_widget = QVideoWidget(self)
             video_widget.hide()  # Ukryj QVideoWidget na początku
 
@@ -67,7 +72,7 @@ class AsmrSelectWindow(QWidget):
 
             # Utwórz miniaturkę jako QLabel z pixmapą
             thumbnail_label = QLabel()
-            thumbnail_label.setPixmap(QPixmap(thumbnail_paths[i]).scaled(320, 180, Qt.KeepAspectRatio))
+            thumbnail_label.setPixmap(QPixmap(thumbnail_paths[i]).scaled(400, 225, Qt.KeepAspectRatio))  # Większa miniaturka
             thumbnail_label.setAlignment(Qt.AlignCenter)
 
             # Utwórz przyciski Play i Pause
@@ -96,8 +101,8 @@ class AsmrSelectWindow(QWidget):
             col = i % 3  # obliczanie kolumny
             grid_layout.addLayout(video_layout, row, col)
 
-            # Przechowaj player i video_widget w liście, by móc kontrolować odtwarzanie
-            self.players.append((player, video_widget))
+            # Przechowaj player, audio_output i video_widget w liście, by móc kontrolować odtwarzanie
+            self.players.append((player, audio_output, video_widget))
 
         # Dodaj przycisk Confirm do siatki w prawym dolnym rogu
         self.confirm_button = QPushButton("Confirm")
@@ -123,18 +128,37 @@ class AsmrSelectWindow(QWidget):
         self.setLayout(main_layout)
 
     def play_video(self, player, video_url, thumbnail_label, video_widget):
-        # Ukryj miniaturkę, pokaż widget wideo i odtwórz wideo
+        # Zatrzymaj wszystkie pozostałe odtwarzacze
+        for p, _, _ in self.players:
+            if p != player and p.playbackState() == QMediaPlayer.PlayingState:
+                p.pause()  # Wstrzymaj inne odtwarzające się wideo
+
+        # Ukryj miniaturkę i pokaż widget wideo
         thumbnail_label.hide()  # Ukrywa miniaturkę przed rozpoczęciem odtwarzania
-        video_widget.show()     # Pokazuje widget wideo
-        player.setSource(QUrl.fromLocalFile(video_url))  # Wczytaj wideo
-        player.play()  # Rozpocznij odtwarzanie
+        video_widget.show()  # Pokazuje widget wideo
+
+        # Sprawdź, czy wideo jest już wstrzymane - jeśli tak, nie ustawiaj źródła ponownie
+        if player.playbackState() != QMediaPlayer.PausedState:
+            player.setSource(
+                QUrl.fromLocalFile(video_url))  # Ustaw źródło tylko, jeśli odtwarzacz nie jest w stanie pauzy
+
+        # Rozpocznij lub kontynuuj odtwarzanie
+        player.play()  # Wznów lub rozpocznij odtwarzanie
 
     def show_confirm_button(self):
         # Pokaż przycisk Confirm po wybraniu opcji
         self.confirm_button.setVisible(True)
 
     def confirm_selection(self):
-        # Funkcja do obsługi potwierdzenia wyboru
+        # Zatrzymujemy wszystkie odtwarzacze wideo przed zamknięciem okna
+        for player, _, _ in self.players:
+            player.stop()
+
+        # Pobieramy wybrany film i otwieramy go w AsmrPlayWindow
         selected_button = self.radio_button_group.checkedButton()
         if selected_button:
-            print(f"Confirmed selection: {selected_button.text()}")
+            selected_index = self.radio_button_group.id(selected_button) + 1
+            long_video_url = f"videos/ASMR_long{selected_index}.mp4"
+            self.play_window = AsmrPlayWindow(long_video_url)
+            self.play_window.showFullScreen()
+            self.close()
