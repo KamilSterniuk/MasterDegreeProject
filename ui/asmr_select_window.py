@@ -6,8 +6,9 @@ from PySide6.QtCore import Qt, QUrl
 from ui.asmr_play_window import AsmrPlayWindow
 
 class AsmrSelectWindow(QWidget):
-    def __init__(self):
+    def __init__(self, main_app):
         super().__init__()
+        self.main_app = main_app
 
         # Ustawienia ciemnego tła
         palette = self.palette()
@@ -159,6 +160,7 @@ class AsmrSelectWindow(QWidget):
         if selected_button:
             selected_index = self.radio_button_group.id(selected_button) + 1
             long_video_url = f"videos/ASMR_long{selected_index}.mp4"
-            self.play_window = AsmrPlayWindow(long_video_url)
+            # Teraz przekazujemy `self.main_app` jako pierwszy argument
+            self.play_window = AsmrPlayWindow(self.main_app, long_video_url)
             self.play_window.showFullScreen()
             self.close()

@@ -3,10 +3,10 @@ from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import QUrl, Qt
 
-
 class AsmrPlayWindow(QWidget):
-    def __init__(self, video_url):
+    def __init__(self, main_app, video_url):  # Upewnij się, że konstruktor przyjmuje dwa argumenty: `main_app` i `video_url`
         super().__init__()
+        self.main_app = main_app  # Zapiszmy referencję do głównego okna
         self.setWindowTitle("ASMR Full Play")
         self.showFullScreen()  # Pełny ekran
 
@@ -65,7 +65,8 @@ class AsmrPlayWindow(QWidget):
             self.player.setSource(QUrl.fromLocalFile(self.video_url))
             self.player.play()
         elif self.end_message_label.isVisible():
-            # Po zakończeniu filmu zamyka okno lub przechodzi dalej
+            # Przejście do ekranu instrukcji ANT
+            self.main_app.show_ant_instructions()
             self.close()
 
     def on_video_finished(self, status):

@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="asmr selection v1">
-      <change afterPath="$PROJECT_DIR$/ui/asmr_play_window.py" afterDir="false" />
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="asmr full playing">
+      <change afterPath="$PROJECT_DIR$/ui/ant_instruction_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/asmr_play_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_play_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731282592578</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="asmr full playing">
+      <option name="closed" value="true" />
+      <created>1731332988719</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731332988719</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,6 +167,7 @@
     <MESSAGE value="STAI interface" />
     <MESSAGE value="STAI transition" />
     <MESSAGE value="asmr selection v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="asmr selection v1" />
+    <MESSAGE value="asmr full playing" />
+    <option name="LAST_COMMIT_MESSAGE" value="asmr full playing" />
   </component>
 </project>
