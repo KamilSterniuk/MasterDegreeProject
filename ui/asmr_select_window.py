@@ -31,21 +31,21 @@ class AsmrSelectWindow(QWidget):
         # Ścieżki do plików wideo i miniatur
         video_urls = [
             "videos/ASMR_short1.mp4",  # Zakładając, że tylko ten plik jest dostępny na razie
-            "videos/ASMR_short1.mp4",
-            "videos/ASMR_short1.mp4",
-            "videos/ASMR_short1.mp4",
-            "videos/ASMR_short1.mp4",
-            "videos/ASMR_short1.mp4",
-            "videos/ASMR_short1.mp4",
+            "videos/ASMR_short2.mp4",
+            "videos/ASMR_short3.mp4",
+            "videos/ASMR_short4.mp4",
+            "videos/ASMR_short5.mp4",
+            "videos/ASMR_short6.mp4",
+            "videos/ASMR_short7.mp4",
         ]
         thumbnail_paths = [
             "videos/thumbnails/thumb1.png",
-            "videos/thumbnails/thumb1.png",
-            "videos/thumbnails/thumb1.png",
-            "videos/thumbnails/thumb1.png",
-            "videos/thumbnails/thumb1.png",
-            "videos/thumbnails/thumb1.png",
-            "videos/thumbnails/thumb1.png",
+            "videos/thumbnails/thumb2.png",
+            "videos/thumbnails/thumb3.png",
+            "videos/thumbnails/thumb4.png",
+            "videos/thumbnails/thumb5.png",
+            "videos/thumbnails/thumb6.png",
+            "videos/thumbnails/thumb7.png",
         ]
 
         # Grupa przycisków radiowych, aby tylko jedno z 7 mogło być zaznaczone
