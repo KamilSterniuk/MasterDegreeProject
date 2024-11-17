@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="ant instruction working">
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="scaling fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ant_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ant_results.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ant_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/ant_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/ant_instruction_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/ant_instruction_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/ant_instructions/fourth_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/ant_instructions/fourth_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/rest_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/rest_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731805187524</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="scaling fix">
+      <option name="closed" value="true" />
+      <created>1731883675974</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731883675974</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -201,6 +206,7 @@
     <MESSAGE value="asmr full playing" />
     <MESSAGE value="ant transition" />
     <MESSAGE value="ant instruction working" />
-    <option name="LAST_COMMIT_MESSAGE" value="ant instruction working" />
+    <MESSAGE value="scaling fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="scaling fix" />
   </component>
 </project>

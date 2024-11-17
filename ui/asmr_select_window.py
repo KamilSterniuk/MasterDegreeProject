@@ -1,11 +1,10 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QHBoxLayout, QLabel, QRadioButton, \
-    QButtonGroup, QSlider
+from random import choice
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QHBoxLayout, QLabel, QSlider, QSizePolicy
 from PySide6.QtGui import QPalette, QColor, QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import Qt, QUrl
 from ui.asmr_play_window import AsmrPlayWindow
-from random import choice  # Dodane do rozwiązywania remisów
 
 class AsmrSelectWindow(QWidget):
     def __init__(self, main_app):
@@ -25,7 +24,8 @@ class AsmrSelectWindow(QWidget):
 
         # Główny layout siatki
         grid_layout = QGridLayout()
-        grid_layout.setSpacing(20)
+        grid_layout.setContentsMargins(10, 10, 10, 10)  # Marginesy wokół siatki
+        grid_layout.setSpacing(5)  # Odstęp między elementami
 
         # Ścieżki do plików wideo i miniatur
         video_urls = [
@@ -62,7 +62,8 @@ class AsmrSelectWindow(QWidget):
             audio_output.setVolume(1.0)
 
             video_widget = QVideoWidget(self)
-
+            video_widget.setMinimumSize(400, 225)  # Minimalny rozmiar
+            video_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # Dynamiczne dopasowanie
             video_widget.hide()
 
             player.setVideoOutput(video_widget)
@@ -101,7 +102,7 @@ class AsmrSelectWindow(QWidget):
             video_layout.addWidget(thumbnail_label)
             video_layout.addWidget(video_widget)
             video_layout.addLayout(button_layout)
-            video_layout.addWidget(rating_label)  # Etykieta z aktualną oceną
+            video_layout.addWidget(rating_label)
             video_layout.addWidget(rating_input)
 
             # Dodaj do siatki
@@ -110,6 +111,12 @@ class AsmrSelectWindow(QWidget):
             grid_layout.addLayout(video_layout, row, col)
 
             self.players.append((player, audio_output, video_widget))
+
+        # Rozciąganie kolumn i wierszy
+        for row in range(3):
+            grid_layout.setRowStretch(row, 1)
+        for col in range(3):
+            grid_layout.setColumnStretch(col, 1)
 
         # Przycisk Confirm
         self.confirm_button = QPushButton("Confirm")
@@ -156,4 +163,3 @@ class AsmrSelectWindow(QWidget):
         self.play_window = AsmrPlayWindow(self.main_app, long_video_url)
         self.play_window.showFullScreen()
         self.close()
-
