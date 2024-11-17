@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QLabel, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QLabel, QVBoxLayout, QWidget, QSizePolicy
 from ui.main_window import MainWindow
 from ui.settings_window import SettingsWindow
 from ui.survey_window import SurveyWindow
@@ -21,10 +21,14 @@ class MainApp(QMainWindow):
 
         # Tworzenie widgetu do przełączania ekranów
         self.stacked_widget = QStackedWidget()
+        self.stacked_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.stacked_widget.setMinimumHeight(600)  # Ustaw minimalną wysokość widoków
 
         # Dodanie tytułu na górze aplikacji
         title_label = QLabel("Attention Concentration Test with EEG and Eye-Tracking")
-        title_label.setStyleSheet("font-size: 24px; font-weight: bold; padding: 20px;")
+        title_label.setStyleSheet("font-size: 24px; font-weight: bold; padding: 10px;")
+        title_label.setFixedHeight(50)  # Stała wysokość dla tytułu
+
         title_widget = QWidget()
         title_layout = QVBoxLayout()
         title_layout.addWidget(title_label)
