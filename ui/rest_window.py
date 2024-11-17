@@ -55,7 +55,7 @@ class RestWindow(QWidget):
             self.layout.addWidget(self.cross_label)
 
             # Start timer for 2.5 minutes (150000 ms)
-            QTimer.singleShot(3000, self.show_close_eyes_message)
+            QTimer.singleShot(1500, self.show_close_eyes_message)
             self.step = 1
 
     def show_close_eyes_message(self):
@@ -73,7 +73,7 @@ class RestWindow(QWidget):
         self.layout.addWidget(self.label)
 
         # Start timer for another 2.5 minutes
-        QTimer.singleShot(3000, self.show_final_message)
+        QTimer.singleShot(1500, self.show_final_message)
         self.step = 2
 
     def show_final_message(self):

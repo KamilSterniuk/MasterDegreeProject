@@ -6,7 +6,9 @@ from ui.survey_window import SurveyWindow
 from ui.stai_window import StaiWindow
 from ui.rest_window import RestWindow
 from ui.asmr_select_window import AsmrSelectWindow
-from ui.ant_instruction_window import AntInstructionWindow  # Import widoku instrukcji
+from ui.ant_instruction_window import AntInstructionWindow
+from ui.ant_trial_in_progress_window import TrialInProgressView
+
 
 class MainApp(QMainWindow):
     def __init__(self):
@@ -14,23 +16,13 @@ class MainApp(QMainWindow):
         self.setWindowTitle("Attention Concentration Test with EEG and Eye-Tracking")
         self.showFullScreen()
 
-        # Przechowywanie stanu ASMR
-        self.asmr_enabled = False
+        # Dodanie atrybutu ASMR
+        self.asmr_enabled = False  # Domyślnie ASMR jest wyłączone
 
-        # Stwórz widget do przełączania pomiędzy ekranami
+        # Tworzenie widgetu do przełączania ekranów
         self.stacked_widget = QStackedWidget()
-        self.setCentralWidget(self.stacked_widget)
 
-        # Inicjalizacja ekranów
-        self.main_window = MainWindow(self)
-        self.settings_window = SettingsWindow(self)
-        self.survey_window = SurveyWindow(self)
-        self.stai_window = StaiWindow(self)
-        self.rest_window = RestWindow(self)
-        self.asm_select_window = AsmrSelectWindow(self)
-        self.ant_instruction_window = AntInstructionWindow(self)  # Dodanie referencji do MainApp
-
-        # Dodaj tytuł na górze
+        # Dodanie tytułu na górze aplikacji
         title_label = QLabel("Attention Concentration Test with EEG and Eye-Tracking")
         title_label.setStyleSheet("font-size: 24px; font-weight: bold; padding: 20px;")
         title_widget = QWidget()
@@ -40,7 +32,17 @@ class MainApp(QMainWindow):
         title_widget.setLayout(title_layout)
         self.setCentralWidget(title_widget)
 
-        # Dodaj ekrany do stosu widgetów
+        # Inicjalizacja ekranów
+        self.main_window = MainWindow(self)
+        self.settings_window = SettingsWindow(self)
+        self.survey_window = SurveyWindow(self)
+        self.stai_window = StaiWindow(self)
+        self.rest_window = RestWindow(self)
+        self.asm_select_window = AsmrSelectWindow(self)
+        self.ant_instruction_window = AntInstructionWindow(self)
+        self.trial_in_progress_view = TrialInProgressView(self)
+
+        # Dodanie ekranów do widgetu stosu
         self.stacked_widget.addWidget(self.main_window)
         self.stacked_widget.addWidget(self.settings_window)
         self.stacked_widget.addWidget(self.survey_window)
@@ -48,34 +50,48 @@ class MainApp(QMainWindow):
         self.stacked_widget.addWidget(self.rest_window)
         self.stacked_widget.addWidget(self.asm_select_window)
         self.stacked_widget.addWidget(self.ant_instruction_window)
+        self.stacked_widget.addWidget(self.trial_in_progress_view)
 
-        # Wyświetl ekran główny
+        # Wyświetlenie ekranu głównego
         self.stacked_widget.setCurrentWidget(self.main_window)
 
     def show_main(self):
+        """Przełącza na ekran główny."""
         self.stacked_widget.setCurrentWidget(self.main_window)
 
     def show_settings(self):
+        """Przełącza na ekran ustawień."""
         self.stacked_widget.setCurrentWidget(self.settings_window)
 
     def show_start(self):
+        """Przełącza na ekran ankiety."""
         self.stacked_widget.setCurrentWidget(self.survey_window)
 
     def show_stai(self):
-        print(f"Switching to STAI view with ASMR Mode: {self.asmr_enabled}")
-        self.stai_window.update_asmr_status(self.asmr_enabled)
+        """Przełącza na ekran STAI."""
         self.stacked_widget.setCurrentWidget(self.stai_window)
 
     def show_rest_or_asmr(self):
+        """Przełącza na ekran odpoczynku lub wybór ASMR."""
         if self.asmr_enabled:
             self.stacked_widget.setCurrentWidget(self.asm_select_window)
         else:
             self.stacked_widget.setCurrentWidget(self.rest_window)
 
     def show_ant_instructions(self):
-        print("Switching to AntInstructionWindow")  # Debug
-        self.ant_instruction_window.show_first_view()
+        """Przełącza na ekran instrukcji ANT."""
         self.stacked_widget.setCurrentWidget(self.ant_instruction_window)
+
+    def show_trial_in_progress(self, is_trial=True):
+        """Przełącza na ekran oczekiwania na zakończenie testu próbnego."""
+        self.trial_in_progress_view.is_trial = is_trial
+        self.stacked_widget.setCurrentWidget(self.trial_in_progress_view)
+
+    def start_trial_ant_test(self):
+        """Rozpoczyna test próbny ANT, który automatycznie przejdzie do głównego testu."""
+        print("Starting trial ANT test...")
+        self.show_trial_in_progress(is_trial=True)
+        self.trial_in_progress_view.start_test()
 
 
 if __name__ == "__main__":

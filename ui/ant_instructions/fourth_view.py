@@ -25,7 +25,7 @@ class FourthView(QWidget):
 
         # Obrazek z krzyżem
         cross_image = QLabel()
-        cross_image.setPixmap(QPixmap("images/plus.png").scaled(60, 60, Qt.KeepAspectRatio))
+        cross_image.setPixmap(QPixmap("images/plus.png").scaled(40, 40, Qt.KeepAspectRatio))
         cross_image.setAlignment(Qt.AlignCenter)
         layout.addWidget(cross_image)
 

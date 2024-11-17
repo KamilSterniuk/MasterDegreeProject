@@ -1,15 +1,17 @@
-from psychopy import visual, core, event, data
+from psychopy import visual, core, event
 import random
+import csv
 
-# Ustawienia eksperymentu
-win = visual.Window(fullscr=True, color="grey", units="pix")
+# Tworzenie okna na głównym monitorze (screen=1)
+win = visual.Window(fullscr=True, color="grey", units="pix", screen=1)
 
-# Czas trwania różnych etapów (w sekundach)
+# Czas trwania różnych etapów
 cue_time = 0.1  # 100 ms
 post_cue_time = 0.4  # 400 ms
-target_time = 1.7  # 1700 ms maksymalny czas reakcji
+target_time = 1.7  # 1700 ms
+feedback_time = 1.5  # 1500 ms na odpowiedź
 
-# Ładowanie grafik z folderu 'images'
+# Ładowanie grafik
 fixation = visual.ImageStim(win, image="images/plus.png", pos=(0, 0), size=(40, 40))
 cue = visual.ImageStim(win, image="images/asteriks.png", pos=(0, 0), size=(40, 40))
 arrow_compatible_left = visual.ImageStim(win, image="images/compatible_left.png", size=(325, 64))
@@ -17,115 +19,161 @@ arrow_compatible_right = visual.ImageStim(win, image="images/compatible_right.pn
 arrow_incompatible_left = visual.ImageStim(win, image="images/incompatible_left.png", size=(325, 64))
 arrow_incompatible_right = visual.ImageStim(win, image="images/incompatible_right.png", size=(325, 64))
 arrow_neutral_left = visual.ImageStim(win, image="images/neutral_left.png", size=(325, 64))
-arrow_neutral_right = visual.ImageStim(win, image="images/neutral_right", size=(325, 64))
+arrow_neutral_right = visual.ImageStim(win, image="images/neutral_right.png", size=(325, 64))
 
-# Funkcja do wyświetlania wskazówki
+
 def show_cue(cue_type):
+    y_position = None
     if cue_type == "none":
-        fixation.draw()  # Krzyżyk zawsze widoczny
+        fixation.draw()
         win.flip()
         core.wait(post_cue_time)
     elif cue_type == "center":
         cue.draw()
-        fixation.draw()  # Krzyżyk wyświetlany razem z cue
+        fixation.draw()
         win.flip()
         core.wait(cue_time)
-        win.flip()
-        fixation.draw()  # Wyświetlamy krzyżyk samodzielnie po cue
+        fixation.draw()
         win.flip()
         core.wait(post_cue_time)
     elif cue_type == "double":
-        cue.pos = (0, 100)  # wyświetl nad krzyżykiem
+        cue.pos = (0, 100)
         cue.draw()
-        cue.pos = (0, -100)  # wyświetl pod krzyżykiem
+        cue.pos = (0, -100)
         cue.draw()
         fixation.draw()
         win.flip()
         core.wait(cue_time)
-        win.flip()
         fixation.draw()
         win.flip()
         core.wait(post_cue_time)
     elif cue_type == "spatial":
-        cue.pos = (0, 100) if random.choice([True, False]) else (0, -100)  # góra/dół
+        y_position = 100 if random.choice([True, False]) else -100
+        cue.pos = (0, y_position)
         cue.draw()
         fixation.draw()
         win.flip()
         core.wait(cue_time)
-        win.flip()
         fixation.draw()
         win.flip()
         core.wait(post_cue_time)
-    cue.pos = (0, 0)  # reset pozycji
+    cue.pos = (0, 0)
+    return y_position
 
 
-# Funkcja do wyświetlania bodźca i mierzenia czasu reakcji
-def show_target(target_type, position, y_position):
-    # Ustawienie pozycji strzałek (góra lub dół)
-    arrow_y_pos = 100 if y_position == "top" else -100
-
-    # Wybór odpowiedniego bodźca
+def show_target(target_type, position, y_position, feedback=True):
+    arrow_y_pos = y_position if y_position is not None else (100 if random.choice([True, False]) else -100)
     if target_type == "compatible":
         arrow = arrow_compatible_right if position == "right" else arrow_compatible_left
-        correct_response = "right" if position == "right" else "left"
     elif target_type == "incompatible":
         arrow = arrow_incompatible_right if position == "right" else arrow_incompatible_left
-        correct_response = "right" if position == "right" else "left"
-    else:  # Neutral
+    else:
         arrow = arrow_neutral_right if position == "right" else arrow_neutral_left
-        correct_response = "right" if position == "right" else "left"
 
-    # Ustawienie pozycji i wyświetlenie bodźca
     arrow.pos = (0, arrow_y_pos)
     arrow.draw()
-    fixation.draw()  # Krzyżyk na środku
+    fixation.draw()
     win.flip()
 
-    clock = core.Clock()  # Użycie zegara do pomiaru czasu reakcji
+    clock = core.Clock()
     keys = event.waitKeys(maxWait=target_time, keyList=["left", "right"], timeStamped=clock)
 
     win.flip()
+    correct_response = "right" if "right" in arrow.image else "left"
     if keys:
         response, reaction_time = keys[0]
-        is_correct = (response == correct_response)
-        return reaction_time, is_correct
-    return None, False  # brak reakcji
+        if feedback and response != correct_response:
+            feedback_text = visual.TextStim(
+                win,
+                text=f"Incorrect!\nCorrect answer: {correct_response.upper()}",
+                color="red",
+                bold=True,
+                pos=(0, 0),
+                height=30
+            )
+            feedback_text.draw()
+            win.flip()
+            core.wait(feedback_time)
+        return response, reaction_time, correct_response
+    else:
+        if feedback:
+            feedback_text = visual.TextStim(
+                win,
+                text=f"No response!\nCorrect answer: {correct_response.upper()}",
+                color="red",
+                bold=True,
+                pos=(0, 0),
+                height=30
+            )
+            feedback_text.draw()
+            win.flip()
+            core.wait(feedback_time)
+        return None, None, correct_response
 
-# Główna pętla prób
-trial_data = []
-for i in range(10):  # 10 prób do przykładu
-    fixation.draw()
+
+def trial_ant_test():
+    """Test próbny ANT"""
+    for _ in range(4):  # 10 prób
+        fixation.draw()
+        win.flip()
+        core.wait(random.uniform(0.4, 1.6))
+
+        cue_type = random.choice(["none", "center", "double", "spatial"])
+        target_type = random.choice(["compatible", "incompatible", "neutral"])
+        position = random.choice(["left", "right"])
+
+        y_position = show_cue(cue_type)
+        show_target(target_type, position, y_position, feedback=True)
+
+    # Komunikat po zakończeniu testu próbnego
+    end_message = visual.TextStim(
+        win,
+        text="Thank you for completing the trial.\n\nPress any key to continue to the main test.",
+        color="black",
+        bold=True,
+        pos=(0, 0),
+        height=24
+    )
+    end_message.draw()
     win.flip()
-    core.wait(random.uniform(0.4, 1.6))  # losowa przerwa 400-1600 ms
+    event.waitKeys()  # Czeka na dowolny klawisz
 
-    # Wybór typu wskazówki i bodźca
-    cue_type = random.choice(["none", "center", "double", "spatial"])
-    target_type = random.choice(["compatible", "incompatible", "neutral"])
-    position = random.choice(["left", "right"])  # kierunek środkowej strzałki
-    y_position = random.choice(["top", "bottom"])  # pozycja góra/dół
+    main_ant_test()  # Uruchomienie głównego testu
 
-    show_cue(cue_type)
-    reaction_time, is_correct = show_target(target_type, position, y_position)
 
-    # Zbieranie danych z próby
-    trial_data.append({
-        "trial": i + 1,
-        "cue_type": cue_type,
-        "target_type": target_type,
-        "position": position,
-        "y_position": y_position,
-        "reaction_time": reaction_time,
-        "correct": is_correct
-    })
+def main_ant_test():
+    """Główny test ANT"""
+    trial_data = []
 
-# Zapis wyników do pliku
-with open("ant_results.csv", "w") as f:
-    f.write("trial,cue_type,target_type,position,y_position,reaction_time,correct\n")
+    for trial_num in range(6):  # 20 prób
+        fixation.draw()
+        win.flip()
+        core.wait(random.uniform(0.4, 1.6))
+
+        cue_type = random.choice(["none", "center", "double", "spatial"])
+        target_type = random.choice(["compatible", "incompatible", "neutral"])
+        position = random.choice(["left", "right"])
+
+        y_position = show_cue(cue_type)
+        response, reaction_time, correct_response = show_target(target_type, position, y_position, feedback=False)
+        is_correct = response == correct_response if response else False
+
+        trial_data.append({
+            "trial": trial_num + 1,
+            "cue_type": cue_type,
+            "target_type": target_type,
+            "position": position,
+            "y_position": y_position,
+            "reaction_time": reaction_time,
+            "correct": is_correct,
+        })
+
+    with open("ant_results.csv", "w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=["trial", "cue_type", "target_type", "position", "y_position", "reaction_time", "correct"])
+        writer.writeheader()
+        writer.writerows(trial_data)
+
     for trial in trial_data:
-        f.write(
-            f"{trial['trial']},{trial['cue_type']},{trial['target_type']},{trial['position']},{trial['y_position']},{trial['reaction_time']},{trial['correct']}\n")
+        print(trial)
 
-# Wyświetlanie wyników na konsoli
-win.close()
-for trial in trial_data:
-    print(trial)
+    win.close()
