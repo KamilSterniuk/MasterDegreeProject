@@ -1,5 +1,8 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QLabel, QVBoxLayout, QWidget, QSizePolicy
+
+from ui.asmr_play_window import AsmrPlayWindow
+from ui.best_asmr_selection import BestVideosGridWindow
 from ui.main_window import MainWindow
 from ui.settings_window import SettingsWindow
 from ui.survey_window import SurveyWindow
@@ -96,6 +99,36 @@ class MainApp(QMainWindow):
         print("Starting trial ANT test...")
         self.show_trial_in_progress(is_trial=True)
         self.trial_in_progress_view.start_test()
+
+    def show_selected_video(self, selected_index):
+        """Przełącza do ekranu odtwarzania wybranego filmu."""
+        long_video_url = f"videos/ASMR_long{selected_index + 1}.mp4"
+        self.play_window = AsmrPlayWindow(self, long_video_url)
+        self.play_window.showFullScreen()
+
+    def show_best_videos(self, best_videos):
+        """Przełącza na widok siatki najlepszych filmów."""
+        thumbnails = [
+            "videos/thumbnails/thumb1.png",
+            "videos/thumbnails/thumb2.png",
+            "videos/thumbnails/thumb3.png",
+            "videos/thumbnails/thumb4.png",
+            "videos/thumbnails/thumb5.png",
+            "videos/thumbnails/thumb6.png",
+            "videos/thumbnails/thumb7.png",
+        ]
+        video_urls = [
+            "videos/ASMR_short1.mp4",
+            "videos/ASMR_short2.mp4",
+            "videos/ASMR_short3.mp4",
+            "videos/ASMR_short4.mp4",
+            "videos/ASMR_short5.mp4",
+            "videos/ASMR_short6.mp4",
+            "videos/ASMR_short7.mp4",
+        ]
+        self.best_videos_window = BestVideosGridWindow(self, video_urls, thumbnails, best_videos)
+        self.stacked_widget.addWidget(self.best_videos_window)
+        self.stacked_widget.setCurrentWidget(self.best_videos_window)
 
 
 if __name__ == "__main__":

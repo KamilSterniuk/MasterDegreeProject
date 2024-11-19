@@ -5,6 +5,8 @@ from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import Qt, QUrl
 from ui.asmr_play_window import AsmrPlayWindow
+from ui.best_asmr_selection import BestVideosGridWindow
+
 
 class AsmrSelectWindow(QWidget):
     def __init__(self, main_app):
@@ -72,6 +74,8 @@ class AsmrSelectWindow(QWidget):
             thumbnail_label = QLabel()
             thumbnail_label.setPixmap(QPixmap(thumbnail_paths[i]).scaled(400, 225, Qt.KeepAspectRatio))
             thumbnail_label.setAlignment(Qt.AlignCenter)
+            thumbnail_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            thumbnail_label.setMinimumSize(400, 225)  # Minimalny rozmiar
 
             # Przycisk Play i Pause
             play_button = QPushButton("Play")
@@ -148,18 +152,22 @@ class AsmrSelectWindow(QWidget):
         self.rating_labels[index].setText(f"Rating: {value}")
 
     def confirm_selection(self):
+        """Potwierdza wybór ocen i przechodzi do odpowiedniego okna."""
         for player, _, _ in self.players:
             player.stop()
 
-        # Znajdź najwyższą ocenę
+        # Znalezienie najwyższej oceny
         max_rating = max(self.ratings)
         best_videos = [i for i, rating in enumerate(self.ratings) if rating == max_rating]
 
-        # Wybierz losowy film spośród najlepszych
-        selected_index = choice(best_videos)
-        long_video_url = f"videos/ASMR_long{selected_index + 1}.mp4"
+        if len(best_videos) > 1:
+            # Przejdź do okna z siatką najlepszych filmów
+            self.main_app.show_best_videos(best_videos)
+            self.close()
+        else:
+            # Jeden film ma najwyższą ocenę
+            selected_index = best_videos[0]
+            self.main_app.show_selected_video(selected_index)
 
-        # Otwórz wybrany film w AsmrPlayWindow
-        self.play_window = AsmrPlayWindow(self.main_app, long_video_url)
-        self.play_window.showFullScreen()
-        self.close()
+
+
