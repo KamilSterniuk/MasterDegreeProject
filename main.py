@@ -11,6 +11,8 @@ from ui.rest_window import RestWindow
 from ui.asmr_select_window import AsmrSelectWindow
 from ui.ant_instruction_window import AntInstructionWindow
 from ui.ant_trial_in_progress_window import TrialInProgressView
+from ui.stai_post_ant_window import StaiPostAntWindow
+
 
 
 class MainApp(QMainWindow):
@@ -48,6 +50,7 @@ class MainApp(QMainWindow):
         self.asm_select_window = AsmrSelectWindow(self)
         self.ant_instruction_window = AntInstructionWindow(self)
         self.trial_in_progress_view = TrialInProgressView(self)
+        self.stai_post_ant_window = StaiPostAntWindow(self)
 
         # Dodanie ekranów do widgetu stosu
         self.stacked_widget.addWidget(self.main_window)
@@ -58,6 +61,7 @@ class MainApp(QMainWindow):
         self.stacked_widget.addWidget(self.asm_select_window)
         self.stacked_widget.addWidget(self.ant_instruction_window)
         self.stacked_widget.addWidget(self.trial_in_progress_view)
+        self.stacked_widget.addWidget(self.stai_post_ant_window)
 
         # Wyświetlenie ekranu głównego
         self.stacked_widget.setCurrentWidget(self.main_window)
@@ -105,6 +109,10 @@ class MainApp(QMainWindow):
         long_video_url = f"videos/ASMR_long{selected_index + 1}.mp4"
         self.play_window = AsmrPlayWindow(self, long_video_url)
         self.play_window.showFullScreen()
+
+    def show_stai_post_ant(self):
+        """Przełącza na ekran STAI Post-ANT."""
+        self.stacked_widget.setCurrentWidget(self.stai_post_ant_window)
 
     def show_best_videos(self, best_videos):
         """Przełącza na widok siatki najlepszych filmów."""

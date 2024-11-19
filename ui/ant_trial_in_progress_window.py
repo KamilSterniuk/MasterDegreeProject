@@ -35,7 +35,7 @@ class TrialInProgressView(QWidget):
     def keyPressEvent(self, event):
         """Obsługuje naciśnięcie klawisza po zakończeniu testu."""
         if "Thank you for completing the ANT test" in self.message_label.text():
-            self.main_app.show_main()  # Powrót do ekranu głównego
+            self.main_app.show_stai_post_ant()  # Przejście do STAI Post-ANT Window
 
     def start_test(self):
         """Uruchamia test próbny, który automatycznie przejdzie do głównego testu."""
