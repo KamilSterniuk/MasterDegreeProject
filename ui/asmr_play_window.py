@@ -24,9 +24,11 @@ class AsmrPlayWindow(QWidget):
         self.player.setVideoOutput(self.video_widget)
 
         # Stylizacja tła i etykiety z instrukcją
-        self.setStyleSheet("background-color: #2E2E2E;")  # Ciemnoszare tło
+        self.setStyleSheet("background-color: #2E2E2E;")
         self.instruction_label = QLabel(
-            "The ASMR video will be displayed shortly.\nPlease watch it entirely and focus.\n\nPress any key to start.",
+            "Take a deep breath, relax, and get comfortable.\n"
+            "The ASMR video will play shortly.\n\n"
+            "Press any key to start when you're ready.",
             self
         )
         self.instruction_label.setAlignment(Qt.AlignCenter)

@@ -28,11 +28,15 @@ class IntroWindow(QWidget):
 
         # Treść instrukcji z ręcznie dodanymi podziałami linii
         instructions = """ASMR (Autonomous Sensory Meridian Response) refers to a relaxing, tingling sensation<br>
-that typically begins on the scalp and moves down the neck and spine. It is often triggered<br>
-by specific sounds, visuals, or personal attention stimuli.<br><br>
-You will now be presented with 7 ASMR videos. Please rate each video subjectively on a scale<br>
-from 0 to 10 based on your personal preference, considering visual appeal or how it affects you.<br><br>
-<b>Press any key to continue.</b>"""  # Użycie znaczników HTML
+        that typically begins on the scalp and moves down the neck and spine. It is often triggered<br>
+        by specific sounds, visuals, or personal attention stimuli.<br><br>
+        You will now be presented with 7 ASMR videos. Please rate each video subjectively on a scale<br>
+        from 0 to 10 based on your personal preference, considering visual appeal or its overall effect.<br><br>
+        Ratings are defined as follows:<br>
+        0 - Strongly disliked<br>
+        5 - Neutral<br>
+        10 - Highly preferred<br><br>
+        <b>Press any key to continue.</b>"""  # Użycie znaczników HTML
 
         instruction_label = QLabel()
         instruction_label.setTextFormat(Qt.TextFormat.RichText)  # Informuje QLabel, że ma renderować HTML

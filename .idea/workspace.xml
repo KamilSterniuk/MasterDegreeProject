@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="finish view">
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="ui improvement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ant_results.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/ant_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/ant_instructions/fifth_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/ant_instructions/fifth_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/best_asmr_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/best_asmr_selection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/rest_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/rest_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/stai_instruction_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_instruction_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/asmr_instructions/select_asmr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_instructions/select_asmr.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732025779312</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ui improvement">
+      <option name="closed" value="true" />
+      <created>1732035833743</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732035833743</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -268,6 +269,7 @@
     <MESSAGE value="settings passwd + language switch" />
     <MESSAGE value="pre activity instructions" />
     <MESSAGE value="finish view" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish view" />
+    <MESSAGE value="ui improvement" />
+    <option name="LAST_COMMIT_MESSAGE" value="ui improvement" />
   </component>
 </project>
