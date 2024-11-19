@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QLabel,
 
 from ui.asmr_play_window import AsmrPlayWindow
 from ui.best_asmr_selection import BestVideosGridWindow
+from ui.finish_window import EndOfStudyWindow
 from ui.main_window import MainWindow
 from ui.settings_window import SettingsWindow
 from ui.survey_window import SurveyWindow
@@ -54,6 +55,7 @@ class MainApp(QMainWindow):
         self.trial_in_progress_view = TrialInProgressView(self)
         self.stai_post_ant_window = StaiPostAntWindow(self)
         self.stai_instruction_window = StaiInstructionWindow(self)
+        self.end_of_study_window = EndOfStudyWindow(self)
 
         # Dodanie ekranów do widgetu stosu
         self.stacked_widget.addWidget(self.main_window)
@@ -66,6 +68,7 @@ class MainApp(QMainWindow):
         self.stacked_widget.addWidget(self.trial_in_progress_view)
         self.stacked_widget.addWidget(self.stai_post_ant_window)
         self.stacked_widget.addWidget(self.stai_instruction_window)
+        self.stacked_widget.addWidget(self.end_of_study_window)
 
         # Wyświetlenie ekranu głównego
         self.stacked_widget.setCurrentWidget(self.main_window)
@@ -121,6 +124,10 @@ class MainApp(QMainWindow):
     def show_stai_instructions(self):
         """Przełącza na ekran instrukcji STAI."""
         self.stacked_widget.setCurrentWidget(self.stai_instruction_window)
+
+    def show_end_of_study(self):
+        """Switches to the end-of-study window."""
+        self.stacked_widget.setCurrentWidget(self.end_of_study_window)
 
     def show_best_videos(self, best_videos):
         """Przełącza na widok siatki najlepszych filmów."""

@@ -151,7 +151,7 @@ class StaiPostAntWindow(QWidget):
         self.submit_button.setVisible(all_answered)
 
     def submit_answers(self):
-        # Zbieranie odpowiedzi
+        # Collect answers
         answers = []
         for group in self.button_groups:
             selected_button = group.checkedButton()
@@ -162,5 +162,6 @@ class StaiPostAntWindow(QWidget):
 
         print("STAI Post-ANT Answers:", answers)
 
-        # Przejście do ekranu głównego
-        self.main_app.show_main()
+        # Transition to the end-of-study screen
+        self.main_app.show_end_of_study()
+

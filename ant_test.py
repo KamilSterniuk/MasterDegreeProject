@@ -3,7 +3,7 @@ import random
 import csv
 
 # Tworzenie okna na głównym monitorze (screen=1)
-win = visual.Window(fullscr=True, color="grey", units="pix", screen=0)
+win = visual.Window(fullscr=True, color="grey", units="pix", screen=1)
 
 # Czas trwania różnych etapów
 cue_time = 0.1  # 100 ms

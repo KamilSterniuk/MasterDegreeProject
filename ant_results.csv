@@ -1,6 +1,6 @@
 trial,cue_type,target_type,position,y_position,reaction_time,correct
-1,double,neutral,right,,0.4875739999988582,True
-2,none,neutral,right,,0.16155540000181645,False
-3,spatial,compatible,right,-100,0.2578505999990739,False
-4,spatial,neutral,right,-100,0.20598659999086522,False
-5,center,compatible,right,,0.36799289999180473,False
+1,none,compatible,right,,0.37865970001439564,True
+2,double,neutral,left,,0.35428860000683926,True
+3,double,neutral,left,,0.3448043999960646,True
+4,spatial,compatible,left,-100,0.3375014000048395,True
+5,double,incompatible,left,,0.3230651000048965,False
