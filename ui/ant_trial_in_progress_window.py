@@ -28,8 +28,11 @@ class TrialInProgressView(QWidget):
     def show_completion_message(self):
         """Zmienia tekst na wiadomość o zakończeniu całego testu."""
         self.message_label.setText(
-            "Thank you for completing the ANT test.\n"
-            "Press any key to return to the main menu."
+            "Thank you for completing the ANT test.\n\n"
+            "Now, I would like to ask you to complete the STAI questionnaire once more\n"
+            "to evaluate how your mood has changed.\n\n"
+            "Please take your time and answer the questions thoughtfully.\n\n"
+            "Press any key to continue."
         )
 
     def keyPressEvent(self, event):

@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="post ant stai">
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="settings passwd + language switch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ant_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ant_results.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/ant_trial_in_progress_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/ant_trial_in_progress_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/survey_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/survey_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732013680582</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="settings passwd + language switch">
+      <option name="closed" value="true" />
+      <created>1732016912071</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732016912071</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -232,6 +243,7 @@
     <MESSAGE value="video rating" />
     <MESSAGE value="video rating + best selection" />
     <MESSAGE value="post ant stai" />
-    <option name="LAST_COMMIT_MESSAGE" value="post ant stai" />
+    <MESSAGE value="settings passwd + language switch" />
+    <option name="LAST_COMMIT_MESSAGE" value="settings passwd + language switch" />
   </component>
 </project>

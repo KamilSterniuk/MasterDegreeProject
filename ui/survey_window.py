@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QLineEdit, QComboBox, QTextEdit, QFormLayout
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QComboBox, QTextEdit, QFormLayout, QPushButton
 from PySide6.QtGui import QPalette, QColor, QIntValidator
 from PySide6.QtCore import Qt
 
@@ -14,17 +14,45 @@ class SurveyWindow(QWidget):
         self.setPalette(palette)
         self.setAutoFillBackground(True)
 
-        # Główny layout centrowany
-        main_layout = QVBoxLayout()
-        main_layout.setAlignment(Qt.AlignCenter)
+        # Główny layout
+        self.main_layout = QVBoxLayout()
+        self.main_layout.setAlignment(Qt.AlignCenter)
+
+        # Wyświetl ekran powitalny
+        self.show_welcome_screen()
+
+        # Ustawienie głównego layoutu
+        self.setLayout(self.main_layout)
+
+    def show_welcome_screen(self):
+        # Czyszczenie głównego layoutu
+        self.clear_layout(self.main_layout)
+
+        # Wiadomość powitalna
+        welcome_label = QLabel()
+        welcome_label.setTextFormat(Qt.TextFormat.RichText)  # Ustawienie obsługi RichText (HTML)
+        welcome_label.setText(
+            "<b>Welcome to the Attention Concentration Study using Eye-Tracking and EEG.</b><br><br>"
+            "At the beginning, you will be asked to complete a survey where we will ask for your gender and age.<br>"
+            "Optionally, you can share additional information about your day or life.<br><br>"
+            "All your data will remain anonymous and protected.<br><br>"
+            "<b>Press any key to continue.</b>"
+        )
+        welcome_label.setStyleSheet("color: white; font-size: 18px; padding: 20px;")
+        welcome_label.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(welcome_label)
+
+    def show_survey_form(self):
+        # Czyszczenie głównego layoutu
+        self.clear_layout(self.main_layout)
 
         # Nagłówek ankiety
         header_label = QLabel("User Survey")
         header_label.setStyleSheet("font-size: 20px; font-weight: bold; color: white; padding: 10px;")
         header_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(header_label)
+        self.main_layout.addWidget(header_label)
 
-        # Layout formularza ankiety, aby był mniejszy i centrowany
+        # Layout formularza ankiety
         form_layout = QFormLayout()
         form_layout.setSpacing(10)
 
@@ -52,7 +80,7 @@ class SurveyWindow(QWidget):
         form_layout.addRow(age_label, self.age_input)
 
         # Dodatkowe informacje
-        additional_info_label = QLabel("Additional Informations:")
+        additional_info_label = QLabel("Additional Information:")
         additional_info_label.setStyleSheet("color: white; font-size: 16px;")
         self.additional_info_input = QTextEdit()
         self.additional_info_input.setPlaceholderText(
@@ -67,9 +95,13 @@ class SurveyWindow(QWidget):
         form_container = QWidget()
         form_container.setLayout(form_layout)
         form_container.setFixedWidth(650)
-        main_layout.addWidget(form_container, alignment=Qt.AlignCenter)
+        self.main_layout.addWidget(form_container, alignment=Qt.AlignCenter)
 
-        # Przycisk "Next" do przejścia do kolejnego widoku
+        # Przyciski nawigacyjne (Next i Back)
+        button_layout = QVBoxLayout()
+        button_layout.setSpacing(10)
+
+        # Przycisk "Next"
         self.next_button = QPushButton("Next")
         self.next_button.setStyleSheet("""
             QPushButton {
@@ -86,9 +118,9 @@ class SurveyWindow(QWidget):
         self.next_button.setFixedWidth(100)
         self.next_button.clicked.connect(self.go_to_next_view)
         self.next_button.setVisible(False)
-        main_layout.addWidget(self.next_button, alignment=Qt.AlignCenter)
+        button_layout.addWidget(self.next_button, alignment=Qt.AlignCenter)
 
-        # Przycisk Powrót
+        # Przycisk "Back"
         back_button = QPushButton("Back")
         back_button.setStyleSheet("""
             QPushButton {
@@ -104,10 +136,10 @@ class SurveyWindow(QWidget):
         """)
         back_button.setFixedWidth(100)
         back_button.clicked.connect(self.on_back)
-        main_layout.addWidget(back_button, alignment=Qt.AlignCenter)
+        button_layout.addWidget(back_button, alignment=Qt.AlignCenter)
 
-        # Ustawienie głównego layoutu
-        self.setLayout(main_layout)
+        # Dodanie układu przycisków do głównego layoutu
+        self.main_layout.addLayout(button_layout)
 
     def check_form_completion(self):
         age_filled = self.age_input.hasAcceptableInput()
@@ -115,9 +147,21 @@ class SurveyWindow(QWidget):
         self.next_button.setVisible(age_filled and gender_selected)
 
     def go_to_next_view(self):
-        # Przejście do StaiWindow
-        self.main_app.show_stai()
+        """Przejście do widoku instrukcji STAI."""
+        self.main_app.show_stai_instructions()
 
     def on_back(self):
         # Powrót do ekranu głównego
         self.main_app.show_main()
+
+    def keyPressEvent(self, event):
+        # Obsługa naciśnięcia dowolnego klawisza
+        if self.main_layout.count() == 1:  # Jeśli wyświetlany jest ekran powitalny
+            self.show_survey_form()
+
+    def clear_layout(self, layout):
+        # Usuwanie wszystkich widgetów z layoutu
+        while layout.count():
+            child = layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
