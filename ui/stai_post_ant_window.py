@@ -1,3 +1,6 @@
+import csv
+import os
+
 from PySide6.QtGui import QPalette, QColor
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QRadioButton, QButtonGroup, QScrollArea, \
     QPushButton, QFormLayout, QFrame
@@ -162,6 +165,38 @@ class StaiPostAntWindow(QWidget):
 
         print("STAI Post-ANT Answers:", answers)
 
+        self.save_stai_data_to_csv(answers)
+
         # Transition to the end-of-study screen
         self.main_app.show_end_of_study()
 
+    def save_stai_data_to_csv(self, answers):
+        """Zapisuje odpowiedzi STAI do pliku CSV w katalogu o najwyższym numerze."""
+        results_dir = "results"
+
+        if not os.path.exists(results_dir):
+            print("Results directory does not exist.")
+            return
+
+        # Znalezienie katalogu o najwyższym numerze
+        existing_folders = [
+            folder for folder in os.listdir(results_dir) if folder.startswith("example") and folder[7:].isdigit()
+        ]
+        if not existing_folders:
+            print("No example directories found in results.")
+            return
+
+        max_number = max(int(folder[7:]) for folder in existing_folders)
+        target_folder = os.path.join(results_dir, f"example{max_number}")
+
+        # Ścieżka do pliku CSV
+        csv_file_path = os.path.join(target_folder, "stai_post_ant_data.csv")
+
+        # Zapis danych do pliku CSV
+        with open(csv_file_path, mode="w", newline='', encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file, delimiter=';')  # Ustawienie separatora na ';'
+            writer.writerow(["Question", "Answer"])  # Nagłówki
+            for i, answer in enumerate(answers, start=1):
+                writer.writerow([f"Q{i}", answer])  # Zapis pytań i odpowiedzi
+
+        print(f"STAI data saved to {csv_file_path}")

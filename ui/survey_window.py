@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QComboBox, QTextEdit, QFormLayout, QPushButton
 from PySide6.QtGui import QPalette, QColor, QIntValidator
 from PySide6.QtCore import Qt
+import os
+import csv
 
 
 class SurveyWindow(QWidget):
@@ -147,8 +149,59 @@ class SurveyWindow(QWidget):
         self.next_button.setVisible(age_filled and gender_selected)
 
     def go_to_next_view(self):
-        """Przejście do widoku instrukcji STAI."""
+        """Przejście do widoku instrukcji STAI, utworzenie nowego katalogu w results i zapisanie danych do CSV."""
+        # Tworzenie nowego katalogu w 'results'
+        results_dir = "results"
+        if not os.path.exists(results_dir):
+            os.makedirs(results_dir)
+
+        # Szukanie najwyższego numeru katalogu
+        existing_folders = [
+            folder for folder in os.listdir(results_dir) if folder.startswith("example") and folder[7:].isdigit()
+        ]
+        if existing_folders:
+            max_number = max(int(folder[7:]) for folder in existing_folders)
+        else:
+            max_number = 0
+
+        # Tworzenie nowego katalogu
+        new_folder_name = f"example{max_number + 1}"
+        new_folder_path = os.path.join(results_dir, new_folder_name)
+        os.makedirs(new_folder_path)
+        print(f"Created new directory: {new_folder_path}")
+
+        # Zapisywanie danych do pliku CSV
+        csv_file_path = os.path.join(new_folder_path, "survey_data.csv")
+        self.save_survey_data_to_csv(csv_file_path)
+
+        # Przejście do kolejnego widoku
         self.main_app.show_stai_instructions()
+
+    def save_survey_data_to_csv(self, file_path):
+        """Zapisuje dane ankiety do pliku CSV."""
+        # Pobieranie danych z formularza
+        gender = self.gender_combo.currentText()
+        age = self.age_input.text()
+        additional_info = self.additional_info_input.toPlainText()
+
+        # Informacja o grupie
+        group = "ASMR" if self.main_app.asmr_enabled else "Control"
+
+        # Dane do zapisania (Group jako pierwsze)
+        data = [
+            ["Field", "Value"],
+            ["Group", group],
+            ["Gender", gender],
+            ["Age", age],
+            ["Additional Information", additional_info]
+        ]
+
+        # Tworzenie pliku CSV
+        with open(file_path, mode="w", newline='', encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file, delimiter=';')
+            writer.writerows(data)
+
+        print(f"Survey data saved to {file_path}")
 
     def on_back(self):
         # Powrót do ekranu głównego

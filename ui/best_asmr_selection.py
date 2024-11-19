@@ -1,3 +1,5 @@
+import os
+import csv
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QSizePolicy
 from PySide6.QtGui import QPixmap, QPalette, QColor
 from PySide6.QtCore import Qt
@@ -77,9 +79,22 @@ class BestVideosGridWindow(QWidget):
         self.setLayout(main_layout)
 
     def select_video(self, video_index):
-        """Wybór filmu i przejście do odtwarzania."""
+        """Wybór filmu i dopisanie informacji do pliku CSV."""
+        # Dopisanie wybranego najlepszego filmu do pliku CSV
+        if hasattr(self.main_app, 'csv_file_path') and self.main_app.csv_file_path:
+            self.append_best_video_to_file(self.main_app.csv_file_path, video_index)
+
+        # Przejście do odtwarzania wybranego filmu
         self.main_app.show_selected_video(video_index)
         self.close()
+
+    def append_best_video_to_file(self, csv_file_path, selected_video):
+        """Dopisuje informację o wybranym najlepszym filmie do istniejącego pliku CSV."""
+        with open(csv_file_path, mode="a", newline='', encoding="utf-8") as file:
+            writer = csv.writer(file, delimiter=";")
+            writer.writerow([])
+            writer.writerow(["Best Video", f"Video {selected_video + 1}"])
+        print(f"Final best video appended to {csv_file_path}")
 
     def go_back(self):
         """Powrót do okna wyboru ASMR."""

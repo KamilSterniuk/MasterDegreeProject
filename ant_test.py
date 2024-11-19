@@ -1,3 +1,5 @@
+import os
+
 from psychopy import visual, core, event
 import random
 import csv
@@ -94,7 +96,7 @@ def show_target(target_type, position, y_position, feedback=True):
             feedback_text.draw()
             win.flip()
             core.wait(feedback_time)
-        return response, reaction_time, correct_response
+        return response, reaction_time, correct_response, arrow_y_pos
     else:
         if feedback:
             feedback_text = visual.TextStim(
@@ -108,7 +110,7 @@ def show_target(target_type, position, y_position, feedback=True):
             feedback_text.draw()
             win.flip()
             core.wait(feedback_time)
-        return None, None, correct_response
+        return None, None, correct_response, arrow_y_pos
 
 
 def trial_ant_test():
@@ -144,8 +146,17 @@ def trial_ant_test():
 def main_ant_test():
     """Główny test ANT"""
     trial_data = []
+    results_dir = "results"
+    target_folder = get_highest_numbered_folder(results_dir)
 
-    for trial_num in range(10):  # 20 prób
+    # Tworzenie folderu, jeśli nie istnieje
+    if not os.path.exists(target_folder):
+        os.makedirs(target_folder)
+
+    # Ścieżka do pliku CSV
+    csv_file_path = os.path.join(target_folder, "ant_results.csv")
+
+    for trial_num in range(10):  # 10 prób
         fixation.draw()
         win.flip()
         core.wait(random.uniform(0.4, 1.6))
@@ -155,25 +166,53 @@ def main_ant_test():
         position = random.choice(["left", "right"])
 
         y_position = show_cue(cue_type)
-        response, reaction_time, correct_response = show_target(target_type, position, y_position, feedback=False)
+        response, reaction_time, correct_response, arrow_y_pos = show_target(target_type, position, y_position, feedback=False)
         is_correct = response == correct_response if response else False
+
+        if arrow_y_pos == 100:
+            target_y_pos = 'top'
+        else:
+            target_y_pos = 'bottom'
 
         trial_data.append({
             "trial": trial_num + 1,
             "cue_type": cue_type,
             "target_type": target_type,
-            "position": position,
-            "y_position": y_position,
+            "target_direction": position,
+            "target_y_position": target_y_pos,
             "reaction_time": reaction_time,
             "correct": is_correct,
         })
 
-    with open("ant_results.csv", "w", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=["trial", "cue_type", "target_type", "position", "y_position", "reaction_time", "correct"])
+    # Zapis danych do pliku CSV
+    with open(csv_file_path, "w", newline="") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=["trial", "cue_type", "target_type", "target_direction", "target_y_position", "reaction_time", "correct"],
+            delimiter=';'
+        )
         writer.writeheader()
         writer.writerows(trial_data)
+
+    print(f"Results saved to {csv_file_path}")
 
     for trial in trial_data:
         print(trial)
 
     win.close()
+
+
+def get_highest_numbered_folder(base_dir):
+    """Znajduje katalog o najwyższym numerze w podanym katalogu bazowym."""
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)  # Tworzy katalog, jeśli go nie ma
+        return os.path.join(base_dir, "example1")
+
+    existing_folders = [
+        folder for folder in os.listdir(base_dir) if folder.startswith("example") and folder[7:].isdigit()
+    ]
+    if not existing_folders:
+        return os.path.join(base_dir, "example1")
+
+    max_number = max(int(folder[7:]) for folder in existing_folders)
+    return os.path.join(base_dir, f"example{max_number}")

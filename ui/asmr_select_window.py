@@ -1,11 +1,10 @@
-from random import choice
+import os
+import csv
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QHBoxLayout, QLabel, QSlider, QSizePolicy
 from PySide6.QtGui import QPalette, QColor, QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import Qt, QUrl
-from ui.asmr_play_window import AsmrPlayWindow
-from ui.best_asmr_selection import BestVideosGridWindow
 
 
 class AsmrSelectWindow(QWidget):
@@ -64,8 +63,8 @@ class AsmrSelectWindow(QWidget):
             audio_output.setVolume(1.0)
 
             video_widget = QVideoWidget(self)
-            video_widget.setMinimumSize(400, 225)  # Minimalny rozmiar
-            video_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # Dynamiczne dopasowanie
+            video_widget.setMinimumSize(400, 225)
+            video_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             video_widget.hide()
 
             player.setVideoOutput(video_widget)
@@ -75,12 +74,13 @@ class AsmrSelectWindow(QWidget):
             thumbnail_label.setPixmap(QPixmap(thumbnail_paths[i]).scaled(400, 225, Qt.KeepAspectRatio))
             thumbnail_label.setAlignment(Qt.AlignCenter)
             thumbnail_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-            thumbnail_label.setMinimumSize(400, 225)  # Minimalny rozmiar
+            thumbnail_label.setMinimumSize(400, 225)
 
             # Przycisk Play i Pause
             play_button = QPushButton("Play")
             play_button.setStyleSheet("background-color: #4CAF50; color: white; font-size: 14px; padding: 5px;")
-            play_button.clicked.connect(lambda _, p=player, url=video_urls[i], t=thumbnail_label, v=video_widget: self.play_video(p, url, t, v))
+            play_button.clicked.connect(
+                lambda _, p=player, url=video_urls[i], t=thumbnail_label, v=video_widget: self.play_video(p, url, t, v))
 
             pause_button = QPushButton("Pause")
             pause_button.setStyleSheet("background-color: #f44336; color: white; font-size: 14px; padding: 5px;")
@@ -158,14 +158,49 @@ class AsmrSelectWindow(QWidget):
         max_rating = max(self.ratings)
         best_videos = [i for i, rating in enumerate(self.ratings) if rating == max_rating]
 
+        # Zapisz oceny do pliku
+        csv_file_path = self.save_ratings_to_file(self.ratings, best_videos)
+
         if len(best_videos) > 1:
+            # Przekazanie ścieżki do pliku do innej sceny programu
+            self.main_app.csv_file_path = csv_file_path
             self.main_app.show_choose_asmr_instructions(best_videos)
             self.close()
         else:
             selected_index = best_videos[0]
             self.main_app.show_selected_video(selected_index)
 
+    def save_ratings_to_file(self, ratings, best_videos, results_dir="results"):
+        """Zapisuje oceny i (opcjonalnie) najlepszy film do pliku w katalogu o najwyższym numerze."""
+        if not os.path.exists(results_dir):
+            os.makedirs(results_dir)
 
+        # Znalezienie katalogu o najwyższym numerze
+        existing_folders = [
+            folder for folder in os.listdir(results_dir) if folder.startswith("example") and folder[7:].isdigit()
+        ]
+        if existing_folders:
+            max_number = max(int(folder[7:]) for folder in existing_folders)
+        else:
+            max_number = 1
 
+        target_folder = os.path.join(results_dir, f"example{max_number}")
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
 
+        # Ścieżka do pliku CSV
+        csv_file_path = os.path.join(target_folder, "asmr_ratings.csv")
 
+        # Zapis danych
+        with open(csv_file_path, mode="w", newline='', encoding="utf-8") as file:
+            writer = csv.writer(file, delimiter=";")
+            writer.writerow(["Video Index", "Rating"])
+            for i, rating in enumerate(ratings, start=1):
+                writer.writerow([f"Video {i}", rating])
+
+            if len(best_videos) == 1:
+                writer.writerow([])
+                writer.writerow(["Best Video", f"Video {best_videos[0] + 1}"])
+
+        print(f"Ratings saved to {csv_file_path}")
+        return csv_file_path
