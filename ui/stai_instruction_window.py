@@ -27,8 +27,8 @@ class StaiInstructionWindow(QWidget):
             "Answer all questions using a scale from 1 to 4:<br>"
             "1 - Not at all<br>"
             "2 - A little<br>"
-            "3 - Moderately<br>"
-            "4 - Very much<br><br>"
+            "3 - Somewhat<br>"
+            "4 - Very Much So<br><br>"
             "<b>Press any key to continue.</b>"
         )
         instructions.setStyleSheet("color: white; font-size: 18px; padding: 20px;")

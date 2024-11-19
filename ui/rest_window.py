@@ -11,20 +11,31 @@ class RestWindow(QWidget):
 
         # Ustawienia ciemnego tła
         palette = self.palette()
-        palette.setColor(QPalette.Window, QColor("#2E2E2E"))
+        palette.setColor(QPalette.Window, QColor("#000000"))
         self.setPalette(palette)
         self.setAutoFillBackground(True)
 
-        # Główny layout
+        # Main layout
         self.layout = QVBoxLayout()
         self.layout.setAlignment(Qt.AlignCenter)
 
-        # Wstępny komunikat
-        self.label = QLabel(
-            "Please rest and relax.\nA cross will appear on the screen. "
-            "Please look at it until you hear the sound signal.\nPress any key to continue."
+        # Header
+        self.header_label = QLabel("Relaxation Phase")
+        self.header_label.setStyleSheet("font-size: 32px; font-weight: bold; color: white; padding: 10px;")
+        self.header_label.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.header_label)
+
+        # Introductory message
+        self.label = QLabel()
+        self.label.setTextFormat(Qt.TextFormat.RichText)  # Set QLabel to interpret HTML
+        self.label.setText(
+            "You are about to begin the relaxation phase.<br><br>"
+            "Your task is to rest and focus on the white cross displayed on the screen.<br><br>"
+            "When you hear the sound signal, close your eyes, relax, and wait for the next signal<br>"
+            "to open your eyes.<br><br>"
+            "<b>Press any key to continue.</b>"
         )
-        self.label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 20px;")
+        self.label.setStyleSheet("font-size: 24px; font-weight: normal; color: white; padding: 20px;")
         self.label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.label)
 
@@ -43,19 +54,23 @@ class RestWindow(QWidget):
 
     def keyPressEvent(self, event: QKeyEvent):
         if self.step == 0:
+            # Usuń nagłówek
+            self.layout.removeWidget(self.header_label)
+            self.header_label.deleteLater()
+
             # Pierwsze naciśnięcie klawisza – wyświetl krzyż
             self.layout.removeWidget(self.label)
             self.label.deleteLater()
 
             self.cross_label = QLabel(self)
-            pixmap = QPixmap("images/plus.png")
-            pixmap = pixmap.scaled(40, 40, Qt.KeepAspectRatio)
+            pixmap = QPixmap("images/plus_white.png")
+            pixmap = pixmap.scaled(80, 80, Qt.KeepAspectRatio)
             self.cross_label.setPixmap(pixmap)
             self.cross_label.setAlignment(Qt.AlignCenter)
             self.layout.addWidget(self.cross_label)
 
             # Start timer for 2.5 minutes (150000 ms)
-            QTimer.singleShot(1500, self.show_close_eyes_message)
+            QTimer.singleShot(10000, self.show_close_eyes_message)
             self.step = 1
 
     def show_close_eyes_message(self):
@@ -73,7 +88,7 @@ class RestWindow(QWidget):
         self.layout.addWidget(self.label)
 
         # Start timer for another 2.5 minutes
-        QTimer.singleShot(1500, self.show_final_message)
+        QTimer.singleShot(10000, self.show_final_message)
         self.step = 2
 
     def show_final_message(self):

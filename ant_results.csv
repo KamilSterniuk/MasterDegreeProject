@@ -1,6 +1,11 @@
 trial,cue_type,target_type,position,y_position,reaction_time,correct
-1,none,compatible,right,,0.37865970001439564,True
-2,double,neutral,left,,0.35428860000683926,True
-3,double,neutral,left,,0.3448043999960646,True
-4,spatial,compatible,left,-100,0.3375014000048395,True
-5,double,incompatible,left,,0.3230651000048965,False
+1,spatial,incompatible,left,100,0.6038300999789499,True
+2,spatial,incompatible,left,100,0.4815725999942515,True
+3,spatial,neutral,right,100,0.3796833999804221,True
+4,double,incompatible,right,,0.5356956999748945,True
+5,spatial,incompatible,right,-100,0.3384065999998711,True
+6,none,compatible,right,,0.38814160000765696,True
+7,none,incompatible,right,,0.4674345999956131,True
+8,center,neutral,left,,0.46732100000372157,True
+9,none,neutral,right,,0.500022699998226,True
+10,double,compatible,left,,0.4342127999989316,True

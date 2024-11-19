@@ -152,22 +152,20 @@ class AsmrSelectWindow(QWidget):
         self.rating_labels[index].setText(f"Rating: {value}")
 
     def confirm_selection(self):
-        """Potwierdza wybór ocen i przechodzi do odpowiedniego okna."""
         for player, _, _ in self.players:
             player.stop()
 
-        # Znalezienie najwyższej oceny
         max_rating = max(self.ratings)
         best_videos = [i for i, rating in enumerate(self.ratings) if rating == max_rating]
 
         if len(best_videos) > 1:
-            # Przejdź do okna z siatką najlepszych filmów
-            self.main_app.show_best_videos(best_videos)
+            self.main_app.show_choose_asmr_instructions(best_videos)
             self.close()
         else:
-            # Jeden film ma najwyższą ocenę
             selected_index = best_videos[0]
             self.main_app.show_selected_video(selected_index)
+
+
 
 
 

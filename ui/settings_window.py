@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QRadioButton, QPushButton
 from PySide6.QtGui import QPalette, QColor
 from PySide6.QtCore import Qt
 
@@ -17,13 +17,19 @@ class SettingsWindow(QWidget):
         layout = QVBoxLayout()
         layout.setAlignment(Qt.AlignCenter)
 
-        # Checkbox ASMR
-        self.asm_checkbox = QCheckBox("ASMR Mode")
-        self.asm_checkbox.setTristate(False)  # Ustawienie checkboxa na dwustanowy
-        self.asm_checkbox.setStyleSheet("color: white; font-size: 18px;")
-        self.asm_checkbox.setChecked(self.main_app.asmr_enabled)
-        self.asm_checkbox.stateChanged.connect(self.on_checkbox_changed)
-        layout.addWidget(self.asm_checkbox)
+        # Radio Button dla Control Group
+        self.control_radio = QRadioButton("Control Group")
+        self.control_radio.setStyleSheet("color: white; font-size: 18px;")
+        self.control_radio.setChecked(not self.main_app.asmr_enabled)  # Zaznaczone, jeśli ASMR jest wyłączony
+        self.control_radio.toggled.connect(self.on_radio_changed)
+        layout.addWidget(self.control_radio)
+
+        # Radio Button dla ASMR Group
+        self.asmr_radio = QRadioButton("ASMR Group")
+        self.asmr_radio.setStyleSheet("color: white; font-size: 18px;")
+        self.asmr_radio.setChecked(self.main_app.asmr_enabled)  # Zaznaczone, jeśli ASMR jest włączony
+        self.asmr_radio.toggled.connect(self.on_radio_changed)
+        layout.addWidget(self.asmr_radio)
 
         # Przycisk Powrót
         back_button = QPushButton("Back")
@@ -48,10 +54,13 @@ class SettingsWindow(QWidget):
         # Debugging - wyświetlenie początkowego stanu
         print(f"Initial ASMR Mode state: {self.main_app.asmr_enabled}")
 
-    def on_checkbox_changed(self, state):
-        # Użycie isChecked() zamiast state
-        self.main_app.asmr_enabled = self.asm_checkbox.isChecked()
-        print(f"Checkbox isChecked: {self.asm_checkbox.isChecked()}, ASMR Mode updated to: {self.main_app.asmr_enabled}")
+    def on_radio_changed(self):
+        # Aktualizacja stanu na podstawie wybranego radio buttona
+        if self.control_radio.isChecked():
+            self.main_app.asmr_enabled = False
+        elif self.asmr_radio.isChecked():
+            self.main_app.asmr_enabled = True
+        print(f"ASMR Mode updated to: {self.main_app.asmr_enabled}")
 
     def on_back(self):
         # Powrót do ekranu głównego

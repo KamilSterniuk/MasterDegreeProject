@@ -22,7 +22,7 @@ class FifthView(QWidget):
         # Główna instrukcja
         instruction_text = QLabel(
             "<h1 style='text-align: center;'>Get Ready</h1>"
-            "<p style='font-size: 18px; text-align: center;'>You are now about to perform a trial ANT test<br>"
+            "<p style='font-size: 18px; text-align: center;'>You are now about to perform a training ANT test<br>"
             "to get familiar with the task.</p>"
             "<p style='font-size: 16px; text-align: center;'>Please pay attention and follow the instructions<br>"
             "as this will help you prepare for the actual test.</p>"

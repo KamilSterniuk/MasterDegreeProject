@@ -113,7 +113,7 @@ def show_target(target_type, position, y_position, feedback=True):
 
 def trial_ant_test():
     """Test próbny ANT"""
-    for _ in range(3):  # 10 prób
+    for _ in range(5):  # 10 prób
         fixation.draw()
         win.flip()
         core.wait(random.uniform(0.4, 1.6))
@@ -145,7 +145,7 @@ def main_ant_test():
     """Główny test ANT"""
     trial_data = []
 
-    for trial_num in range(5):  # 20 prób
+    for trial_num in range(10):  # 20 prób
         fixation.draw()
         win.flip()
         core.wait(random.uniform(0.4, 1.6))

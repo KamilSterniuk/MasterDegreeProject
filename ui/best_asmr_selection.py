@@ -83,5 +83,5 @@ class BestVideosGridWindow(QWidget):
 
     def go_back(self):
         """Powrót do okna wyboru ASMR."""
-        self.main_app.show_rest_or_asmr()
+        self.main_app.show_asmr_select_window()
         self.close()
