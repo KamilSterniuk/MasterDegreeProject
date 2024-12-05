@@ -16,11 +16,16 @@ from ui.stai_post_ant_window import StaiPostAntWindow
 from ui.stai_instruction_window import StaiInstructionWindow
 from ui.asmr_instructions.select_asmr import IntroWindow
 from ui.asmr_instructions.choose_asmr import IntroChooseWindow
+from ui.misophonia_instruction_window import MisophoniaInstructionWindow
+from ui.misophonia_window import MisophoniaWindow
+from ui.misophonia_fail_window import MisophoniaFailWindow
+
 
 
 class MainApp(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.language ="en"
         self.setWindowTitle("Attention Concentration Test with EEG and Eye-Tracking")
         self.showFullScreen()
 
@@ -57,6 +62,9 @@ class MainApp(QMainWindow):
         self.stai_instruction_window = StaiInstructionWindow(self)
         self.end_of_study_window = EndOfStudyWindow(self)
         self.select_instructions = IntroWindow(self)
+        self.misophonia_instruction_window = MisophoniaInstructionWindow(self)
+        self.misophonia_window = MisophoniaWindow(self)
+        self.misophonia_fail_window = MisophoniaFailWindow(self)
 
         # Dodanie ekranów do widgetu stosu
         self.stacked_widget.addWidget(self.main_window)
@@ -71,6 +79,9 @@ class MainApp(QMainWindow):
         self.stacked_widget.addWidget(self.stai_instruction_window)
         self.stacked_widget.addWidget(self.end_of_study_window)
         self.stacked_widget.addWidget(self.select_instructions)
+        self.stacked_widget.addWidget(self.misophonia_instruction_window)
+        self.stacked_widget.addWidget(self.misophonia_window)
+        self.stacked_widget.addWidget(self.misophonia_fail_window)
 
         # Wyświetlenie ekranu głównego
         self.stacked_widget.setCurrentWidget(self.main_window)
@@ -157,6 +168,24 @@ class MainApp(QMainWindow):
         self.best_videos_window = BestVideosGridWindow(self, video_urls, thumbnails, best_videos)
         self.stacked_widget.addWidget(self.best_videos_window)
         self.stacked_widget.setCurrentWidget(self.best_videos_window)
+
+    def update_language(self):
+        """Aktualizuje język w całej aplikacji."""
+        self.main_window.translate()
+        self.settings_window.translate()
+        # Dodaj translate() dla innych widoków
+
+    def show_misophonia_instructions(self):
+        """Przełącza na ekran instrukcji Misophonia."""
+        self.stacked_widget.setCurrentWidget(self.misophonia_instruction_window)
+
+    def show_misophonia(self):
+        """Przełącza na ekran Misophonia."""
+        self.stacked_widget.setCurrentWidget(self.misophonia_window)
+
+    def show_misophonia_fail(self):
+        """Przełącza na ekran wykluczenia z badania."""
+        self.stacked_widget.setCurrentWidget(self.misophonia_fail_window)
 
 
 if __name__ == "__main__":

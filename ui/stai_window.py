@@ -12,7 +12,7 @@ class StaiWindow(QWidget):
         super().__init__()
         self.main_app = main_app
 
-        # Ustawienie ciemnego tła dla całego okna (z wyjątkiem `form_layout`)
+        # Ustawienie ciemnego tła dla całego okna (z wyjątkiem form_layout)
         palette = self.palette()
         palette.setColor(QPalette.Window, QColor("#2E2E2E"))  # Ciemnoszare tło
         self.setPalette(palette)
@@ -198,6 +198,3 @@ class StaiWindow(QWidget):
                 writer.writerow([f"Q{i}", answer])  # Zapis pytań i odpowiedzi
 
         print(f"STAI data saved to {csv_file_path}")
-
-
-

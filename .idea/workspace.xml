@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="ui details">
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="results csv saving">
+      <change afterPath="$PROJECT_DIR$/ui/misophonia_fail_window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/misophonia_instruction_window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/misophonia_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ant_results.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/ant_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/best_asmr_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/best_asmr_selection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/rest_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/rest_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/stai_post_ant_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_post_ant_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/settings_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/settings_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/stai_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/survey_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/survey_window.py" afterDir="false" />
     </list>
@@ -51,26 +51,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Run Main.executor": "Run",
-    "Python.ant_instruction_window.executor": "Run",
-    "Python.ant_instructions.executor": "Run",
-    "Python.ant_test.executor": "Run",
-    "Python.asmr_select_window.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_window.executor": "Run",
-    "Python.misophonia.executor": "Run",
-    "Python.misophonia_instructions.executor": "Run",
-    "Python.second_view.executor": "Run",
-    "Python.test_info.executor": "Run",
-    "Python.third_view.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/stern/PycharmProjects/masterProject",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Run Main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ant_instruction_window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ant_instructions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ant_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.asmr_select_window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.misophonia.executor&quot;: &quot;Run&quot;,
+    &quot;Python.misophonia_instructions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.second_view.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_info.executor&quot;: &quot;Run&quot;,
+    &quot;Python.third_view.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/stern/PycharmProjects/masterProject&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\stern\PycharmProjects\masterProject" />
@@ -255,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732047055812</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="results csv saving">
+      <option name="closed" value="true" />
+      <created>1732056675546</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732056675546</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -286,6 +294,7 @@
     <MESSAGE value="finish view" />
     <MESSAGE value="ui improvement" />
     <MESSAGE value="ui details" />
-    <option name="LAST_COMMIT_MESSAGE" value="ui details" />
+    <MESSAGE value="results csv saving" />
+    <option name="LAST_COMMIT_MESSAGE" value="results csv saving" />
   </component>
 </project>

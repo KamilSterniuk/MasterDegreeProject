@@ -175,7 +175,7 @@ class SurveyWindow(QWidget):
         self.save_survey_data_to_csv(csv_file_path)
 
         # Przejście do kolejnego widoku
-        self.main_app.show_stai_instructions()
+        self.main_app.show_misophonia_instructions()
 
     def save_survey_data_to_csv(self, file_path):
         """Zapisuje dane ankiety do pliku CSV."""
