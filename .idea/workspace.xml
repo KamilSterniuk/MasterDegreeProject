@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="results csv saving">
-      <change afterPath="$PROJECT_DIR$/ui/misophonia_fail_window.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/misophonia_instruction_window.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/misophonia_window.py" afterDir="false" />
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="misophonia merged">
+      <change afterPath="$PROJECT_DIR$/flags/belarus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/brazil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/china.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/france.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/germany.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/india.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/iran.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/italy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/poland.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/spain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/turkey.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flags/ukraine.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/rest_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/rest_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/settings_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/settings_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/stai_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/survey_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/survey_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,28 +56,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Run Main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ant_instruction_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ant_instructions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ant_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.asmr_select_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.misophonia.executor&quot;: &quot;Run&quot;,
-    &quot;Python.misophonia_instructions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.second_view.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_info.executor&quot;: &quot;Run&quot;,
-    &quot;Python.third_view.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/stern/PycharmProjects/masterProject&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Run Main.executor": "Run",
+    "Python.ant_instruction_window.executor": "Run",
+    "Python.ant_instructions.executor": "Run",
+    "Python.ant_test.executor": "Run",
+    "Python.asmr_select_window.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_window.executor": "Run",
+    "Python.misophonia.executor": "Run",
+    "Python.misophonia_instructions.executor": "Run",
+    "Python.second_view.executor": "Run",
+    "Python.test_info.executor": "Run",
+    "Python.third_view.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/stern/PycharmProjects/masterProject/flags",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\stern\PycharmProjects\masterProject\flags" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\ui\ant_instructions" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\videos" />
@@ -263,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732056675546</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="misophonia merged">
+      <option name="closed" value="true" />
+      <created>1733412255531</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1733412255531</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,6 +309,7 @@
     <MESSAGE value="ui improvement" />
     <MESSAGE value="ui details" />
     <MESSAGE value="results csv saving" />
-    <option name="LAST_COMMIT_MESSAGE" value="results csv saving" />
+    <MESSAGE value="misophonia merged" />
+    <option name="LAST_COMMIT_MESSAGE" value="misophonia merged" />
   </component>
 </project>

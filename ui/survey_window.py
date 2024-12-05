@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QComboBox, QTextEdit, QFormLayout, QPushButton
-from PySide6.QtGui import QPalette, QColor, QIntValidator
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QComboBox, QTextEdit, QFormLayout, QPushButton, QHBoxLayout
+from PySide6.QtGui import QPalette, QColor, QIntValidator, QPixmap, QIcon
 from PySide6.QtCore import Qt
 import os
 import csv
@@ -81,16 +81,51 @@ class SurveyWindow(QWidget):
 
         form_layout.addRow(age_label, self.age_input)
 
+        # Narodowość
+        nationality_label = QLabel("Nationality:")
+        nationality_label.setStyleSheet("color: white; font-size: 16px;")
+        self.nationality_combo = QComboBox()
+        self.nationality_combo.addItem("Select")  # Dodanie opcji "Select" jako pierwszej
+        self.add_countries_with_flags(
+            self.nationality_combo,
+            ["Poland", "Ukraine", "Belarus", "Germany", "Spain", "France", "Italy", "China", "India", "Turkey",
+             "Brazil", "Iran", "Other"]
+        )
+        self.nationality_combo.currentIndexChanged.connect(self.check_form_completion)
+        self.custom_nationality_input = QLineEdit()
+        self.custom_nationality_input.setPlaceholderText("Enter your nationality")
+        self.custom_nationality_input.setVisible(False)
+        form_layout.addRow(nationality_label, self.nationality_combo)
+        form_layout.addRow(self.custom_nationality_input)
+
+        # Język ojczysty
+        modern_tongue_label = QLabel("Modern Tongue Language:")
+        modern_tongue_label.setStyleSheet("color: white; font-size: 16px;")
+        self.tongue_combo = QComboBox()
+        self.tongue_combo.addItem("Select")  # Dodanie opcji "Select" jako pierwszej
+        self.tongue_combo.addItems(
+            ["Polish", "English", "Russian", "Ukrainian", "Belarusian", "German", "Spanish", "French", "Italian",
+             "Chinese", "Hindi", "Turkish", "Portuguese", "Arabic", "Persian (Farsi)", "Other"]
+        )
+        self.tongue_combo.currentIndexChanged.connect(self.check_form_completion)
+        self.custom_tongue_input = QLineEdit()
+        self.custom_tongue_input.setPlaceholderText("Enter your language")
+        self.custom_tongue_input.setVisible(False)
+        form_layout.addRow(modern_tongue_label, self.tongue_combo)
+        form_layout.addRow(self.custom_tongue_input)
+
         # Dodatkowe informacje
         additional_info_label = QLabel("Additional Information:")
         additional_info_label.setStyleSheet("color: white; font-size: 16px;")
         self.additional_info_input = QTextEdit()
         self.additional_info_input.setPlaceholderText(
-            "Any relevant information about your current mood, "
-            "recent significant events (e.g., upcoming exams, stress), "
-            "or what you're studying or working on if you wish to share."
+            "Feel free to share any relevant information about your current mood, "
+            "recent significant events such as exams, stress, excitement about an upcoming concert or football match, "
+            "achievements like a good grade on an exam, or personal experiences like falling in love. "
+            "Your input will help us better understand your context."
         )
-        self.additional_info_input.setFixedSize(450, 80)
+
+        self.additional_info_input.setFixedSize(450, 100)
         form_layout.addRow(additional_info_label, self.additional_info_input)
 
         # Dodanie formularza do głównego layoutu
@@ -143,10 +178,36 @@ class SurveyWindow(QWidget):
         # Dodanie układu przycisków do głównego layoutu
         self.main_layout.addLayout(button_layout)
 
+    def add_countries_with_flags(self, combo_box, countries):
+        """
+        Dodaje kraje z flagami do QComboBox. Jeśli flaga nie istnieje, dodaje tylko nazwę kraju.
+        """
+        for country in countries:
+            # Tworzenie ścieżki do obrazu flagi
+            flag_path = f"flags/{country.lower().replace(' ', '_')}.png"
+            if os.path.exists(flag_path):
+                # Ładowanie obrazu flagi
+                pixmap = QPixmap(flag_path).scaled(16, 16, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                # Tworzenie ikony i dodawanie do combo box
+                combo_box.addItem(QIcon(pixmap), country)
+            else:
+                # Jeśli flaga nie istnieje, dodaj tylko nazwę kraju
+                combo_box.addItem(country)
+
     def check_form_completion(self):
+        """Sprawdza, czy wszystkie wymagane pola są wypełnione, aby aktywować przycisk Next."""
         age_filled = self.age_input.hasAcceptableInput()
-        gender_selected = self.gender_combo.currentIndex() != 0
-        self.next_button.setVisible(age_filled and gender_selected)
+        gender_selected = self.gender_combo.currentText() != "Select"
+        nationality_selected = (
+                self.nationality_combo.currentText() != "Select" and
+                (self.nationality_combo.currentText() != "Other" or self.custom_nationality_input.text().strip())
+        )
+        tongue_selected = (
+                self.tongue_combo.currentText() != "Select" and
+                (self.tongue_combo.currentText() != "Other" or self.custom_tongue_input.text().strip())
+        )
+        # Ustawienie widoczności przycisku Next
+        self.next_button.setVisible(age_filled and gender_selected and nationality_selected and tongue_selected)
 
     def go_to_next_view(self):
         """Przejście do widoku instrukcji STAI, utworzenie nowego katalogu w results i zapisanie danych do CSV."""
@@ -177,11 +238,25 @@ class SurveyWindow(QWidget):
         # Przejście do kolejnego widoku
         self.main_app.show_misophonia_instructions()
 
+    def toggle_custom_nationality_field(self):
+        """Pokazuje lub ukrywa pole tekstowe dla własnej narodowości i sprawdza wypełnienie formularza."""
+        is_other_selected = self.nationality_combo.currentText() == "Other"
+        self.custom_nationality_input.setVisible(is_other_selected)
+        self.custom_nationality_input.textChanged.connect(self.check_form_completion)
+
+    def toggle_custom_tongue_field(self):
+        """Pokazuje lub ukrywa pole tekstowe dla własnego języka ojczystego i sprawdza wypełnienie formularza."""
+        is_other_selected = self.tongue_combo.currentText() == "Other"
+        self.custom_tongue_input.setVisible(is_other_selected)
+        self.custom_tongue_input.textChanged.connect(self.check_form_completion)
+
     def save_survey_data_to_csv(self, file_path):
         """Zapisuje dane ankiety do pliku CSV."""
         # Pobieranie danych z formularza
         gender = self.gender_combo.currentText()
         age = self.age_input.text()
+        nationality = self.custom_nationality_input.text() if self.nationality_combo.currentText() == "Other" else self.nationality_combo.currentText()
+        modern_tongue = self.custom_tongue_input.text() if self.tongue_combo.currentText() == "Other" else self.tongue_combo.currentText()
         additional_info = self.additional_info_input.toPlainText()
 
         # Informacja o grupie
@@ -193,6 +268,8 @@ class SurveyWindow(QWidget):
             ["Group", group],
             ["Gender", gender],
             ["Age", age],
+            ["Nationality", nationality],
+            ["Modern Tongue Language", modern_tongue],
             ["Additional Information", additional_info]
         ]
 
