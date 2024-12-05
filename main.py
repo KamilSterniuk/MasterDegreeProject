@@ -104,10 +104,11 @@ class MainApp(QMainWindow):
 
     def show_rest_or_asmr(self):
         """Przełącza na ekran odpoczynku lub wybór ASMR."""
-        if self.asmr_enabled:
-            self.stacked_widget.setCurrentWidget(self.select_instructions)
-        else:
-            self.stacked_widget.setCurrentWidget(self.rest_window)
+        # if self.asmr_enabled:
+        #     self.stacked_widget.setCurrentWidget(self.select_instructions)
+        # else:
+        #     self.stacked_widget.setCurrentWidget(self.rest_window)
+        self.stacked_widget.setCurrentWidget(self.select_instructions)
 
     def show_asmr_select_window(self):
         self.stacked_widget.setCurrentWidget(self.asm_select_window)
@@ -148,7 +149,7 @@ class MainApp(QMainWindow):
     def show_selected_video(self, selected_index):
         """Przełącza do ekranu odtwarzania wybranego filmu."""
         long_video_url = f"videos/ASMR_long{selected_index + 1}.mp4"
-        self.play_window = AsmrPlayWindow(self, long_video_url)
+        self.play_window = AsmrPlayWindow(self, long_video_url, self.asmr_enabled)
         self.play_window.showFullScreen()
 
     def show_stai_post_ant(self):
@@ -168,6 +169,11 @@ class MainApp(QMainWindow):
         self.best_videos_window = BestVideosGridWindow(self, video_urls, thumbnails, best_videos)
         self.stacked_widget.addWidget(self.best_videos_window)
         self.stacked_widget.setCurrentWidget(self.best_videos_window)
+
+    def set_asmr_enabled(self, enabled):
+        """Ustawia tryb ASMR i aktualizuje etykietę grupy."""
+        self.asmr_enabled = enabled
+        self.main_window.update_group_label()
 
     def update_language(self):
         """Aktualizuje język w całej aplikacji."""

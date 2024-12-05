@@ -2,11 +2,6 @@ import csv
 import os
 
 from PySide6.QtGui import QPalette, QColor
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QRadioButton, QButtonGroup, QScrollArea, \
-    QPushButton, QFormLayout, QFrame
-from PySide6.QtCore import Qt
-
-from PySide6.QtGui import QPalette, QColor
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSlider, QScrollArea, QPushButton, QFormLayout, QFrame, QMessageBox
 from PySide6.QtCore import Qt
 
@@ -147,6 +142,14 @@ class MisophoniaWindow(QWidget):
     def submit_answers(self):
         """Przesyła odpowiedzi użytkownika."""
         scores = self.get_scores(self.responses)
+
+        # Wypisywanie wyników w konsoli
+        print("Misophonia Answers:", scores)
+
+        # Zapisywanie wyników do pliku CSV
+        self.save_misophonia_data_to_csv(scores)
+
+        # Obliczanie średniego wyniku
         average_score = sum(scores) / len(scores)
 
         if average_score > 7:
@@ -154,7 +157,38 @@ class MisophoniaWindow(QWidget):
             self.main_app.show_misophonia_fail()
         else:
             # Przejście do następnego okna
-            self.main_app.show_rest_or_asmr()
+            self.main_app.show_stai_instructions()
+
+    def save_misophonia_data_to_csv(self, scores):
+        """Zapisuje odpowiedzi Misophonia do pliku CSV w katalogu o najwyższym numerze."""
+        results_dir = "results"
+
+        if not os.path.exists(results_dir):
+            print("Results directory does not exist.")
+            return
+
+        # Znalezienie katalogu o najwyższym numerze
+        existing_folders = [
+            folder for folder in os.listdir(results_dir) if folder.startswith("example") and folder[7:].isdigit()
+        ]
+        if not existing_folders:
+            print("No example directories found in results.")
+            return
+
+        max_number = max(int(folder[7:]) for folder in existing_folders)
+        target_folder = os.path.join(results_dir, f"example{max_number}")
+
+        # Ścieżka do pliku CSV
+        csv_file_path = os.path.join(target_folder, "misophonia_data.csv")
+
+        # Zapis danych do pliku CSV
+        with open(csv_file_path, mode="w", newline='', encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file, delimiter=';')  # Separator na ';'
+            writer.writerow(["Question", "Score"])  # Nagłówki
+            for i, score in enumerate(scores, start=1):
+                writer.writerow([f"Q{i}", score])  # Zapis pytań i odpowiedzi
+
+        print(f"Misophonia data saved to {csv_file_path}")
 
     def get_scores(self, response_list):
         """Zbiera wyniki z suwaków."""

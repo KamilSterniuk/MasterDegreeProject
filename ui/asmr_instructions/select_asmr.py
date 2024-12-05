@@ -8,12 +8,13 @@ class IntroWindow(QWidget):
         super().__init__()
         self.main_app = main_app
 
+        # Ustawienie ciemnego tła
         palette = self.palette()
         palette.setColor(QPalette.ColorRole.Window, QColor("#2E2E2E"))
         self.setPalette(palette)
         self.setAutoFillBackground(True)
 
-        # Główny układ
+        # Główny layout
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)  # Usuń marginesy wokół layoutu
         layout.setSpacing(20)
@@ -23,26 +24,34 @@ class IntroWindow(QWidget):
         header_label = QLabel("Welcome to the ASMR Video Evaluation")
         header_label.setAlignment(Qt.AlignCenter)
         header_label.setStyleSheet("color: white; font-weight: bold;")
-        header_label.setFont(QFont("Arial", 18))
+        header_label.setFont(QFont("Arial", 22))
         layout.addWidget(header_label)
 
-        # Treść instrukcji z ręcznie dodanymi podziałami linii
-        instructions = """ASMR (Autonomous Sensory Meridian Response) refers to a relaxing, tingling sensation<br>
-        that typically begins on the scalp and moves down the neck and spine. It is often triggered<br>
-        by specific sounds, visuals, or personal attention stimuli.<br><br>
-        You will now be presented with 7 ASMR videos. Please rate each video subjectively on a scale<br>
-        from 0 to 10 based on your personal preference, considering visual appeal or its overall effect.<br><br>
-        Ratings are defined as follows:<br>
-        0 - Strongly disliked<br>
-        5 - Neutral<br>
-        10 - Highly preferred<br><br>
-        <b>Press any key to continue.</b>"""  # Użycie znaczników HTML
-
+        # Treść instrukcji z użyciem HTML
+        instructions = """
+        <p style='font-size: 18px; color: #BBBBBB; text-align: center;'>
+        <b>ASMR</b> (Autonomous Sensory Meridian Response) is a relaxing, tingling sensation<br>
+        often triggered by specific sounds, visuals, or personal attention stimuli.<br><br>
+        In this task, you will be presented with <b>7 short ASMR videos</b>. Your goal is to evaluate each<br>
+        video based on your personal preference. Please consider the following:<br>
+        <ul style='text-align: left;'>
+            <li>Visual and auditory quality.</li>
+            <li>How much you enjoyed the video.</li>
+        </ul>
+        <br>
+        Use the rating scale from <b>0</b> to <b>10</b>:<br>
+        <b>0:</b> Strongly disliked<br>
+        <b>5:</b> Neutral<br>
+        <b>10:</b> Highly preferred<br><br>
+        After rating all videos, you will proceed to the next phase of the experiment.<br><br>
+        <b>Press any key to continue.</b>
+        </p>
+        """
         instruction_label = QLabel()
-        instruction_label.setTextFormat(Qt.TextFormat.RichText)  # Informuje QLabel, że ma renderować HTML
+        instruction_label.setTextFormat(Qt.TextFormat.RichText)  # Włączenie obsługi HTML
         instruction_label.setText(instructions)
         instruction_label.setAlignment(Qt.AlignCenter)
-        instruction_label.setStyleSheet("color: white; font-size: 18px;")
+        instruction_label.setStyleSheet("color: white;")
         layout.addWidget(instruction_label)
 
         # Ustawienie layoutu

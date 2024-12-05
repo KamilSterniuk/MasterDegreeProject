@@ -19,7 +19,7 @@ class MisophoniaInstructionWindow(QWidget):
         main_layout.setAlignment(Qt.AlignCenter)
 
         # Tytuł
-        title_label = QLabel("Instructions for the Misophonia Activation Scale")
+        title_label = QLabel("Instructions for the Misophonia Questionnaire")
         title_label.setStyleSheet("font-size: 28px; font-weight: bold; color: white; padding: 20px;")
         title_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(title_label)
@@ -29,20 +29,15 @@ class MisophoniaInstructionWindow(QWidget):
         instructions_label.setTextFormat(Qt.TextFormat.RichText)  # Użycie HTML dla formatowania
         instructions_label.setText(
             "<p style='font-size: 20px; color: #BBBBBB; text-align: center;'>"
-            "The <b>Misophonia Activation Scale</b> is designed to assess your emotional and physical responses "
-            "to trigger sounds commonly associated with misophonia. You will be asked to respond to two parts:<br><br>"
-            "<b>Part A: Emotional Response</b><br>"
-            "Evaluate the intensity of your emotional reactions to specific sounds.<br><br>"
-            "<b>Part B: Physical Sensation</b><br>"
-            "Rate the physical sensations you experience in response to these sounds, "
-            "ranging from no sensation to severe pain.<br><br>"
-            "For each question, select a score from <b>0</b> to <b>10</b>, where:"
+            "The <b>Misophonia Questionnaire</b> is designed to assess your emotional and physical responses "
+            "to common trigger sounds. You will be presented with a series of questions about your experiences.<br><br>"
+            "For each question, use the slider to rate your reaction on a scale from <b>0</b> to <b>10</b>, where:"
             "<ul style='text-align: left;'>"
-            "<li><b>0:</b> No discomfort or sensation.</li>"
-            "<li><b>5:</b> Moderate discomfort or noticeable physical sensations.</li>"
-            "<li><b>10:</b> Extreme emotional or physical reactions, including pain.</li>"
+            "<li><b>0:</b> No reaction or discomfort.</li>"
+            "<li><b>5:</b> Moderate reaction or discomfort.</li>"
+            "<li><b>10:</b> Extreme reaction or discomfort, including physical symptoms.</li>"
             "</ul>"
-            "Please answer all questions honestly based on your current or recent experiences.<br><br>"
+            "Please answer all questions as honestly as possible, based on your current or recent experiences.<br><br>"
             "<b>Press any key to proceed to the questionnaire.</b>"
             "</p>"
         )
@@ -52,5 +47,6 @@ class MisophoniaInstructionWindow(QWidget):
         self.setLayout(main_layout)
 
     def keyPressEvent(self, event):
-        """Przechodzenie do widoku STAI po naciśnięciu dowolnego klawisza."""
+        """Przechodzenie do widoku Misophonia po naciśnięciu dowolnego klawisza."""
         self.main_app.show_misophonia()
+

@@ -115,7 +115,7 @@ class StaiWindow(QWidget):
                 background-color: #d32f2f;
             }
         """)
-        back_button.clicked.connect(self.main_app.show_start)  # Zmiana, aby wracać do okna Survey
+        back_button.clicked.connect(self.main_app.show_misophonia)  # Zmiana, aby wracać do okna Survey
         button_layout.addWidget(back_button, alignment=Qt.AlignLeft)
 
         # Przycisk "Submit" (ukryty do czasu wypełnienia wszystkich odpowiedzi)

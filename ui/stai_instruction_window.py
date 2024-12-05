@@ -8,35 +8,45 @@ class StaiInstructionWindow(QWidget):
         super().__init__()
         self.main_app = main_app
 
-        # Główny layout
-        self.layout = QVBoxLayout()
-        self.layout.setAlignment(Qt.AlignCenter)
-
+        # Ustawienie ciemnego tła
         palette = self.palette()
-        palette.setColor(QPalette.Window, QColor("#2E2E2E"))
+        palette.setColor(QPalette.Window, QColor("#2E2E2E"))  # Ciemnoszare tło
         self.setPalette(palette)
         self.setAutoFillBackground(True)
 
-        # STAI Instructions
-        instructions = QLabel()
-        instructions.setTextFormat(Qt.TextFormat.RichText)  # Enable RichText formatting
-        instructions.setText(
-            "<b>STAI Instructions</b><br><br>"
-            "Please answer the questions in the STAI form.<br><br>"
-            "You will be asked to respond to 20 questions about how you feel.<br><br>"
-            "Answer all questions using a scale from 1 to 4:<br>"
-            "1 - Not at all<br>"
-            "2 - A little<br>"
-            "3 - Somewhat<br>"
-            "4 - Very Much So<br><br>"
-            "<b>Press any key to continue.</b>"
-        )
-        instructions.setStyleSheet("color: white; font-size: 18px; padding: 20px;")
-        instructions.setAlignment(Qt.AlignCenter)
+        # Główny layout
+        main_layout = QVBoxLayout()
+        main_layout.setAlignment(Qt.AlignCenter)
 
-        # Dodanie instrukcji do layoutu
-        self.layout.addWidget(instructions)
-        self.setLayout(self.layout)
+        # Tytuł
+        title_label = QLabel("Instructions for the STAI Questionnaire")
+        title_label.setStyleSheet("font-size: 28px; font-weight: bold; color: white; padding: 20px;")
+        title_label.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(title_label)
+
+        # Instrukcja
+        instructions_label = QLabel()
+        instructions_label.setTextFormat(Qt.TextFormat.RichText)  # Użycie HTML dla formatowania
+        instructions_label.setText(
+            "<p style='font-size: 20px; color: #BBBBBB; text-align: center;'>"
+            "The <b>State-Trait Anxiety Inventory (STAI)</b> is a self-evaluation questionnaire designed to assess "
+            "how you feel at the moment.<br><br>"
+            "You will answer <b>20 questions</b> about your current feelings. "
+            "For each question, select the answer that best describes your experience, using the following scale:<br>"
+            "<ul style='text-align: left;'>"
+            "<li><b>1:</b> Not at all</li>"
+            "<li><b>2:</b> A little</li>"
+            "<li><b>3:</b> Somewhat</li>"
+            "<li><b>4:</b> Very much so</li>"
+            "</ul>"
+            "Please answer all questions honestly to ensure accurate results.<br><br>"
+            "<b>Press any key to proceed to the questionnaire.</b>"
+            "</p>"
+        )
+        instructions_label.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(instructions_label)
+
+        self.setLayout(main_layout)
 
     def keyPressEvent(self, event):
         """Przechodzenie do widoku STAI po naciśnięciu dowolnego klawisza."""

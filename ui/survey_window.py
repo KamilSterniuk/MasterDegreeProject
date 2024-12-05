@@ -27,22 +27,37 @@ class SurveyWindow(QWidget):
         self.setLayout(self.main_layout)
 
     def show_welcome_screen(self):
+        """Wyświetla ekran powitalny w spójnym stylu z innymi instrukcjami."""
         # Czyszczenie głównego layoutu
         self.clear_layout(self.main_layout)
 
-        # Wiadomość powitalna
-        welcome_label = QLabel()
-        welcome_label.setTextFormat(Qt.TextFormat.RichText)  # Ustawienie obsługi RichText (HTML)
-        welcome_label.setText(
-            "<b>Welcome to the Attention Concentration Study using Eye-Tracking and EEG.</b><br><br>"
-            "At the beginning, you will be asked to complete a survey where we will ask for your gender and age.<br>"
-            "Optionally, you can share additional information about your day or life.<br><br>"
-            "All your data will remain anonymous and protected.<br><br>"
-            "<b>Press any key to continue.</b>"
+        # Tytuł
+        title_label = QLabel("Welcome to the Attention Concentration Study")
+        title_label.setStyleSheet("font-size: 28px; font-weight: bold; color: white; padding: 20px;")
+        title_label.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(title_label)
+
+        # Instrukcja
+        instructions_label = QLabel()
+        instructions_label.setTextFormat(Qt.TextFormat.RichText)  # Użycie HTML dla formatowania
+        instructions_label.setText(
+            "<p style='font-size: 20px; color: #BBBBBB; text-align: center;'>"
+            "Thank you for participating in the <b>Attention Concentration Study</b>, which uses "
+            "Eye-Tracking and EEG to better understand focus and cognitive engagement.<br><br>"
+            "Before starting, you will complete a short survey where we will ask you to provide details such as:"
+            "<ul style='text-align: left;'>"
+            "<li>Your <b>gender</b> and <b>age</b>.</li>"
+            "<li>Your <b>nationality</b> and <b>native language</b>.</li>"
+            "<li>Any <b>relevant information</b> about your mood or recent experiences, "
+            "such as exams, stress, achievements, or personal milestones.</li>"
+            "</ul>"
+            "Your data will remain <b>anonymous</b> and <b>confidential</b>, and will help us improve our understanding "
+            "of attention and concentration.<br><br>"
+            "<b>Press any key to continue to the survey.</b>"
+            "</p>"
         )
-        welcome_label.setStyleSheet("color: white; font-size: 18px; padding: 20px;")
-        welcome_label.setAlignment(Qt.AlignCenter)
-        self.main_layout.addWidget(welcome_label)
+        instructions_label.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(instructions_label)
 
     def show_survey_form(self):
         # Czyszczenie głównego layoutu
@@ -286,7 +301,7 @@ class SurveyWindow(QWidget):
 
     def keyPressEvent(self, event):
         # Obsługa naciśnięcia dowolnego klawisza
-        if self.main_layout.count() == 1:  # Jeśli wyświetlany jest ekran powitalny
+        if self.main_layout.count() == 2:  # Jeśli wyświetlany jest ekran powitalny
             self.show_survey_form()
 
     def clear_layout(self, layout):

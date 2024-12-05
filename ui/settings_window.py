@@ -11,7 +11,7 @@ class SettingsWindow(QWidget):
         # Słownik tłumaczeń
         self.translations = {
             "en": {
-                "control_group": "Control Group",
+                "control_group": "Binaural Beat Group",
                 "asmr_group": "ASMR Group",
                 "back": "Back",
             },
@@ -82,9 +82,9 @@ class SettingsWindow(QWidget):
     def on_radio_changed(self):
         # Aktualizacja stanu na podstawie wybranego radio buttona
         if self.control_radio.isChecked():
-            self.main_app.asmr_enabled = False
+            self.main_app.set_asmr_enabled(False)  # Zaktualizuj tryb ASMR
         elif self.asmr_radio.isChecked():
-            self.main_app.asmr_enabled = True
+            self.main_app.set_asmr_enabled(True)  # Zaktualizuj tryb ASMR
         print(f"ASMR Mode updated to: {self.main_app.asmr_enabled}")
 
     def on_back(self):

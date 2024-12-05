@@ -4,20 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="misophonia merged">
-      <change afterPath="$PROJECT_DIR$/flags/belarus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/brazil.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/china.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/france.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/germany.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/india.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/iran.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/italy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/poland.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/spain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/turkey.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flags/ukraine.png" afterDir="false" />
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="survey extension">
+      <change afterPath="$PROJECT_DIR$/assets/BB.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/asmr_instructions/choose_asmr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_instructions/choose_asmr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/asmr_instructions/select_asmr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_instructions/select_asmr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/asmr_play_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_play_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/misophonia_instruction_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/misophonia_instruction_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/misophonia_questions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/misophonia_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/misophonia_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/settings_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/settings_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/stai_instruction_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_instruction_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/stai_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/stai_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/survey_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/survey_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +33,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -71,7 +76,7 @@
     "Python.test_info.executor": "Run",
     "Python.third_view.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "scenario1",
     "last_opened_file_path": "C:/Users/stern/PycharmProjects/masterProject/flags",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -85,8 +90,8 @@
       <recent name="C:\Users\stern\PycharmProjects\masterProject\ui" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\stern\PycharmProjects\masterProject\images" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\assets" />
+      <recent name="C:\Users\stern\PycharmProjects\masterProject\images" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\videos\thumbnails" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\videos" />
       <recent name="C:\Users\stern\PycharmProjects\masterProject\ui" />
@@ -277,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733412255531</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="survey extension">
+      <option name="closed" value="true" />
+      <created>1733415052225</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1733415052225</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,7 +298,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="scenario1" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -310,6 +335,7 @@
     <MESSAGE value="ui details" />
     <MESSAGE value="results csv saving" />
     <MESSAGE value="misophonia merged" />
-    <option name="LAST_COMMIT_MESSAGE" value="misophonia merged" />
+    <MESSAGE value="survey extension" />
+    <option name="LAST_COMMIT_MESSAGE" value="survey extension" />
   </component>
 </project>

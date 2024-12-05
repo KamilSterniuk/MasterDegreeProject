@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QL
 from PySide6.QtGui import QPalette, QColor
 from PySide6.QtCore import Qt
 
+
 class MainWindow(QWidget):
     def __init__(self, main_app):
         super().__init__()
@@ -20,13 +21,21 @@ class MainWindow(QWidget):
 
         # Layout dla górnego paska
         top_bar_layout = QHBoxLayout()
-        top_bar_layout.setAlignment(Qt.AlignRight)
+        top_bar_layout.setContentsMargins(10, 10, 10, 10)
+        top_bar_layout.setSpacing(10)
+
+        # Dodanie napisu "Current Group"
+        self.group_label = QLabel(self.get_group_label())
+        self.group_label.setStyleSheet("color: white; font-size: 16px;")
+        top_bar_layout.addWidget(self.group_label, alignment=Qt.AlignLeft)
+
+        # Dodanie separatora, aby wymusić przestrzeń między elementami
+        top_bar_layout.addStretch()
 
         # Napis "Choose Language"
-        language_label = QLabel("Choose Language")
-        language_label.setStyleSheet("color: white; font-size: 16px; margin-right: 10px;")
-        language_label.setAlignment(Qt.AlignCenter)
-        top_bar_layout.addWidget(language_label)
+        language_label = QLabel("Choose Language:")
+        language_label.setStyleSheet("color: white; font-size: 16px;")
+        top_bar_layout.addWidget(language_label, alignment=Qt.AlignRight)
 
         # Przycisk zmiany języka
         self.language_button = QPushButton("English")
@@ -35,17 +44,25 @@ class MainWindow(QWidget):
             QPushButton {
                 background-color: #007BFF;
                 color: white;
-                font-size: 16px;
-                padding: 12px 20px;
-                border-radius: 8px;
-                margin: 5px;
+                font-size: 14px;  /* Zwiększ rozmiar czcionki */
+                font-weight: bold;  /* Pogrubiona czcionka */
+                padding: 10px 15px;  /* Większe wypełnienie dla lepszej czytelności */
+                border-radius: 8px;  /* Zaokrąglenie krawędzi */
             }
             QPushButton:checked {
                 background-color: #0056b3;
             }
+            QPushButton:hover {
+                background-color: #0069d9; /* Kolor po najechaniu */
+            }
         """)
+        self.language_button.setFixedSize(100, 40)  # Większa szerokość i wysokość przycisku
         self.language_button.toggled.connect(self.toggle_language)
-        top_bar_layout.addWidget(self.language_button)
+
+        top_bar_layout.addWidget(self.language_button, alignment=Qt.AlignRight)
+
+        # Dodanie górnego paska do głównego layoutu
+        main_layout.addLayout(top_bar_layout)
 
         # Dodanie górnego paska do głównego layoutu
         main_layout.addLayout(top_bar_layout)
@@ -106,9 +123,17 @@ class MainWindow(QWidget):
         # Ustawienie głównego layoutu
         self.setLayout(main_layout)
 
+    def get_group_label(self):
+        """Zwraca etykietę dla aktualnej grupy."""
+        return "Current Group: ASMR" if self.main_app.asmr_enabled else "Current Group: Binaural Beats"
+
     def toggle_language(self, checked):
         # Zmiana etykiety na przycisku języka
         self.language_button.setText("Polish" if checked else "English")
+
+    def update_group_label(self):
+        """Aktualizuje etykietę grupy."""
+        self.group_label.setText(self.get_group_label())
 
     def on_start(self):
         # Przejdź do ekranu ankiety
@@ -121,12 +146,14 @@ class MainWindow(QWidget):
             # Jeśli hasło poprawne, przejście do ustawień
             self.main_app.show_settings()
         else:
-            # Jeśli hasło niepoprawne lub anulowane, nic się nie dzieje
             pass
 
     def on_exit(self):
         # Zamyka aplikację
         self.main_app.close()
+
+
+
 
 
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton
