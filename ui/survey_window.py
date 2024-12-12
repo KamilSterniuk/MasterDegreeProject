@@ -114,7 +114,7 @@ class SurveyWindow(QWidget):
         form_layout.addRow(self.custom_nationality_input)
 
         # Język ojczysty
-        modern_tongue_label = QLabel("Modern Tongue Language:")
+        modern_tongue_label = QLabel("Mother Tongue Language:")
         modern_tongue_label.setStyleSheet("color: white; font-size: 16px;")
         self.tongue_combo = QComboBox()
         self.tongue_combo.addItem("Select")  # Dodanie opcji "Select" jako pierwszej

@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
-from PySide6.QtGui import QPalette, QColor
+from PySide6.QtGui import QPalette, QColor, QPixmap, QPainter, QBrush, QPen
 from PySide6.QtCore import Qt
 
 
@@ -44,33 +44,65 @@ class MainWindow(QWidget):
             QPushButton {
                 background-color: #007BFF;
                 color: white;
-                font-size: 14px;  /* Zwiększ rozmiar czcionki */
-                font-weight: bold;  /* Pogrubiona czcionka */
-                padding: 10px 15px;  /* Większe wypełnienie dla lepszej czytelności */
-                border-radius: 8px;  /* Zaokrąglenie krawędzi */
+                font-size: 14px;
+                font-weight: bold;
+                padding: 10px 15px;
+                border-radius: 8px;
             }
             QPushButton:checked {
                 background-color: #0056b3;
             }
             QPushButton:hover {
-                background-color: #0069d9; /* Kolor po najechaniu */
+                background-color: #0069d9;
             }
         """)
-        self.language_button.setFixedSize(100, 40)  # Większa szerokość i wysokość przycisku
+        self.language_button.setFixedSize(100, 40)
         self.language_button.toggled.connect(self.toggle_language)
-
         top_bar_layout.addWidget(self.language_button, alignment=Qt.AlignRight)
 
         # Dodanie górnego paska do głównego layoutu
         main_layout.addLayout(top_bar_layout)
 
-        # Dodanie górnego paska do głównego layoutu
-        main_layout.addLayout(top_bar_layout)
+        # Layout na obraz z ograniczoną wysokością
+        image_layout = QVBoxLayout()
+        image_layout.setSpacing(0)
+        image_layout.setContentsMargins(0, 30, 0, 30)
+        image_layout.setAlignment(Qt.AlignCenter)
+
+        # Dodanie QLabel do wyświetlania obrazu z zaokrąglonymi rogami i konturem
+        self.image_label = QLabel()
+        self.image_label.setAlignment(Qt.AlignCenter)
+        pixmap = QPixmap("assets/Attention_Please_Image.png").scaled(
+            800, 450, Qt.KeepAspectRatio, Qt.SmoothTransformation
+        )
+
+        # Utwórz maskę dla zaokrąglonych rogów z konturem
+        rounded_pixmap = QPixmap(pixmap.size())
+        rounded_pixmap.fill(Qt.transparent)
+        painter = QPainter(rounded_pixmap)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Czarny kontur
+        pen = QPen(Qt.black, 10)  # Ustawienie koloru i grubości konturu
+        painter.setPen(pen)
+        painter.drawRoundedRect(5, 5, pixmap.width() - 10, pixmap.height() - 10, 30, 30)
+
+        # Rysowanie obrazu
+        painter.setBrush(QBrush(pixmap))
+        painter.setPen(Qt.NoPen)
+        painter.drawRoundedRect(5, 5, pixmap.width() - 10, pixmap.height() - 10, 30, 30)
+        painter.end()
+
+        self.image_label.setPixmap(rounded_pixmap)
+        image_layout.addWidget(self.image_label)
+
+        # Dodanie layoutu obrazu do głównego layoutu
+        main_layout.addLayout(image_layout)
 
         # Środkowy układ dla przycisków
         center_layout = QVBoxLayout()
         center_layout.setAlignment(Qt.AlignCenter)
-        center_layout.setSpacing(20)
+        center_layout.setSpacing(10)
 
         # Styl przycisków
         button_style = """
@@ -118,7 +150,9 @@ class MainWindow(QWidget):
         center_layout.addWidget(exit_button)
 
         # Dodanie środkowego układu do głównego layoutu
+        main_layout.addSpacing(20)  # Elastyczny odstęp, aby przyciski pozostały na środku
         main_layout.addLayout(center_layout)
+        main_layout.addStretch()  # Elastyczny odstęp poniżej przycisków
 
         # Ustawienie głównego layoutu
         self.setLayout(main_layout)
@@ -131,10 +165,6 @@ class MainWindow(QWidget):
         # Zmiana etykiety na przycisku języka
         self.language_button.setText("Polish" if checked else "English")
 
-    def update_group_label(self):
-        """Aktualizuje etykietę grupy."""
-        self.group_label.setText(self.get_group_label())
-
     def on_start(self):
         # Przejdź do ekranu ankiety
         self.main_app.show_start()
@@ -145,12 +175,11 @@ class MainWindow(QWidget):
         if password_dialog.exec() == QDialog.Accepted:
             # Jeśli hasło poprawne, przejście do ustawień
             self.main_app.show_settings()
-        else:
-            pass
 
     def on_exit(self):
         # Zamyka aplikację
         self.main_app.close()
+
 
 
 
@@ -164,14 +193,16 @@ class PasswordDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Enter Password")
-        self.setFixedSize(800, 500)
+        self.setFixedSize(820, 500)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)  # Usuń domyślną ramkę okna
 
-        # Stylizacja tła
-        palette = self.palette()
-        palette.setColor(QPalette.Window, QColor("#2E2E2E"))  # Ciemnoszare tło
-        self.setPalette(palette)
-        self.setAutoFillBackground(True)
+        # Stylizacja główna z jasnym tłem, czarnym konturem i zaokrąglonymi rogami
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #0C3C3C;  /* Nieco jaśniejsze tło */
+                border: 2px solid black;  /* Czarny kontur */
+            }
+        """)
 
         # Główny layout
         layout = QVBoxLayout()
