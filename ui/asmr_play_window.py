@@ -4,6 +4,7 @@ from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import QUrl, Qt
 from PySide6.QtGui import QFont
 
+from eye_tracker_recorder import EyeTrackerRecorder
 
 class AsmrPlayWindow(QWidget):
     def __init__(self, main_app, video_url, asmr_enabled=True):
@@ -16,6 +17,8 @@ class AsmrPlayWindow(QWidget):
         self.video_url = video_url
         self.asmr_enabled = asmr_enabled
 
+        self.eye_tracker_recorder = EyeTrackerRecorder()
+
         # Tworzenie playera i audio
         self.player = QMediaPlayer(self)
         audio_output = QAudioOutput(self)
@@ -25,6 +28,7 @@ class AsmrPlayWindow(QWidget):
             audio_output.setVolume(1.0)  # Maksymalna głośność dla ASMR
         else:
             audio_output.setVolume(0.0)  # Wyciszenie dźwięku wideo
+
 
         # Dodatkowy dźwięk BB dla grupy z BB
         self.bb_player = QMediaPlayer(self)
@@ -105,6 +109,9 @@ class AsmrPlayWindow(QWidget):
             # Rozpocznij odtwarzanie BB, jeśli ASMR jest wyłączone
             if not self.asmr_enabled:
                 self.bb_player.play()
+
+            self.eye_tracker_recorder.start()
+
         elif self.end_message_label.isVisible():
             # Przejście do ekranu instrukcji ANT
             self.main_app.show_ant_instructions()
@@ -119,3 +126,5 @@ class AsmrPlayWindow(QWidget):
             # Zatrzymaj dźwięk BB, jeśli grał
             if not self.asmr_enabled:
                 self.bb_player.stop()
+
+            self.eye_tracker_recorder.stop_and_process()

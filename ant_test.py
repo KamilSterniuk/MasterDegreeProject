@@ -4,6 +4,8 @@ from psychopy import visual, core, event
 import random
 import csv
 
+from eye_tracker_recorder import EyeTrackerRecorder
+
 # Tworzenie okna na głównym monitorze (screen=1)
 win = visual.Window(fullscr=True, color="grey", units="pix", screen=1)
 
@@ -153,6 +155,15 @@ def main_ant_test():
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
 
+    ant_test_folder = os.path.join(target_folder, "ant_test")
+    if not os.path.exists(ant_test_folder):
+        os.makedirs(ant_test_folder)
+
+    csv_file_path = os.path.join(ant_test_folder, "ant_results.csv")
+
+    eye_tracker = EyeTrackerRecorder(target_folder=ant_test_folder)
+    eye_tracker.start()
+
     # Ścieżka do pliku CSV
     csv_file_path = os.path.join(target_folder, "ant_results.csv")
 
@@ -183,6 +194,8 @@ def main_ant_test():
             "reaction_time": reaction_time,
             "correct": is_correct,
         })
+
+    eye_tracker.stop_and_process()
 
     # Zapis danych do pliku CSV
     with open(csv_file_path, "w", newline="") as file:
