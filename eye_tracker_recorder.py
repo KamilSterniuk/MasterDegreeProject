@@ -2,6 +2,8 @@ import os
 import time
 import numpy as np
 import math
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import gc
 import pandas as pd
@@ -10,7 +12,7 @@ from eyex.api import Sample
 
 # Default screen settings and colors
 Xres = 1920
-Yres = 1200
+Yres = 1080
 COLS = ['#fce94f', '#edd400', '#c4a000', '#fcaf3e', '#f57900', '#ce5c00',
         '#e9b96e', '#c17d11', '#8f5902', '#8ae234', '#73d216', '#4e9a06',
         '#729fcf', '#3465a4', '#204a87', '#ad7fa8', '#75507b', '#5c3566',
@@ -37,9 +39,9 @@ def centeroid(points):
     points = np.array(points)
     return np.mean(points[:, 0]), np.mean(points[:, 1])
 
-
 def calc_radius(p1, p2):
-    return np.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+    return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
 
 
 def calculate_heatmap(x, y, file, show_points=True):
@@ -49,8 +51,8 @@ def calculate_heatmap(x, y, file, show_points=True):
     x_grid = np.arange(0 - h, Xres + h, grid_size)
     y_grid = np.arange(0 - h, Yres + h, grid_size)
     x_mesh, y_mesh = np.meshgrid(x_grid, y_grid)
-    xc = x_mesh + (grid_size / 2)
-    yc = y_mesh + (grid_size / 2)
+    xc = x_mesh + grid_size / 2
+    yc = y_mesh + grid_size / 2
 
     def kde_quartic(d, h):
         dn = d / h
@@ -159,54 +161,50 @@ def calculate_fixation_statistics(x, y, times, fixation_radius=100):
 
 
 class EyeTrackerRecorder:
-    def __init__(self, target_folder=None, subfolder="asmr_video"):
-        """
-        target_folder: full path to the target folder (e.g. 'results/example3').
-        In this folder a subfolder named as in 'subfolder' (default "asmr_video") will be created,
-        and within it, "data" and "plots" folders.
-        If target_folder is not provided, it is determined automatically.
-        """
+    def __init__(self, target_folder=None):
         if target_folder is None:
             target_folder = get_target_folder("results")
-        self.target_folder = target_folder
-        recorder_folder = os.path.join(self.target_folder, subfolder)
-        os.makedirs(recorder_folder, exist_ok=True)
-        self.data_folder = os.path.join(recorder_folder, "data")
-        self.plots_folder = os.path.join(recorder_folder, "plots")
-        os.makedirs(self.data_folder, exist_ok=True)
-        os.makedirs(self.plots_folder, exist_ok=True)
+        self.target_folder = target_folder  # np. results/exampleX/
         self.data = []
-        # Use safe wrapper for EyeX
-        from eye_interface_safe import EyeXInterfaceSafe
+        from eye_interface_safe import EyeXInterfaceSafe  # Upewnij się, że ten moduł jest dostępny
         self.eye_api = EyeXInterfaceSafe()
         self.eye_api.on_event = [lambda x: self.data.append(x)]
         self.recording = False
         self.start_time = None
 
     def start(self):
-        # Add a short delay to ensure previous session resources are released
         time.sleep(2)
         self.data = []
         self.recording = True
         self.start_time = time.time()
         print("Eye tracker registration started.")
 
-    def stop_and_process(self):
+    def process_session(self, session_suffix=""):
         self.recording = False
-        # Attempt to explicitly shut down the EyeX connection, if available
-        try:
-            if hasattr(self.eye_api, 'shutdown'):
-                self.eye_api.shutdown()
-        except Exception as e:
-            print("Error during EyeX shutdown:", e)
-        print("Eye tracker registration ended. Processing data in background...")
+        print("Processing session data...")
         if not self.data:
             print("No data from eye tracker!")
             return
-        threading.Thread(target=self._process_data, daemon=True).start()
 
-    def _process_data(self):
-        # Convert collected data to a matrix
+        # Ustal podfolder w zależności od session_suffix:
+        # Jeśli session_suffix == "play" → folder: asmr_video
+        # Jeśli session_suffix == "ant" → folder: ant_test
+        if session_suffix == "play":
+            session_folder = "asmr_video"
+        elif session_suffix == "ant":
+            session_folder = "ant_test"
+        else:
+            session_folder = session_suffix if session_suffix else "default"
+
+        # Tworzymy strukturę folderów: results/exampleX/session_folder/data oraz .../plots
+        recorder_folder = os.path.join(self.target_folder, session_folder)
+        os.makedirs(recorder_folder, exist_ok=True)
+        self.data_folder = os.path.join(recorder_folder, "data")
+        self.plots_folder = os.path.join(recorder_folder, "plots")
+        os.makedirs(self.data_folder, exist_ok=True)
+        os.makedirs(self.plots_folder, exist_ok=True)
+
+        # Przetwarzanie danych (analogiczne do poprzedniej implementacji)
         eyedata = np.zeros((len(self.data), 13), dtype=float)
         k = 0
         for i in range(len(self.data) - 1):
@@ -228,14 +226,15 @@ class EyeTrackerRecorder:
                 eyedata[k, 12] = next_sample.timestamp
                 k += 1
         eyedata = eyedata[:k, :]
-
-        # Filter data – keep only points inside the screen
         eyedata = eyedata[(eyedata[:, 1] > 0) & (eyedata[:, 1] <= Xres)]
         eyedata = eyedata[(eyedata[:, 2] > 0) & (eyedata[:, 2] <= Yres)]
         if len(eyedata) == 0:
             print("No data in eyedata after filtering!")
             return
 
+        analiza = np.zeros((len(eyedata), 5), dtype=float)
+        analiza[:, 1] = eyedata[:, 1]
+        analiza[:, 2] = Yres - eyedata[:, 2]
         RefTimeIndex = 0
         for i in range(1, len(eyedata) - 1):
             diff1 = round((eyedata[i, 0] - eyedata[i - 1, 0]), 0)
@@ -244,49 +243,36 @@ class EyeTrackerRecorder:
             if (diff1 == diff2) and (diff2 == diff3):
                 RefTimeIndex = i
                 break
-
-        analiza = np.zeros((len(eyedata), 5), dtype=float)
-        analiza[:, 1] = eyedata[:, 1]
-        analiza[:, 2] = Yres - eyedata[:, 2]  # inverted Y
-        analiza[:, 3] = (eyedata[:, 0] - eyedata[RefTimeIndex, 0]) / 1000  # aligned time in seconds
+        analiza[:, 3] = (eyedata[:, 0] - eyedata[RefTimeIndex, 0]) / 1000
         analiza[1:, 4] = eyedata[1:, 0] - eyedata[0:-1, 0]
         analiza[:, 0] = eyedata[RefTimeIndex, 3] + analiza[:, 3]
-
-        basename = time.strftime("%Y%m%d%H%M%S", time.localtime(self.start_time))
-        eyedata_file = os.path.join(self.data_folder, f"{basename}_data.csv")
-        np.savetxt(eyedata_file, eyedata, delimiter=";")
-        print("Raw gaze data saved to:", eyedata_file)
-
+        basename = time.strftime("%Y%m%d%H%M%S", time.localtime(self.start_time)) + "_" + session_suffix
         hm_file = os.path.join(self.plots_folder, f"{basename}_hm.png")
         hm_nolines = os.path.join(self.plots_folder, f"{basename}_hm_nolines.png")
         gp_file = os.path.join(self.plots_folder, f"{basename}_gp.png")
         calculate_heatmap(analiza[:, 1], analiza[:, 2], hm_file, show_points=True)
         calculate_heatmap(analiza[:, 1], analiza[:, 2], hm_nolines, show_points=False)
         calculate_gazeplot(analiza[:, 1], analiza[:, 2], analiza[1:, 4], gp_file)
-
-        gc.collect()
-
         fixation_stats = calculate_fixation_statistics(analiza[:, 1], analiza[:, 2], analiza[:, 3], fixation_radius=100)
         print("\nFixation statistics:")
         print("Number of fixations:", len(fixation_stats))
         for idx, fix in enumerate(fixation_stats, start=1):
-            print(
-                f"Fixation {idx}: Latency: {fix['latency']:.2f} s, Duration: {fix['duration']:.2f} s, Position: ({fix['centroid'][0]:.1f}, {fix['centroid'][1]:.1f})")
-
+            print(f"Fixation {idx}: Latency: {fix['latency']:.2f} s, Duration: {fix['duration']:.2f} s, Position: ({fix['centroid'][0]:.1f}, {fix['centroid'][1]:.1f})")
         fixations_file = os.path.join(self.data_folder, f"{basename}_fixations.csv")
         raw_gaze_file = os.path.join(self.data_folder, f"{basename}_raw_gaze.csv")
         row_latency = ["Latency:"] + [f"{fix['latency']:.2f}" for fix in fixation_stats]
         row_duration = ["Duration:"] + [f"{fix['duration']:.2f}" for fix in fixation_stats]
-        row_position = ["Position:"] + [f"({fix['centroid'][0]:.1f}, {fix['centroid'][1]:.1f})" for fix in
-                                        fixation_stats]
+        row_position = ["Position:"] + [f"({fix['centroid'][0]:.1f}, {fix['centroid'][1]:.1f})" for fix in fixation_stats]
         row_fix_count = ["Number of fixations:", len(fixation_stats)] + [""] * (len(fixation_stats) - 1)
         df_fixations = pd.DataFrame([row_latency, row_duration, row_position, row_fix_count])
-        row_time = ["Timestamp:"] + [f"{t:.3f}" for t in analiza[:, 0]]
         row_x = ["X (px):"] + [f"{x:.1f}" for x in analiza[:, 1]]
         row_y = ["Y (px):"] + [f"{y:.1f}" for y in analiza[:, 2]]
-        row_time_diff = ["Time Diff (ms):"] + [f"{t:.3f}" for t in analiza[:, 3]]
-        df_raw_gaze = pd.DataFrame([row_time, row_x, row_y, row_time_diff])
+        time_et = ["Time (s):"] + [f"{t:.3f}" for t in analiza[:, 3]]
+        df_raw_gaze = pd.DataFrame([time_et, row_x, row_y])
         df_fixations.to_csv(fixations_file, header=False, index=False, sep=';')
         df_raw_gaze.to_csv(raw_gaze_file, header=False, index=False, sep=';')
         print("Fixations saved to:", fixations_file)
         print("Raw gaze data saved to:", raw_gaze_file)
+        gc.collect()
+        self.data = []
+        self.start_time = time.time()

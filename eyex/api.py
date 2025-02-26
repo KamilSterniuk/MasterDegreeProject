@@ -8,7 +8,7 @@ Sample = namedtuple('Sample', ['data_mode', 'timestamp', 'x', 'y'])
 class EyeXInterface(object):
     on_event = []
 
-    def __init__(self, lib_location = 'C:\\Users\\stern\\OneDrive\\Pulpit\\Nowy Folder\\eyetracker_data_colection\\eyetracker_data_colection\\eyex\\Tobii.EyeX.Client.dll'):
+    def __init__(self, lib_location = 'C:\\Users\\Student\\PycharmProjects\\MasterDegreeProject\\eyex\\Tobii.EyeX.Client.dll'):
 
         self.eyex_dll = c.cdll.LoadLibrary(lib_location)
 

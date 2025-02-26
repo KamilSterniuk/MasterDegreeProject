@@ -275,7 +275,7 @@ class SurveyWindow(QWidget):
         additional_info = self.additional_info_input.toPlainText()
 
         # Informacja o grupie
-        group = "ASMR" if self.main_app.asmr_enabled else "Control"
+        group = "ASMR" if self.main_app.asmr_enabled else "BB"
 
         # Dane do zapisania (Group jako pierwsze)
         data = [
