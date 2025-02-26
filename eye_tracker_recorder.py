@@ -21,18 +21,10 @@ COLS = ['#fce94f', '#edd400', '#c4a000', '#fcaf3e', '#f57900', '#ce5c00',
 
 
 def get_target_folder(results_dir="results"):
-    if not os.path.exists(results_dir):
-        os.makedirs(results_dir)
     existing_folders = [folder for folder in os.listdir(results_dir)
                         if folder.startswith("example") and folder[7:].isdigit()]
-    if existing_folders:
-        max_number = max(int(folder[7:]) for folder in existing_folders)
-    else:
-        max_number = 1
-    target_folder = os.path.join(results_dir, f"example{max_number}")
-    if not os.path.exists(target_folder):
-        os.makedirs(target_folder)
-    return target_folder
+    max_number = max(int(folder[7:]) for folder in existing_folders)
+    return os.path.join(results_dir, f"example{max_number + 1}")
 
 
 def centeroid(points):
