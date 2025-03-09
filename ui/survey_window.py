@@ -32,7 +32,7 @@ class SurveyWindow(QWidget):
         self.clear_layout(self.main_layout)
 
         # Tytuł
-        title_label = QLabel("Welcome to the Attention Concentration Study")
+        title_label = QLabel("Witamy w Badaniu Koncentracji Uwagi")
         title_label.setStyleSheet("font-size: 28px; font-weight: bold; color: white; padding: 20px;")
         title_label.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(title_label)
@@ -42,18 +42,18 @@ class SurveyWindow(QWidget):
         instructions_label.setTextFormat(Qt.TextFormat.RichText)  # Użycie HTML dla formatowania
         instructions_label.setText(
             "<p style='font-size: 20px; color: #BBBBBB; text-align: center;'>"
-            "Thank you for participating in the <b>Attention Concentration Study</b>, which uses "
-            "Eye-Tracking and EEG to better understand focus and cognitive engagement.<br><br>"
-            "Before starting, you will complete a short survey where we will ask you to provide details such as:"
+            "Dziękujemy za udział w <b>Badaniu Koncentracji Uwagowej</b>, które wykorzystuje Eye-Tracking i "
+            "EEG do lepszego zrozumienia skupienia i zaangażowania poznawczego.<br><br>"
+            "Przed rozpoczęciem wypełnisz krótką ankietę, w której poprosimy Cię o podanie następujących informacji:"
             "<ul style='text-align: left;'>"
-            "<li>Your <b>gender</b> and <b>age</b>.</li>"
-            "<li>Your <b>nationality</b> and <b>native language</b>.</li>"
-            "<li>Any <b>relevant information</b> about your mood or recent experiences, "
-            "such as exams, stress, achievements, or personal milestones.</li>"
+            "<li>Twoja  <b>płeć</b>, <b>wiek</b> i <b>rodzaj osobowości</b>.</li>"
+            "<li>Twoja  <b>narodowość</b> i <b>język ojczysty</b>.</li>"
+            "<li>Wszelkie <b>istotne informacje</b> dotyczące Twojego samopoczucia lub ostatnich doświadczeń, "
+            "takich jak egzaminy, stres, osiągnięcia czy ważne wydarzenia osobiste.</li>"
             "</ul>"
-            "Your data will remain <b>anonymous</b> and <b>confidential</b>, and will help us improve our understanding "
-            "of attention and concentration.<br><br>"
-            "<b>Press any key to continue to the survey.</b>"
+            "Twoje dane pozostaną <b>anonimowe</b> i <b>poufne</b>, a ich analiza pomoże nam lepiej "
+            "zrozumieć mechanizmy uwagi i koncentracji.<br><br>"
+            "<b>Naciśnij dowolny klawisz, aby przejść do ankiety.</b>"
             "</p>"
         )
         instructions_label.setAlignment(Qt.AlignCenter)
@@ -64,7 +64,7 @@ class SurveyWindow(QWidget):
         self.clear_layout(self.main_layout)
 
         # Nagłówek ankiety
-        header_label = QLabel("User Survey")
+        header_label = QLabel("Ankieta użytkownika")
         header_label.setStyleSheet("font-size: 20px; font-weight: bold; color: white; padding: 10px;")
         header_label.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(header_label)
@@ -74,19 +74,19 @@ class SurveyWindow(QWidget):
         form_layout.setSpacing(10)
 
         # Płeć
-        gender_label = QLabel("Gender:")
+        gender_label = QLabel("Płeć:")
         gender_label.setStyleSheet("color: white; font-size: 16px;")
         self.gender_combo = QComboBox()
-        self.gender_combo.addItems(["Select", "Female", "Male", "Prefer not to say"])
+        self.gender_combo.addItems(["Wybierz", "Kobieta", "Mężczyzna", "Wolę nie odpowiadać"])
         self.gender_combo.setFixedWidth(120)
         self.gender_combo.currentIndexChanged.connect(self.check_form_completion)
         form_layout.addRow(gender_label, self.gender_combo)
 
         # Wiek
-        age_label = QLabel("Age:")
+        age_label = QLabel("Wiek:")
         age_label.setStyleSheet("color: white; font-size: 16px;")
         self.age_input = QLineEdit()
-        self.age_input.setPlaceholderText("Enter your age")
+        self.age_input.setPlaceholderText("Wpisz swój wiek")
         self.age_input.setFixedWidth(120)
 
         # Validator ograniczający wartości tylko do liczb w przedziale 7-100
@@ -96,30 +96,39 @@ class SurveyWindow(QWidget):
 
         form_layout.addRow(age_label, self.age_input)
 
+        # Typ osobowości
+        personality_label = QLabel("Rodzaj osobowości:")
+        personality_label.setStyleSheet("color: white; font-size: 16px;")
+        self.personality_combo = QComboBox()
+        self.personality_combo.addItems(["Wybierz", "Introwertyczna", "Ekstrawertyczna"])
+        self.personality_combo.setFixedWidth(120)
+        self.personality_combo.currentIndexChanged.connect(self.check_form_completion)
+        form_layout.addRow(personality_label, self.personality_combo)
+
         # Narodowość
-        nationality_label = QLabel("Nationality:")
+        nationality_label = QLabel("Narodowość:")
         nationality_label.setStyleSheet("color: white; font-size: 16px;")
         self.nationality_combo = QComboBox()
-        self.nationality_combo.addItem("Select")  # Dodanie opcji "Select" jako pierwszej
+        self.nationality_combo.addItem("Wybierz")  # Dodanie opcji "Select" jako pierwszej
         self.add_countries_with_flags(
             self.nationality_combo,
-            ["Poland", "Ukraine", "Belarus", "Germany", "Spain", "France", "Italy", "China", "India", "Turkey",
+            ["Polska", "Ukraine", "Belarus", "Germany", "Spain", "France", "Italy", "China", "India", "Turkey",
              "Brazil", "Iran", "Other"]
         )
         self.nationality_combo.currentIndexChanged.connect(self.check_form_completion)
         self.custom_nationality_input = QLineEdit()
-        self.custom_nationality_input.setPlaceholderText("Enter your nationality")
+        self.custom_nationality_input.setPlaceholderText("Wpisz swoją narodowość")
         self.custom_nationality_input.setVisible(False)
         form_layout.addRow(nationality_label, self.nationality_combo)
         form_layout.addRow(self.custom_nationality_input)
 
         # Język ojczysty
-        modern_tongue_label = QLabel("Mother Tongue Language:")
+        modern_tongue_label = QLabel("Język ojczysty:")
         modern_tongue_label.setStyleSheet("color: white; font-size: 16px;")
         self.tongue_combo = QComboBox()
         self.tongue_combo.addItem("Select")  # Dodanie opcji "Select" jako pierwszej
         self.tongue_combo.addItems(
-            ["Polish", "English", "Russian", "Ukrainian", "Belarusian", "German", "Spanish", "French", "Italian",
+            ["Polski", "English", "Russian", "Ukrainian", "Belarusian", "German", "Spanish", "French", "Italian",
              "Chinese", "Hindi", "Turkish", "Portuguese", "Arabic", "Persian (Farsi)", "Other"]
         )
         self.tongue_combo.currentIndexChanged.connect(self.check_form_completion)
@@ -130,14 +139,14 @@ class SurveyWindow(QWidget):
         form_layout.addRow(self.custom_tongue_input)
 
         # Dodatkowe informacje
-        additional_info_label = QLabel("Additional Information:")
+        additional_info_label = QLabel("Dodatkowe informacje:")
         additional_info_label.setStyleSheet("color: white; font-size: 16px;")
         self.additional_info_input = QTextEdit()
         self.additional_info_input.setPlaceholderText(
-            "Feel free to share any relevant information about your current mood, "
-            "recent significant events such as exams, stress, excitement about an upcoming concert or football match, "
-            "achievements like a good grade on an exam, or personal experiences like falling in love. "
-            "Your input will help us better understand your context."
+            "Możesz podzielić się wszelkimi informacjami na temat swojego obecnego nastroju, "
+            "nadchodzących lub niedawnych wydarzeń, takich jak stresujące egzaminy, ekscytacja związana z koncertem, "
+            "osiągnięć, na przykład dobrej oceny, czy osobistych doświadczeń, takich jak zauroczenie. "
+            "Twoje odpowiedzi pomogą nam lepiej zrozumieć Twój kontekst."
         )
 
         self.additional_info_input.setFixedSize(450, 100)
@@ -154,7 +163,7 @@ class SurveyWindow(QWidget):
         button_layout.setSpacing(10)
 
         # Przycisk "Next"
-        self.next_button = QPushButton("Next")
+        self.next_button = QPushButton("Dalej")
         self.next_button.setStyleSheet("""
             QPushButton {
                 background-color: #4CAF50;
@@ -173,7 +182,7 @@ class SurveyWindow(QWidget):
         button_layout.addWidget(self.next_button, alignment=Qt.AlignCenter)
 
         # Przycisk "Back"
-        back_button = QPushButton("Back")
+        back_button = QPushButton("Wróć")
         back_button.setStyleSheet("""
             QPushButton {
                 background-color: #f44336;
@@ -221,8 +230,9 @@ class SurveyWindow(QWidget):
                 self.tongue_combo.currentText() != "Select" and
                 (self.tongue_combo.currentText() != "Other" or self.custom_tongue_input.text().strip())
         )
+        personality_selected = self.personality_combo.currentText() != "Select"
         # Ustawienie widoczności przycisku Next
-        self.next_button.setVisible(age_filled and gender_selected and nationality_selected and tongue_selected)
+        self.next_button.setVisible(age_filled and gender_selected and nationality_selected and tongue_selected and personality_selected)
 
     def go_to_next_view(self):
         """Przejście do widoku instrukcji STAI, utworzenie nowego katalogu w results i zapisanie danych do CSV."""
@@ -270,6 +280,7 @@ class SurveyWindow(QWidget):
         # Pobieranie danych z formularza
         gender = self.gender_combo.currentText()
         age = self.age_input.text()
+        personality = self.personality_combo.currentText()
         nationality = self.custom_nationality_input.text() if self.nationality_combo.currentText() == "Other" else self.nationality_combo.currentText()
         modern_tongue = self.custom_tongue_input.text() if self.tongue_combo.currentText() == "Other" else self.tongue_combo.currentText()
         additional_info = self.additional_info_input.toPlainText()
@@ -283,6 +294,7 @@ class SurveyWindow(QWidget):
             ["Group", group],
             ["Gender", gender],
             ["Age", age],
+            ["Personality type", personality],
             ["Nationality", nationality],
             ["Modern Tongue Language", modern_tongue],
             ["Additional Information", additional_info]

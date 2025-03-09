@@ -33,12 +33,12 @@ class MainWindow(QWidget):
         top_bar_layout.addStretch()
 
         # Napis "Choose Language"
-        language_label = QLabel("Choose Language:")
+        language_label = QLabel("Wybierz język:")
         language_label.setStyleSheet("color: white; font-size: 16px;")
         top_bar_layout.addWidget(language_label, alignment=Qt.AlignRight)
 
         # Przycisk zmiany języka
-        self.language_button = QPushButton("English")
+        self.language_button = QPushButton("Polski")
         self.language_button.setCheckable(True)
         self.language_button.setStyleSheet("""
             QPushButton {
@@ -126,13 +126,13 @@ class MainWindow(QWidget):
         center_layout.addWidget(start_button)
 
         # Przycisk Settings
-        settings_button = QPushButton("Settings")
+        settings_button = QPushButton("Ustawienia")
         settings_button.setStyleSheet(button_style)
         settings_button.clicked.connect(self.on_settings)
         center_layout.addWidget(settings_button)
 
         # Przycisk Exit
-        exit_button = QPushButton("Exit")
+        exit_button = QPushButton("Wyjście")
         exit_button.setStyleSheet("""
             QPushButton {
                 background-color: #f44336;
@@ -159,11 +159,11 @@ class MainWindow(QWidget):
 
     def get_group_label(self):
         """Zwraca etykietę dla aktualnej grupy."""
-        return "Current Group: ASMR" if self.main_app.asmr_enabled else "Current Group: Binaural Beats"
+        return "Aktualna grupa: ASMR" if self.main_app.asmr_enabled else "Aktualna grupa: Binaural Beats"
 
     def toggle_language(self, checked):
         # Zmiana etykiety na przycisku języka
-        self.language_button.setText("Polish" if checked else "English")
+        self.language_button.setText("Angielski" if checked else "Polski")
 
     def on_start(self):
         # Przejdź do ekranu ankiety

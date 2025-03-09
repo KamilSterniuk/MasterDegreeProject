@@ -1,6 +1,7 @@
 import os
 import csv
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QHBoxLayout, QLabel, QSlider, QSizePolicy
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QHBoxLayout, QLabel, QSlider, QSizePolicy, \
+    QButtonGroup, QRadioButton
 from PySide6.QtGui import QPalette, QColor, QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
@@ -122,17 +123,42 @@ class AsmrSelectWindow(QWidget):
         for col in range(3):
             grid_layout.setColumnStretch(col, 1)
 
+        self.headphones_group = QButtonGroup(self)
+        self.classic_headphones = QRadioButton("Classic Headphones")
+        self.bone_conduction = QRadioButton("Bone Conduction Headphones")
+        self.headphones_group.addButton(self.classic_headphones)
+        self.headphones_group.addButton(self.bone_conduction)
+
+        self.classic_headphones.setStyleSheet("color: white;")
+        self.bone_conduction.setStyleSheet("color: white;")
+
+        self.headphones_group.buttonClicked.connect(self.enable_confirm_button)
+
+        # radio_layout = QHBoxLayout()
+        # radio_layout.addWidget(self.classic_headphones)
+        # radio_layout.addWidget(self.bone_conduction)
+
         # Przycisk Confirm
         self.confirm_button = QPushButton("Confirm")
-        self.confirm_button.setStyleSheet("background-color: #2196F3; color: white; font-size: 16px; padding: 10px;")
+        self.confirm_button.setStyleSheet("background-color: grey; color: white; font-size: 16px; padding: 10px;")
+        self.confirm_button.setEnabled(False)
         self.confirm_button.clicked.connect(self.confirm_selection)
-        grid_layout.addWidget(self.confirm_button, 3, 2, alignment=Qt.AlignRight | Qt.AlignBottom)
 
-        # Główny układ
+        confirm_layout = QHBoxLayout()
+        confirm_layout.addWidget(self.classic_headphones)
+        confirm_layout.addWidget(self.bone_conduction)
+        confirm_layout.addStretch()
+        confirm_layout.addWidget(self.confirm_button)
+
         main_layout = QVBoxLayout()
         main_layout.addWidget(instruction_label, alignment=Qt.AlignTop)
         main_layout.addLayout(grid_layout)
+        main_layout.addLayout(confirm_layout)  # Radio po lewej, Confirm po prawej
         self.setLayout(main_layout)
+
+    def enable_confirm_button(self):
+        self.confirm_button.setEnabled(True)
+        self.confirm_button.setStyleSheet("background-color: #2196F3; color: white; font-size: 16px; padding: 10px;")
 
     def play_video(self, player, video_url, thumbnail_label, video_widget):
         for p, _, _ in self.players:
@@ -191,9 +217,12 @@ class AsmrSelectWindow(QWidget):
         # Ścieżka do pliku CSV
         csv_file_path = os.path.join(target_folder, "asmr_ratings.csv")
 
+        selected_headphones = "Classic Headphones" if self.classic_headphones.isChecked() else "Bone Conduction Headphones"
+
         # Zapis danych
         with open(csv_file_path, mode="w", newline='', encoding="utf-8") as file:
             writer = csv.writer(file, delimiter=";")
+            writer.writerow(["Preferred Headphones", selected_headphones])
             writer.writerow(["Video Index", "Rating"])
             for i, rating in enumerate(ratings, start=1):
                 writer.writerow([f"Video {i}", rating])
