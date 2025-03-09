@@ -67,10 +67,49 @@ def calculate_heatmap(x, y, file, show_points=True):
     ax.set_title(title)
     ax.set_aspect('equal')
     if show_points:
-        plt.plot(x, y, 'ro-', linewidth=0.5)
+        plt.plot(x, y, 'ro-', linewidth=0.5, alpha=0.5)
     plt.savefig(file, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
+def calculate_heatmap_with_gradient(x, y, file, show_points=True):
+    title = 'Heatmap with Gradient Points'
+    grid_size = 25
+    h = 150
+    x_grid = np.arange(0 - h, Xres + h, grid_size)
+    y_grid = np.arange(0 - h, Yres + h, grid_size)
+    x_mesh, y_mesh = np.meshgrid(x_grid, y_grid)
+    xc = x_mesh + grid_size / 2
+    yc = y_mesh + grid_size / 2
+
+    def kde_quartic(d, h):
+        dn = d / h
+        return (15 / 16) * (1 - dn ** 2) ** 2
+
+    intensity = np.zeros(xc.shape)
+    for j in range(len(xc)):
+        for k in range(len(xc[0])):
+            p_total = 0
+            for i in range(len(x)):
+                d = math.hypot(xc[j][k] - x[i], yc[j][k] - y[i])
+                if d <= h:
+                    p_total += kde_quartic(d, h)
+            intensity[j, k] = p_total
+
+    fig, ax = plt.subplots()
+    ax.pcolormesh(x_mesh, y_mesh, intensity, cmap='turbo', shading='gouraud')
+    ax.set_xlim((0, Xres))
+    ax.set_ylim((0, Yres))
+    ax.set_title(title)
+    ax.set_aspect('equal')
+
+    if show_points:
+        # Zmiana palety na 'hsv' dla większej różnorodności kolorów
+        scatter = ax.scatter(x, y, c=range(len(x)), cmap='hsv', s=10, alpha=0.6)
+        cbar = plt.colorbar(scatter, ax=ax)
+        cbar.set_label('Point Order (Earlier to Later)')
+
+    plt.savefig(file, dpi=300, bbox_inches="tight")
+    plt.close(fig)
 
 def calculate_gazeplot(x, y, time_btw, file):
     title = 'Gazeplot'
@@ -78,7 +117,7 @@ def calculate_gazeplot(x, y, time_btw, file):
     radius_ratio = 0.7
     x_p = y_p = 0
     count = 1
-    no_points = len(x) / 100  # minimal number of points for a fixation
+    no_points = len(x) / 220  # minimal number of points for a fixation
     fig, ax = plt.subplots()
     points = []
     for i in range(len(x)):
@@ -241,9 +280,11 @@ class EyeTrackerRecorder:
         basename = time.strftime("%Y%m%d%H%M%S", time.localtime(self.start_time)) + "_" + session_suffix
         hm_file = os.path.join(self.plots_folder, f"{basename}_hm.png")
         hm_nolines = os.path.join(self.plots_folder, f"{basename}_hm_nolines.png")
+        hm_gradient = os.path.join(self.plots_folder, f"{basename}_hm_gradient.png")
         gp_file = os.path.join(self.plots_folder, f"{basename}_gp.png")
         calculate_heatmap(analiza[:, 1], analiza[:, 2], hm_file, show_points=True)
         calculate_heatmap(analiza[:, 1], analiza[:, 2], hm_nolines, show_points=False)
+        calculate_heatmap_with_gradient(analiza[:, 1], analiza[:, 2], hm_gradient, show_points=True)
         calculate_gazeplot(analiza[:, 1], analiza[:, 2], analiza[1:, 4], gp_file)
         fixation_stats = calculate_fixation_statistics(analiza[:, 1], analiza[:, 2], analiza[:, 3], fixation_radius=100)
         print("\nFixation statistics:")

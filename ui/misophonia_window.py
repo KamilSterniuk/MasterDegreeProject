@@ -32,12 +32,13 @@ class MisophoniaWindow(QWidget):
             "Please rate your experience with the following questions about trigger sounds.\n"
             "Move the slider to select the value that best describes your reaction to each question."
         )
-        instructions_label.setStyleSheet("font-size: 16px; color: #BBBBBB; padding: 10px;")
+        instructions_label.setStyleSheet("font-size: 18px; color: #BBBBBB; padding: 10px; font-weight: bold;")
         instructions_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(instructions_label)
 
         # Layout formularza
         form_layout = QFormLayout()
+        instructions_label.setStyleSheet("color: #BBBBBB")
 
         # Lista pytań
         questions = [
@@ -60,6 +61,7 @@ class MisophoniaWindow(QWidget):
         scroll_area = QScrollArea()
         scroll_widget = QWidget()
         scroll_widget.setLayout(form_layout)
+        scroll_widget.setStyleSheet("background-color: #BBBBBB")
         scroll_area.setWidget(scroll_widget)
         scroll_area.setWidgetResizable(True)
         main_layout.addWidget(scroll_area)

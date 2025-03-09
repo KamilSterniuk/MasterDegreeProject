@@ -64,7 +64,7 @@ class StaiWindow(QWidget):
         for i, question in enumerate(questions, start=1):
             question_label = QLabel(f"{i}. {question}")
             question_label.setStyleSheet(
-                "color: #333333; font-size: 18px; padding-right: 10px;")  # Kolor tekstu pytań w ciemnym odcieniu
+                "color: #333333; font-size: 18px; padding-right: 10px; background-color: #BBBBBB")  # Kolor tekstu pytań w ciemnym odcieniu
 
             button_group = QButtonGroup(self)
             button_layout = QHBoxLayout()
@@ -94,6 +94,7 @@ class StaiWindow(QWidget):
         scroll_area = QScrollArea()
         scroll_widget = QWidget()
         scroll_widget.setLayout(form_layout)
+        scroll_widget.setStyleSheet("background-color: #BBBBBB;")
         scroll_area.setWidget(scroll_widget)
         scroll_area.setWidgetResizable(True)
         main_layout.addWidget(scroll_area)
