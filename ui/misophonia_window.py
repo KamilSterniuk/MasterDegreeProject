@@ -3,6 +3,7 @@ import os
 
 from PySide6.QtGui import QPalette, QColor
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSlider, QScrollArea, QPushButton, QFormLayout, QFrame, QMessageBox
+from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtCore import Qt
 
 class MisophoniaWindow(QWidget):
@@ -11,7 +12,7 @@ class MisophoniaWindow(QWidget):
         self.main_app = main_app
 
         # Ustawienia okna
-        self.setWindowTitle("Misophonia Questionnaire")
+        self.setWindowTitle("Kwestionariusz Mizofonii")
         palette = self.palette()
         palette.setColor(QPalette.Window, QColor("#2E2E2E"))  # Ciemnoszare tło
         self.setPalette(palette)
@@ -22,18 +23,30 @@ class MisophoniaWindow(QWidget):
         main_layout.setAlignment(Qt.AlignTop)
 
         # Tytuł
-        title_label = QLabel("Misophonia Questionnaire")
+        title_label = QLabel("Kwestionariusz Mizofonii")
         title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")
         title_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(title_label)
 
+        from PySide6.QtGui import QFont
+
         # Instrukcje
         instructions_label = QLabel(
-            "Please rate your experience with the following questions about trigger sounds.\n"
-            "Move the slider to select the value that best describes your reaction to each question."
+            "Proszę ocenić swoje doświadczenia związane z poniższymi pytaniami dotyczącymi dźwięków wyzwalających.\n"
+            "Przesuń suwak, aby wybrać wartość, która najlepiej opisuje Twoją reakcję na każde pytanie."
         )
-        instructions_label.setStyleSheet("font-size: 18px; color: #BBBBBB; padding: 10px; font-weight: bold;")
+        font = QFont()
+        font.setPointSize(12)  # Ustawienie dużego rozmiaru czcionki
+        font.setBold(True)
+        instructions_label.setFont(font)
+
+        instructions_label.setStyleSheet("""
+            color: #BBBBBB; 
+            background-color: transparent;
+        """)
+
         instructions_label.setAlignment(Qt.AlignCenter)
+
         main_layout.addWidget(instructions_label)
 
         # Layout formularza
@@ -42,16 +55,16 @@ class MisophoniaWindow(QWidget):
 
         # Lista pytań
         questions = [
-            "How uncomfortable do you feel when you hear whispering sounds?",
-            "How distressing are soft-spoken voices for you?",
-            "How annoying or upsetting do you find sounds like tapping or crinkling?",
-            "How strong is your emotional reaction to mouth sounds (e.g., chewing, lip smacking, clicking)?",
-            "How tense or anxious do repetitive sounds like whispering or crisp noises make you feel?",
-            "How often do you feel a physical reaction (e.g., discomfort, irritation) to these types of sounds?",
-            "How likely are you to avoid situations or content with these sounds?",
-            "How much do these sounds interfere with your ability to focus or relax?",
-            "How strong is your urge to leave or cover your ears when hearing these sounds?",
-            "How negatively do these sounds impact your mood (e.g., causing frustration or anger)?"
+            "Jak bardzo niekomfortowo czujesz się, gdy słyszysz szepty?",
+            "Jak bardzo niepokojące są dla Ciebie ciche głosy?",
+            "Jak irytujące lub nieprzyjemne są dla Ciebie dźwięki takie jak stukanie lub szeleszczenie?",
+            "Jak silna jest Twoja emocjonalna reakcja na dźwięki ust (np. żucie, mlaskanie, klikanie językiem)?",
+            "Jak bardzo powtarzające się dźwięki, takie jak szepty lub chrupiące odgłosy, sprawiają, że czujesz się niespokojny?",
+            "Jak często odczuwasz fizyczną reakcję (np. dyskomfort, podrażnienie) na tego typu dźwięki?",
+            "Jak bardzo starasz się unikać sytuacji lub treści zawierających te dźwięki?",
+            "W jakim stopniu te dźwięki zakłócają Twoją zdolność do skupienia się lub relaksu?",
+            "Jak silna jest Twoja potrzeba opuszczenia miejsca lub zakrycia uszu, gdy słyszysz te dźwięki?",
+            "Jak negatywnie te dźwięki wpływają na Twój nastrój (np. powodując frustrację lub złość)?"
         ]
 
         self.responses = []  # Przechowywanie odpowiedzi użytkownika
@@ -63,6 +76,8 @@ class MisophoniaWindow(QWidget):
         scroll_widget.setLayout(form_layout)
         scroll_widget.setStyleSheet("background-color: #BBBBBB")
         scroll_area.setWidget(scroll_widget)
+        scroll_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         scroll_area.setWidgetResizable(True)
         main_layout.addWidget(scroll_area)
 
@@ -70,7 +85,7 @@ class MisophoniaWindow(QWidget):
         button_layout = QHBoxLayout()
 
         # Przycisk "Back"
-        back_button = QPushButton("Back")
+        back_button = QPushButton("Wróć")
         back_button.setStyleSheet("""
                     QPushButton {
                         background-color: #f44336;
@@ -87,7 +102,7 @@ class MisophoniaWindow(QWidget):
         button_layout.addWidget(back_button, alignment=Qt.AlignLeft)
 
         # Przycisk "Submit"
-        submit_button = QPushButton("Submit")
+        submit_button = QPushButton("Dalej")
         submit_button.setStyleSheet("""
                     QPushButton {
                         background-color: #4CAF50;
