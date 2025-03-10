@@ -20,24 +20,19 @@ class StaiWindow(QWidget):
 
         # Główny layout
         main_layout = QVBoxLayout()
-        main_layout.setAlignment(Qt.AlignTop)
+        main_layout.setContentsMargins(0, 0, 0, 0)  # Usunięcie marginesów wokół layoutu
+        main_layout.setSpacing(2)  # Zmniejszenie odstępu między elementami
 
         # Tytuł
         title_label = QLabel("Kwestionariusz STAI")
-        title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")
+        title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")  # Brak paddingu
         title_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(title_label)
-
-        # Etykieta statusu ASMR
-        self.asm_label = QLabel()
-        self.asm_label.setStyleSheet("font-size: 16px; color: #BBBBBB; padding: 5px;")  # Jaśniejszy szary kolor
-        self.asm_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(self.asm_label)
 
         # Instrukcja ogólna nad oznaczeniami
         general_instruction_label = QLabel(
             "Odpowiedz na pytania zgodnie z poniższą skalą, wskazując, jak się czujesz.")
-        general_instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 10px;")
+        general_instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 0px;")
         general_instruction_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(general_instruction_label)
 

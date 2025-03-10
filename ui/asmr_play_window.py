@@ -2,7 +2,7 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
-from PySide6.QtCore import QUrl, Qt
+from PySide6.QtCore import QUrl, Qt, QCoreApplication
 from PySide6.QtGui import QFont
 from global_eye_tracker import global_eye_tracker  # Importujemy globalną instancję
 
@@ -47,20 +47,21 @@ class AsmrPlayWindow(QWidget):
         if asmr_enabled:
             self.instruction_label.setText(
                 "<p style='text-align: center;'>"
-                "Take a deep breath, relax, and get comfortable.<br>"
-                "The ASMR video will play shortly.<br><br>"
-                "<b>Press any key to start when you're ready.</b>"
+                "Weź głęboki oddech, zrelaksuj się i usiądź wygodnie.<br>"
+                "Film ASMR wkrótce się rozpocznie.<br><br>"
+                "<b>Naciśnij dowolny klawisz, aby rozpocząć, gdy będziesz gotowy.</b>"
                 "</p>"
             )
         else:
             self.instruction_label.setText(
                 "<p style='text-align: center;'>"
-                "Take a deep breath, relax, and get comfortable.<br>"
-                "The ASMR video will play shortly, accompanied by <b>Binaural Beats</b> in the background.<br><br>"
-                "Binaural Beats are auditory illusions that may enhance relaxation and focus.<br><br>"
-                "<b>Press any key to start when you're ready.</b>"
+                "Weź głęboki oddech, zrelaksuj się i usiądź wygodnie.<br>"
+                "Film ASMR wkrótce się rozpocznie, a w tle będą odtwarzane <b>dźwięki Binauralne</b>.<br><br>"
+                "Dźwięki binauralne to iluzje słuchowe, które mogą wspomóc relaksację i koncentrację.<br><br>"
+                "<b>Naciśnij dowolny klawisz, aby rozpocząć, gdy będziesz gotowy.</b>"
                 "</p>"
             )
+
 
         self.end_message_label = QLabel(self)
         self.end_message_label.setAlignment(Qt.AlignCenter)
@@ -68,9 +69,9 @@ class AsmrPlayWindow(QWidget):
         self.end_message_label.setFont(QFont("Arial", 20, QFont.Bold))
         self.end_message_label.setText(
             "<p style='text-align: center;'>"
-            "Thank you for watching the video.<br>"
-            "You will soon perform a task to check your concentration.<br><br>"
-            "<b>Press any key to continue.</b>"
+            "Dziękujemy za obejrzenie filmu.<br>"
+            "Wkrótce wykonasz zadanie sprawdzające Twoją koncentrację.<br><br>"
+            "<b>Naciśnij dowolny klawisz, aby kontynuować.</b>"
             "</p>"
         )
         self.end_message_label.setVisible(False)
@@ -87,6 +88,13 @@ class AsmrPlayWindow(QWidget):
         self.player.mediaStatusChanged.connect(self.on_video_finished)
 
     def keyPressEvent(self, event):
+        self.instruction_label.setText(
+            "<p style='text-align: center;'>"
+            "<b>Proszę czekać...</b>"
+            "</p>"
+        )
+        QCoreApplication.processEvents()
+
         """Rozpoczyna odtwarzanie wideo po naciśnięciu dowolnego klawisza."""
         if self.instruction_label.isVisible():
             self.instruction_label.hide()
@@ -98,7 +106,8 @@ class AsmrPlayWindow(QWidget):
             # Rozpoczynamy rejestrację – globalna instancja już została zainicjalizowana
             self.eye_tracker_recorder.start()
         elif self.end_message_label.isVisible():
-            self.main_app.show_ant_instructions()
+            # self.main_app.show_ant_instructions()
+            self.main_app.show_stai_post_ant()
             self.close()
 
     def on_video_finished(self, status):
@@ -108,4 +117,5 @@ class AsmrPlayWindow(QWidget):
             self.end_message_label.setVisible(True)
             if not self.asmr_enabled:
                 self.bb_player.stop()
+            #### TUTAJ ZROB ZMIANE NAPISU NA EKRANIE
             self.eye_tracker_recorder.process_session("asmr_play")

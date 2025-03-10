@@ -20,7 +20,7 @@ class TrialInProgressView(QWidget):
         self.layout.setAlignment(Qt.AlignCenter)
 
         # Wiadomość o trwającym teście
-        self.message_label = QLabel("Test in progress, please wait...")
+        self.message_label = QLabel("Test rozpoczyna się, proszę czekać...")
         self.message_label.setAlignment(Qt.AlignCenter)
         self.message_label.setStyleSheet("font-size: 24px; color: #333333; font-weight: bold; padding: 20px;")
         self.layout.addWidget(self.message_label)
@@ -28,16 +28,13 @@ class TrialInProgressView(QWidget):
     def show_completion_message(self):
         """Zmienia tekst na wiadomość o zakończeniu całego testu."""
         self.message_label.setText(
-            "Thank you for completing the ANT test.\n\n"
-            "Now, I would like to ask you to complete the STAI questionnaire once more\n"
-            "to evaluate how your mood has changed.\n\n"
-            "Please take your time and answer the questions thoughtfully.\n\n"
-            "Press any key to continue."
+            "Dziękujemy za ukończenie testu ANT.\n\n"
+            "Naciśnij dowolny klawisz, aby kontynuować."
         )
 
     def keyPressEvent(self, event):
         """Obsługuje naciśnięcie klawisza po zakończeniu testu."""
-        if "Thank you for completing the ANT test" in self.message_label.text():
+        if "Dziękujemy za ukończenie testu ANT." in self.message_label.text():
             self.main_app.show_stai_post_ant()  # Przejście do STAI Post-ANT Window
 
     def start_test(self):

@@ -21,11 +21,11 @@ class SecondView(QWidget):
         # Główna instrukcja
         instruction_text = QLabel(
             "<h1 style='text-align: center;'>Instruction</h1>"
-            "<p style='font-size: 18px; text-align: center;'>A set of five arrows will be shown in the center of the screen.<br>"
-            "Your task consists of determining which direction the central arrow is pointing.</p>"
+            "<p style='font-size: 18px; text-align: center;'>Na środku ekranu pojawi się zestaw pięciu strzałek.<br>"
+            "Twoim zadaniem jest określenie, w którą stronę wskazuje środkowa strzałka.</p>"
             "<p style='font-size: 20px; text-align: center; font-weight: bold;'>"
-            "[C] if the central arrow points to the <b>LEFT</b><br>"
-            "[M] if the central arrow points to the <b>RIGHT</b></p>"
+            "[←] jeśli środkowa strzałka wskazuje na <b>LEWO</b><br>"
+            "[→] jeśli środkowa strzałka wskazuje na <b>PRAWO</b></p>"
         )
         instruction_text.setAlignment(Qt.AlignCenter)
         layout.addWidget(instruction_text)
@@ -36,7 +36,7 @@ class SecondView(QWidget):
         example_left.setAlignment(Qt.AlignCenter)
         layout.addWidget(example_left)
 
-        example_left_text = QLabel("You should press the <b>[C]</b>-key in the example above.")
+        example_left_text = QLabel("Powinieneś nacisnąć klawisz <b>[←]</b> w powyższym przykładzie")
         example_left_text.setAlignment(Qt.AlignCenter)
         example_left_text.setStyleSheet("font-size: 16px;")
         layout.addWidget(example_left_text)
@@ -47,13 +47,13 @@ class SecondView(QWidget):
         example_right.setAlignment(Qt.AlignCenter)
         layout.addWidget(example_right)
 
-        example_right_text = QLabel("and you would press the <b>[M]</b>-key in this example:")
+        example_right_text = QLabel("a w tym przykładzie powinieneś nacisnąć klawisz <b>[→]</b>.")
         example_right_text.setAlignment(Qt.AlignCenter)
         example_right_text.setStyleSheet("font-size: 16px;")
         layout.addWidget(example_right_text)
 
         # Tekst kontynuacji
-        continue_text = QLabel("<b>Press a key to continue reading instructions ...</b>")
+        continue_text = QLabel("<b>Naciśnij klawisz, aby kontynuować czytanie instrukcji ...</b>")
         continue_text.setAlignment(Qt.AlignCenter)
         continue_text.setStyleSheet("font-size: 18px; color: #333333; padding-top: 20px;")
         layout.addWidget(continue_text)

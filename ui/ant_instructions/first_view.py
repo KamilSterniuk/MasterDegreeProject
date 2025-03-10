@@ -21,9 +21,9 @@ class FirstView(QWidget):
         layout.addSpacerItem(QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         instruction_text = QLabel(
-            "Before beginning the experiment\n"
-            "please read the instructions carefully\n\n"
-            "Press a key to continue reading instructions ..."
+            "Przed rozpoczęciem eksperymentu\n"
+            "proszę uważnie przeczytać instrukcje\n\n"
+            "Naciśnij klawisz, aby kontynuować czytanie instrukcji ..."
         )
         instruction_text.setAlignment(Qt.AlignCenter)
         instruction_text.setStyleSheet(

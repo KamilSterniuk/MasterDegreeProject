@@ -89,7 +89,7 @@ def show_target(target_type, position, y_position, feedback=True):
         if feedback and response != correct_response:
             feedback_text = visual.TextStim(
                 win,
-                text=f"Incorrect!\nCorrect answer: {correct_response.upper()}",
+                text=f"Niepoprawnie!\nPoprawna odpowiedź: {correct_response.upper()}",
                 color="red",
                 bold=True,
                 pos=(0, 0),
@@ -103,7 +103,7 @@ def show_target(target_type, position, y_position, feedback=True):
         if feedback:
             feedback_text = visual.TextStim(
                 win,
-                text=f"No response!\nCorrect answer: {correct_response.upper()}",
+                text=f"Brak odpowiedzi!\nPoprawna odpowiedź: {correct_response.upper()}",
                 color="red",
                 bold=True,
                 pos=(0, 0),
@@ -117,7 +117,7 @@ def show_target(target_type, position, y_position, feedback=True):
 
 def trial_ant_test():
     """Test próbny ANT"""
-    for _ in range(10):  # 10 prób
+    for _ in range(5):  # 10 prób
         fixation.draw()
         win.flip()
         core.wait(random.uniform(0.4, 1.6))
@@ -132,7 +132,7 @@ def trial_ant_test():
     # Komunikat po zakończeniu testu próbnego
     end_message = visual.TextStim(
         win,
-        text="Thank you for completing the trial.\n\nPress any key to continue to the main test.",
+        text="Dziękujemy za ukończenie testu próbnego.\n\nNaciśnij dowolny klawisz, aby przejść do głównego testu.",
         color="black",
         bold=True,
         pos=(0, 0),
@@ -164,7 +164,7 @@ def main_ant_test():
         os.makedirs(target_folder)
     csv_file_path = os.path.join(target_folder, "ant_results.csv")
 
-    for trial_num in range(144):  # 10 prób
+    for trial_num in range(5):  # 10 prób
         fixation.draw()
         win.flip()
         core.wait(random.uniform(0.4, 1.6))

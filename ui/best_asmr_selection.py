@@ -27,7 +27,7 @@ class BestVideosGridWindow(QWidget):
         self.setPalette(palette)
         self.setAutoFillBackground(True)
 
-        instruction_label = QLabel("Please select the video you liked the most:")
+        instruction_label = QLabel("Proszę wybierz film, który spodobał Ci się najbardziej:")
         instruction_label.setStyleSheet("font-size: 18px; font-weight: bold; color: white;")
         instruction_label.setAlignment(Qt.AlignCenter)
 
@@ -47,7 +47,7 @@ class BestVideosGridWindow(QWidget):
             thumbnail_label.setAlignment(Qt.AlignCenter)
 
             # Przycisk wyboru filmu
-            select_button = QPushButton(f"Select Video {video_idx + 1}")
+            select_button = QPushButton(f"Wybierz film {video_idx + 1}")
             select_button.setStyleSheet("background-color: #4CAF50; color: white; font-size: 14px; padding: 5px;")
             select_button.clicked.connect(lambda _, idx=video_idx: self.select_video(idx))
 
@@ -71,7 +71,7 @@ class BestVideosGridWindow(QWidget):
         main_layout.addLayout(grid_layout)
 
         # Przycisk powrotu
-        back_button = QPushButton("Back")
+        back_button = QPushButton("Wróć")
         back_button.setStyleSheet("background-color: #f44336; color: white; font-size: 16px; padding: 10px;")
         back_button.clicked.connect(self.go_back)
         main_layout.addWidget(back_button, alignment=Qt.AlignRight)

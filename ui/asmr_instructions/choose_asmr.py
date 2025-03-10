@@ -24,7 +24,7 @@ class IntroChooseWindow(QWidget):
         layout.setAlignment(Qt.AlignCenter)  # Wyśrodkowanie wszystkiego
 
         # Nagłówek
-        header_label = QLabel("Final Selection of the Best ASMR Video")
+        header_label = QLabel("Ostateczny wybór najlepszego filmu ASMR")
         header_label.setAlignment(Qt.AlignCenter)
         header_label.setStyleSheet("color: white; font-weight: bold;")
         header_label.setFont(QFont("Arial", 22))
@@ -33,10 +33,10 @@ class IntroChooseWindow(QWidget):
         # Treść instrukcji z użyciem HTML
         instructions = """
         <p style='font-size: 18px; color: #BBBBBB; text-align: center;'>
-        You have rated several ASMR videos with the <b>highest score</b>. Now, in this final step,<br>
-        you are asked to select <b>one video</b> that you believe is the best among them.<br><br>
-        Carefully review the available options and make your selection.<br><br>
-        <b>Press any key to proceed to the final selection screen.</b>
+        Oceniono kilka filmów ASMR <b>najwyższą oceną</b>. Teraz, w tym ostatnim kroku,<br>
+        zostaniesz poproszony o wybranie jednego filmu, który uważasz za najlepszy spośród nich.<br><br>
+        Dokładnie przejrzyj dostępne opcje i dokonaj wyboru.<br><br>
+        <b>Naciśnij dowolny klawisz, aby przejść do ekranu ostatecznego wyboru.</b>
         </p>
         """
         instruction_label = QLabel()

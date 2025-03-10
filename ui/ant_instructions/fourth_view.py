@@ -18,7 +18,7 @@ class FourthView(QWidget):
         # Spacer na górze
         layout.addSpacerItem(QSpacerItem(20, 50, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        instruction_text = QLabel("In the center of the screen a cross will appear")
+        instruction_text = QLabel("Na środku ekranu pojawi się krzyż:")
         instruction_text.setAlignment(Qt.AlignCenter)
         instruction_text.setStyleSheet("font-size: 18px; color: #333333; padding-bottom: 10px;")
         layout.addWidget(instruction_text)
@@ -30,10 +30,10 @@ class FourthView(QWidget):
         layout.addWidget(cross_image)
 
         bottom_text = QLabel(
-            "The arrows will appear above or below the cross.<br><br>"
-            "You should fix your gaze on this cross<br>"
-            "throughout the entire experiment.<br><br>"
-            "<b>Press a key to continue reading instructions ...</b>"
+            "Strzałki pojawią się powyżej lub poniżej krzyża.<br><br>"
+            "Powinieneś skupić wzrok na tym krzyżu<br>"
+            "przez cały czas trwania eksperymentu.<br><br>"
+            "<b>Naciśnij klawisz, aby kontynuować czytanie instrukcji ...</b>"
         )
         bottom_text.setAlignment(Qt.AlignCenter)
         bottom_text.setStyleSheet("font-size: 18px; color: #333333;")

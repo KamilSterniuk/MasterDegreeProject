@@ -21,17 +21,17 @@ class FifthView(QWidget):
 
         # Główna instrukcja
         instruction_text = QLabel(
-            "<h1 style='text-align: center;'>Get Ready</h1>"
-            "<p style='font-size: 18px; text-align: center;'>You are now about to perform a training ANT test<br>"
-            "to get familiar with the task.</p>"
-            "<p style='font-size: 16px; text-align: center;'>Please pay attention and follow the instructions<br>"
-            "as this will help you prepare for the actual test.</p>"
+            "<h1 style='text-align: center;'>Przygotuj się</h1>"
+            "<p style='font-size: 18px; text-align: center;'>Zaraz wykonasz próbny test ANT,<br>"
+            "aby zapoznać się z zadaniem.</p>"
+            "<p style='font-size: 16px; text-align: center;'>Proszę uważnie śledzić polecenia,<br>"
+            "ponieważ pomoże to w przygotowaniu do właściwego testu.</p>"
         )
         instruction_text.setAlignment(Qt.AlignCenter)
         layout.addWidget(instruction_text)
 
         # Tekst kontynuacji
-        continue_text = QLabel("<b>Press any key to start the trial test ...</b>")
+        continue_text = QLabel("<b>Naciśnij dowolny klawisz, aby rozpocząć próbny test ...</b>")
         continue_text.setAlignment(Qt.AlignCenter)
         continue_text.setStyleSheet("font-size: 18px; color: #333333; padding-top: 20px;")
         layout.addWidget(continue_text)

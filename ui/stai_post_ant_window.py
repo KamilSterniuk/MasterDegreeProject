@@ -1,10 +1,11 @@
+from PySide6.QtGui import QPalette, QColor
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QScrollArea, \
+    QPushButton, QFormLayout, QFrame, QHBoxLayout
+from PySide6.QtCore import Qt
 import csv
 import os
 
-from PySide6.QtGui import QPalette, QColor
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QRadioButton, QButtonGroup, QScrollArea, \
-    QPushButton, QFormLayout, QFrame
-from PySide6.QtCore import Qt
+
 
 
 class StaiPostAntWindow(QWidget):
@@ -12,61 +13,58 @@ class StaiPostAntWindow(QWidget):
         super().__init__()
         self.main_app = main_app
 
-        # Ustawienie ciemnego tła dla całego okna (z wyjątkiem `form_layout`)
+        # Ustawienie ciemnego tła
         palette = self.palette()
-        palette.setColor(QPalette.Window, QColor("#2E2E2E"))  # Ciemnoszare tło
+        palette.setColor(QPalette.Window, QColor("#2E2E2E"))
         self.setPalette(palette)
         self.setAutoFillBackground(True)
 
         # Główny layout
-        main_layout = QVBoxLayout()
-        main_layout.setAlignment(Qt.AlignTop)
+        self.main_layout = QVBoxLayout()
+        self.main_layout.setAlignment(Qt.AlignCenter)
+
 
         # Tytuł
         title_label = QLabel("STAI Post-ANT Questionnaire")
         title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")
         title_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(title_label)
+        self.main_layout.addWidget(title_label)
 
-        # Etykieta statusu ASMR
-        self.asm_label = QLabel()
-        self.asm_label.setStyleSheet("font-size: 16px; color: #BBBBBB; padding: 5px;")  # Jaśniejszy szary kolor
-        self.asm_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(self.asm_label)
-
-        # Instrukcja ogólna nad oznaczeniami
-        general_instruction_label = QLabel(
-            "Answer the questions according to the following scale, indicating how you feel."
+        # Etykieta informacyjna przed ankietą
+        self.info_label = QLabel(
+            "<p style='text-align: center; font-size: 18px; color: white;'>"
+            "Proszę ponownie wypełnić kwestionariusz STAI,<br>"
+            "aby sprawdzić, jak zmieniło się Twoje samopoczucie.<br><br>"
+            "<b>Naciśnij dowolny klawisz, aby kontynuować.</b>"
+            "</p>"
         )
-        general_instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 10px;")
-        general_instruction_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(general_instruction_label)
+        self.info_label.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(self.info_label)
 
-        # Instrukcja dla przycisków radiowych jako jeden wiersz
-        instruction_label = QLabel("1: Not at all    2: A little    3: Somewhat    4: Very Much So")
-        instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 5px;")
-        instruction_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(instruction_label)
+        # Layout dla ankiety (początkowo ukryty)
+        self.scroll_area = QScrollArea()
+        self.scroll_widget = QWidget()
+        self.form_layout = QFormLayout()
+        self.scroll_widget.setLayout(self.form_layout)
+        self.scroll_area.setWidget(self.scroll_widget)
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setVisible(False)  # Ukrywamy formularz na początku
+        self.main_layout.addWidget(self.scroll_area)
 
         # Lista pytań STAI
         questions = [
-            "I feel calm", "I feel secure", "I feel tense", "I feel strained", "I feel at ease",
-            "I feel upset", "I am presently worrying over possible misfortunes", "I feel satisfied",
-            "I feel frightened", "I feel uncomfortable", "I feel self-confident", "I feel nervous",
-            "I feel jittery", "I feel indecisive", "I am relaxed", "I feel content", "I am worried",
-            "I feel confused", "I feel steady", "I feel pleasant"
+            "Czuję się spokojny", "Czuję się bezpiecznie", "Czuję się spięty", "Czuję się nienaturalnie", "Czuję się swobodnie",
+            "Czuję się zdenerwowany", "Obecnie martwię się możliwymi niepowodzeniami", "Czuję się usatysfakcjonowany",
+            "Czuję się przestraszony", "Czuję się niekomfortowo", "Czuję się pewny siebie", "Czuję się nerwowo",
+            "Czuję się roztrzęsiony", "Czuję się niezdecydowany", "Jestem zrelaksowany", "Czuję się zadowolony", "Jestem zmartwiony",
+            "Czuję się zdezorientowany", "Czuję się stabilnie", "Czuję się przyjemnie"
         ]
 
-        # Layout formularza
-        form_layout = QFormLayout()
-
-        # Dodanie pytań, opcji odpowiedzi i poziomej linii
+        # Tworzenie pytań i odpowiedzi
         self.button_groups = []
         for i, question in enumerate(questions, start=1):
             question_label = QLabel(f"{i}. {question}")
-            question_label.setStyleSheet(
-                "color: #333333; font-size: 18px; padding-right: 10px;"
-            )
+            question_label.setStyleSheet("color: #333333; font-size: 18px; padding-right: 10px; background-color: #BBBBBB")
 
             button_group = QButtonGroup(self)
             button_layout = QHBoxLayout()
@@ -74,39 +72,27 @@ class StaiPostAntWindow(QWidget):
 
             for j in range(1, 5):
                 radio_button = QRadioButton(str(j))
-                radio_button.setStyleSheet(
-                    "color: #333333; font-size: 16px; padding: 3px;"
-                )
+                radio_button.setStyleSheet("color: #333333; font-size: 16px; padding: 3px;")
                 radio_button.toggled.connect(self.check_all_answers_filled)
                 button_group.addButton(radio_button)
                 button_layout.addWidget(radio_button)
 
             self.button_groups.append(button_group)
+            self.form_layout.addRow(question_label, button_layout)
 
-            # Dodanie pytania i opcji do layoutu
-            form_layout.addRow(question_label, button_layout)
-
-            # Dodanie poziomej linii
+            # Linia oddzielająca pytania
             line = QFrame()
             line.setFrameShape(QFrame.HLine)
             line.setFrameShadow(QFrame.Sunken)
             line.setStyleSheet("color: #CCCCCC;")
-            form_layout.addRow(line)
-
-        # Dodanie form layout do scroll area
-        scroll_area = QScrollArea()
-        scroll_widget = QWidget()
-        scroll_widget.setLayout(form_layout)
-        scroll_area.setWidget(scroll_widget)
-        scroll_area.setWidgetResizable(True)
-        main_layout.addWidget(scroll_area)
+            self.form_layout.addRow(line)
 
         # Layout dla przycisków "Back" i "Submit"
-        button_layout = QHBoxLayout()
+        self.button_layout = QHBoxLayout()
 
         # Przycisk "Back"
-        back_button = QPushButton("Back")
-        back_button.setStyleSheet("""
+        self.back_button = QPushButton("Back")
+        self.back_button.setStyleSheet("""
             QPushButton {
                 background-color: #f44336;
                 color: white;
@@ -118,10 +104,11 @@ class StaiPostAntWindow(QWidget):
                 background-color: #d32f2f;
             }
         """)
-        back_button.clicked.connect(self.main_app.show_trial_in_progress)
-        button_layout.addWidget(back_button, alignment=Qt.AlignLeft)
+        self.back_button.clicked.connect(self.main_app.show_trial_in_progress)
+        self.button_layout.addWidget(self.back_button, alignment=Qt.AlignLeft)
+        self.back_button.setVisible(False)  # Ukrywamy przycisk na początku
 
-        # Przycisk "Submit" (ukryty do czasu wypełnienia wszystkich odpowiedzi)
+        # Przycisk "Submit"
         self.submit_button = QPushButton("Submit")
         self.submit_button.setStyleSheet("""
             QPushButton {
@@ -137,66 +124,48 @@ class StaiPostAntWindow(QWidget):
         """)
         self.submit_button.clicked.connect(self.submit_answers)
         self.submit_button.setVisible(False)
-        button_layout.addWidget(self.submit_button, alignment=Qt.AlignRight)
+        self.button_layout.addWidget(self.submit_button, alignment=Qt.AlignRight)
 
-        # Dodanie układu przycisków do głównego layoutu
-        main_layout.addLayout(button_layout)
+        self.main_layout.addLayout(self.button_layout)
+        self.setLayout(self.main_layout)
 
-        self.setLayout(main_layout)
+    def keyPressEvent(self, event):
+        """Obsługuje naciśnięcie klawisza, aby przejść do ankiety."""
+        self.show_questionnaire()
 
-    def update_asmr_status(self, asmr_enabled):
-        asmr_status = "ASMR Mode is ON" if asmr_enabled else "ASMR Mode is OFF"
-        self.asm_label.setText(f"ASMR Status: {asmr_status}")
+    def show_questionnaire(self):
+        """Ukrywa ekran informacyjny i pokazuje kwestionariusz."""
+        self.info_label.setVisible(False)
+        self.scroll_area.setVisible(True)
+        self.back_button.setVisible(True)
+        self.submit_button.setVisible(True)
 
     def check_all_answers_filled(self):
-        # Sprawdzenie, czy wszystkie pytania mają odpowiedź
+        """Sprawdzenie, czy wszystkie pytania mają odpowiedź."""
         all_answered = all(group.checkedButton() is not None for group in self.button_groups)
         self.submit_button.setVisible(all_answered)
 
     def submit_answers(self):
-        # Collect answers
-        answers = []
-        for group in self.button_groups:
-            selected_button = group.checkedButton()
-            if selected_button:
-                answers.append(selected_button.text())
-            else:
-                answers.append("No response")
-
-        print("STAI Post-ANT Answers:", answers)
-
+        """Zapisanie odpowiedzi i przejście do ekranu końcowego."""
+        answers = [group.checkedButton().text() if group.checkedButton() else "No response" for group in self.button_groups]
         self.save_stai_data_to_csv(answers)
-
-        # Transition to the end-of-study screen
         self.main_app.show_end_of_study()
 
     def save_stai_data_to_csv(self, answers):
-        """Zapisuje odpowiedzi STAI do pliku CSV w katalogu o najwyższym numerze."""
+        """Zapisuje odpowiedzi STAI do pliku CSV."""
         results_dir = "results"
+        os.makedirs(results_dir, exist_ok=True)
 
-        if not os.path.exists(results_dir):
-            print("Results directory does not exist.")
-            return
-
-        # Znalezienie katalogu o najwyższym numerze
-        existing_folders = [
-            folder for folder in os.listdir(results_dir) if folder.startswith("example") and folder[7:].isdigit()
-        ]
-        if not existing_folders:
-            print("No example directories found in results.")
-            return
-
-        max_number = max(int(folder[7:]) for folder in existing_folders)
+        existing_folders = [folder for folder in os.listdir(results_dir) if folder.startswith("example") and folder[7:].isdigit()]
+        max_number = max([int(folder[7:]) for folder in existing_folders], default=0)
         target_folder = os.path.join(results_dir, f"example{max_number}")
 
-        # Ścieżka do pliku CSV
         csv_file_path = os.path.join(target_folder, "stai_post_ant_data.csv")
 
-        # Zapis danych do pliku CSV
-        with open(csv_file_path, mode="w", newline='', encoding="utf-8") as csv_file:
-            writer = csv.writer(csv_file, delimiter=';')  # Ustawienie separatora na ';'
-            writer.writerow(["Question", "Answer"])  # Nagłówki
+        with open(csv_file_path, "w", newline='', encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file, delimiter=';')
+            writer.writerow(["Question", "Answer"])
             for i, answer in enumerate(answers, start=1):
-                writer.writerow([f"Q{i}", answer])  # Zapis pytań i odpowiedzi
+                writer.writerow([f"Q{i}", answer])
 
         print(f"STAI data saved to {csv_file_path}")
