@@ -23,7 +23,7 @@ class StaiWindow(QWidget):
         main_layout.setAlignment(Qt.AlignTop)
 
         # Tytuł
-        title_label = QLabel("STAI Questionnaire")
+        title_label = QLabel("Kwestionariusz STAI")
         title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")
         title_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(title_label)
@@ -36,24 +36,24 @@ class StaiWindow(QWidget):
 
         # Instrukcja ogólna nad oznaczeniami
         general_instruction_label = QLabel(
-            "Answer the questions according to the following scale, indicating how you feel.")
+            "Odpowiedz na pytania zgodnie z poniższą skalą, wskazując, jak się czujesz.")
         general_instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 10px;")
         general_instruction_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(general_instruction_label)
 
         # Instrukcja dla przycisków radiowych jako jeden wiersz
-        instruction_label = QLabel("1: Not at all    2: A little    3: Somewhat    4: Very Much So")
+        instruction_label = QLabel("1: Wcale 2: Trochę 3: Umiarkowanie 4: Bardzo")
         instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 5px;")
         instruction_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(instruction_label)
 
         # Lista pytań STAI
         questions = [
-            "I feel calm", "I feel secure", "I feel tense", "I feel strained", "I feel at ease",
-            "I feel upset", "I am presently worrying over possible misfortunes", "I feel satisfied",
-            "I feel frightened", "I feel uncomfortable", "I feel self-confident", "I feel nervous",
-            "I feel jittery", "I feel indecisive", "I am relaxed", "I feel content", "I am worried",
-            "I feel confused", "I feel steady", "I feel pleasant"
+            "Czuję się spokojny", "Czuję się bezpiecznie", "Czuję się spięty", "Czuję się nienaturalnie", "Czuję się swobodnie",
+            "Czuję się zdenerwowany", "Obecnie martwię się możliwymi niepowodzeniami", "Czuję się usatysfakcjonowany",
+            "Czuję się przestraszony", "Czuję się niekomfortowo", "Czuję się pewny siebie", "Czuję się nerwowo",
+            "Czuję się roztrzęsiony", "Czuję się niezdecydowany", "Jestem zrelaksowany", "Czuję się zadowolony", "Jestem zmartwiony",
+            "Czuję się zdezorientowany", "Czuję się stabilnie", "Czuję się przyjemnie"
         ]
 
         # Layout formularza - pozostaje bez zmian
@@ -103,7 +103,7 @@ class StaiWindow(QWidget):
         button_layout = QHBoxLayout()
 
         # Przycisk "Back"
-        back_button = QPushButton("Back")
+        back_button = QPushButton("Wróć")
         back_button.setStyleSheet("""
             QPushButton {
                 background-color: #f44336;
@@ -120,7 +120,7 @@ class StaiWindow(QWidget):
         button_layout.addWidget(back_button, alignment=Qt.AlignLeft)
 
         # Przycisk "Submit" (ukryty do czasu wypełnienia wszystkich odpowiedzi)
-        self.submit_button = QPushButton("Submit")
+        self.submit_button = QPushButton("Dalej")
         self.submit_button.setStyleSheet("""
             QPushButton {
                 background-color: #4CAF50;

@@ -21,7 +21,7 @@ class IntroWindow(QWidget):
         layout.setAlignment(Qt.AlignCenter)  # Wyśrodkowanie wszystkiego
 
         # Nagłówek
-        header_label = QLabel("Welcome to the ASMR Video Evaluation")
+        header_label = QLabel("Witamy w segmenicie oceny wideo ASMR")
         header_label.setAlignment(Qt.AlignCenter)
         header_label.setStyleSheet("color: white; font-weight: bold;")
         header_label.setFont(QFont("Arial", 22))
@@ -30,21 +30,21 @@ class IntroWindow(QWidget):
         # Treść instrukcji z użyciem HTML
         instructions = """
         <p style='font-size: 18px; color: #BBBBBB; text-align: center;'>
-        <b>ASMR</b> (Autonomous Sensory Meridian Response) is a relaxing, tingling sensation<br>
-        often triggered by specific sounds, visuals, or personal attention stimuli.<br><br>
-        In this task, you will be presented with <b>7 short ASMR videos</b>. Your goal is to evaluate each<br>
-        video based on your personal preference. Please consider the following:<br>
+        <b>ASMR</b> (Autonomous Sensory Meridian Response) to relaksujące, przyjemne mrowienie,<br>
+        które często jest wywoływane przez określone dźwięki, obrazy lub bodźce związane z osobistą uwagą.<br><br>
+        W tym zadaniu zostaną Ci zaprezentowane <b>7 krótkich filmów ASMR</b>. Twoim celem jest ocena każdego<br>
+        filmu na podstawie własnych preferencji. Weź pod uwagę następujące aspekty:<br>
         <ul style='text-align: left;'>
-            <li>Visual and auditory quality.</li>
-            <li>How much you enjoyed the video.</li>
+            <li>Jakość wizualna i dźwiękowa.</li>
+            <li>Poziom przyjemności, jaką odczuwałeś podczas oglądania.</li>
         </ul>
         <br>
-        Use the rating scale from <b>0</b> to <b>10</b>:<br>
-        <b>0:</b> Strongly disliked<br>
-        <b>5:</b> Neutral<br>
-        <b>10:</b> Highly preferred<br><br>
-        After rating all videos, you will proceed to the next phase of the experiment.<br><br>
-        <b>Press any key to continue.</b>
+        Użyj skali ocen od <b>0</b> do <b>10</b>:<br>
+        <b>0:</b> Zdecydowanie nie podobało się<br>
+        <b>5:</b> Neutralne odczucia<br>
+        <b>10:</b> Bardzo się podobało<br><br>
+        Po ocenieniu wszystkich filmów przejdziesz do następnej fazy eksperymentu.<br><br>
+        <b>Naciśnij dowolny klawisz, aby kontynuować.</b>
         </p>
         """
         instruction_label = QLabel()

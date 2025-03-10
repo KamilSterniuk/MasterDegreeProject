@@ -20,7 +20,7 @@ class AsmrSelectWindow(QWidget):
         self.setAutoFillBackground(True)
 
         # Etykieta instrukcji
-        instruction_label = QLabel("Please play the ASMR videos and rate each one from 0 to 10.")
+        instruction_label = QLabel("Odtwórz filmy ASMR i oceń każdy z nich w skali od 0 do 10.")
         instruction_label.setStyleSheet("font-size: 14px; font-weight: bold; color: white;")
         instruction_label.setAlignment(Qt.AlignCenter)
 
@@ -78,17 +78,17 @@ class AsmrSelectWindow(QWidget):
             thumbnail_label.setMinimumSize(400, 225)
 
             # Przycisk Play i Pause
-            play_button = QPushButton("Play")
+            play_button = QPushButton("Start")
             play_button.setStyleSheet("background-color: #4CAF50; color: white; font-size: 14px; padding: 5px;")
             play_button.clicked.connect(
                 lambda _, p=player, url=video_urls[i], t=thumbnail_label, v=video_widget: self.play_video(p, url, t, v))
 
-            pause_button = QPushButton("Pause")
+            pause_button = QPushButton("Pauza")
             pause_button.setStyleSheet("background-color: #f44336; color: white; font-size: 14px; padding: 5px;")
             pause_button.clicked.connect(player.pause)
 
             # Pole oceny z etykietą
-            rating_label = QLabel(f"Rating: 0")
+            rating_label = QLabel(f"Ocena: 0")
             rating_label.setStyleSheet("color: white; font-size: 14px;")
             self.rating_labels.append(rating_label)
 
@@ -124,8 +124,8 @@ class AsmrSelectWindow(QWidget):
             grid_layout.setColumnStretch(col, 1)
 
         self.headphones_group = QButtonGroup(self)
-        self.classic_headphones = QRadioButton("Classic Headphones")
-        self.bone_conduction = QRadioButton("Bone Conduction Headphones")
+        self.classic_headphones = QRadioButton("Klasyczne słuchawki")
+        self.bone_conduction = QRadioButton("Słuchawki z przewodnictwem kostnym")
         self.headphones_group.addButton(self.classic_headphones)
         self.headphones_group.addButton(self.bone_conduction)
 
@@ -139,7 +139,7 @@ class AsmrSelectWindow(QWidget):
         # radio_layout.addWidget(self.bone_conduction)
 
         # Przycisk Confirm
-        self.confirm_button = QPushButton("Confirm")
+        self.confirm_button = QPushButton("Dalej")
         self.confirm_button.setStyleSheet("background-color: grey; color: white; font-size: 16px; padding: 10px;")
         self.confirm_button.setEnabled(False)
         self.confirm_button.clicked.connect(self.confirm_selection)
@@ -175,7 +175,7 @@ class AsmrSelectWindow(QWidget):
     def update_rating(self, index, value):
         # Aktualizuje ocenę i tekst etykiety
         self.ratings[index] = value
-        self.rating_labels[index].setText(f"Rating: {value}")
+        self.rating_labels[index].setText(f"Ocena: {value}")
 
     def confirm_selection(self):
         for player, _, _ in self.players:

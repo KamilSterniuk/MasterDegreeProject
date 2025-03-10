@@ -42,7 +42,7 @@ class SurveyWindow(QWidget):
         instructions_label.setTextFormat(Qt.TextFormat.RichText)  # Użycie HTML dla formatowania
         instructions_label.setText(
             "<p style='font-size: 20px; color: #BBBBBB; text-align: center;'>"
-            "Dziękujemy za udział w <b>Badaniu Koncentracji Uwagowej</b>, które wykorzystuje Eye-Tracking i "
+            "Dziękujemy za udział w <b>Badaniu Koncentracji Uwagi</b>, które wykorzystuje Eye-Tracking i "
             "EEG do lepszego zrozumienia skupienia i zaangażowania poznawczego.<br><br>"
             "Przed rozpoczęciem wypełnisz krótką ankietę, w której poprosimy Cię o podanie następujących informacji:"
             "<ul style='text-align: left;'>"

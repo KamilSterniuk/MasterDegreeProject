@@ -19,7 +19,7 @@ class StaiInstructionWindow(QWidget):
         main_layout.setAlignment(Qt.AlignCenter)
 
         # Tytuł
-        title_label = QLabel("Instructions for the STAI Questionnaire")
+        title_label = QLabel("Instrukcje do Kwestionariusza STAI")
         title_label.setStyleSheet("font-size: 28px; font-weight: bold; color: white; padding: 20px;")
         title_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(title_label)
@@ -29,18 +29,18 @@ class StaiInstructionWindow(QWidget):
         instructions_label.setTextFormat(Qt.TextFormat.RichText)  # Użycie HTML dla formatowania
         instructions_label.setText(
             "<p style='font-size: 20px; color: #BBBBBB; text-align: center;'>"
-            "The <b>State-Trait Anxiety Inventory (STAI)</b> is a self-evaluation questionnaire designed to assess "
-            "how you feel at the moment.<br><br>"
-            "You will answer <b>20 questions</b> about your current feelings. "
-            "For each question, select the answer that best describes your experience, using the following scale:<br>"
+            "<b>State-Trait Anxiety Inventory (STAI)</b> to kwestionariusz samooceny zaprojektowany do oceny tego, "
+            "jak się czujesz w danym momencie.<br><br>"
+            "Odpowiesz na <b>20 pytań</b> dotyczących Twojego aktualnego samopoczucia. "
+            "Dla każdego pytania wybierz odpowiedź, która najlepiej opisuje Twoje doświadczenie, korzystając z poniższej skali:<br>"
             "<ul style='text-align: left;'>"
-            "<li><b>1:</b> Not at all</li>"
-            "<li><b>2:</b> A little</li>"
-            "<li><b>3:</b> Somewhat</li>"
-            "<li><b>4:</b> Very much so</li>"
+            "<li><b>1:</b> Wcale</li>"
+            "<li><b>2:</b> Trochę</li>"
+            "<li><b>3:</b> Umiarkowanie</li>"
+            "<li><b>4:</b> Bardzo</li>"
             "</ul>"
-            "Please answer all questions honestly to ensure accurate results.<br><br>"
-            "<b>Press any key to proceed to the questionnaire.</b>"
+            "Prosimy o udzielanie szczerych odpowiedzi, aby zapewnić dokładność wyników.<br><br>"
+            "<b>Naciśnij dowolny klawisz, aby przejść do kwestionariusza.</b>"
             "</p>"
         )
         instructions_label.setAlignment(Qt.AlignCenter)
