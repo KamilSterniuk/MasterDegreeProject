@@ -149,7 +149,8 @@ class StaiPostAntWindow(QWidget):
         """Zapisanie odpowiedzi i przejście do ekranu końcowego."""
         answers = [group.checkedButton().text() if group.checkedButton() else "No response" for group in self.button_groups]
         self.save_stai_data_to_csv(answers)
-        self.main_app.show_end_of_study()
+        self.main_app.show_ant_instructions()
+        # self.main_app.show_end_of_study()
 
     def save_stai_data_to_csv(self, answers):
         """Zapisuje odpowiedzi STAI do pliku CSV."""
