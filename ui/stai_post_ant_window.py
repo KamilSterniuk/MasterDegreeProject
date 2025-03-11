@@ -25,7 +25,7 @@ class StaiPostAntWindow(QWidget):
 
 
         # Tytuł
-        title_label = QLabel("STAI Post-ANT Questionnaire")
+        title_label = QLabel("Kwesrionariusz STAI Post-ASMR")
         title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")
         title_label.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(title_label)
@@ -41,11 +41,27 @@ class StaiPostAntWindow(QWidget):
         self.info_label.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(self.info_label)
 
+        # Instrukcja ogólna nad oznaczeniami
+        self.general_instruction_label = QLabel(
+            "Odpowiedz na pytania zgodnie z poniższą skalą, wskazując, jak się czujesz.")
+        self.general_instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 0px;")
+        self.general_instruction_label.setVisible(False)
+        self.general_instruction_label.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(self.general_instruction_label)
+
+        # Instrukcja dla przycisków radiowych
+        self.instruction_label = QLabel("1: Wcale 2: Trochę 3: Umiarkowanie 4: Bardzo")
+        self.instruction_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #BBBBBB; padding: 5px;")
+        self.instruction_label.setVisible(False)
+        self.instruction_label.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(self.instruction_label)
+
         # Layout dla ankiety (początkowo ukryty)
         self.scroll_area = QScrollArea()
         self.scroll_widget = QWidget()
         self.form_layout = QFormLayout()
         self.scroll_widget.setLayout(self.form_layout)
+        self.scroll_widget.setStyleSheet("background-color: #BBBBBB;")
         self.scroll_area.setWidget(self.scroll_widget)
         self.scroll_area.setWidgetResizable(True)
         self.scroll_area.setVisible(False)  # Ukrywamy formularz na początku
@@ -136,9 +152,11 @@ class StaiPostAntWindow(QWidget):
     def show_questionnaire(self):
         """Ukrywa ekran informacyjny i pokazuje kwestionariusz."""
         self.info_label.setVisible(False)
+        self.general_instruction_label.setVisible(True)
+        self.instruction_label.setVisible(True)
         self.scroll_area.setVisible(True)
-        self.back_button.setVisible(True)
-        self.submit_button.setVisible(True)
+        self.back_button.setVisible(False)
+        self.submit_button.setVisible(False)
 
     def check_all_answers_filled(self):
         """Sprawdzenie, czy wszystkie pytania mają odpowiedź."""

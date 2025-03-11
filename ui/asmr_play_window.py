@@ -69,8 +69,7 @@ class AsmrPlayWindow(QWidget):
         self.end_message_label.setFont(QFont("Arial", 20, QFont.Bold))
         self.end_message_label.setText(
             "<p style='text-align: center;'>"
-            "Dziękujemy za obejrzenie filmu.<br>"
-            "Wkrótce wykonasz zadanie sprawdzające Twoją koncentrację.<br><br>"
+            "Dziękujemy za obejrzenie filmu.<br><br>"
             "<b>Naciśnij dowolny klawisz, aby kontynuować.</b>"
             "</p>"
         )

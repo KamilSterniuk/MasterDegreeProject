@@ -18,13 +18,13 @@ class EndOfStudyWindow(QWidget):
         self.setAutoFillBackground(True)
 
         # Thank you message
-        message_label = QLabel("Thank you for participating in the study!\nThis is the end of the test.")
+        message_label = QLabel("Dziękujemy za udział w badaniu")
         message_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 20px;")
         message_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(message_label)
 
         # Instruction to continue
-        continue_label = QLabel("Press any key to end...")
+        continue_label = QLabel("Naciśnij dowolny klawisz, aby zakończyć...")
         continue_label.setStyleSheet("font-size: 18px; color: #BBBBBB; padding: 10px;")
         continue_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(continue_label)
