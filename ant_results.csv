@@ -9,3 +9,7 @@ trial,cue_type,target_type,position,y_position,reaction_time,correct
 8,none,neutral,right,,0.5267256999795791,True
 9,none,incompatible,left,,0.5047682000149507,True
 10,spatial,compatible,right,100,0.35537579999072477,True
+
+,,,,
+
+
