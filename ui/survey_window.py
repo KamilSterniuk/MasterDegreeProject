@@ -78,7 +78,7 @@ class SurveyWindow(QWidget):
         gender_label.setStyleSheet("color: white; font-size: 16px;")
         self.gender_combo = QComboBox()
         self.gender_combo.addItems(["Wybierz", "Kobieta", "Mężczyzna", "Wolę nie odpowiadać"])
-        self.gender_combo.setFixedWidth(120)
+        self.gender_combo.setFixedWidth(125)
         self.gender_combo.currentIndexChanged.connect(self.check_form_completion)
         form_layout.addRow(gender_label, self.gender_combo)
 

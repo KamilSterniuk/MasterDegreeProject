@@ -11,7 +11,7 @@ class SettingsWindow(QWidget):
         # Słownik tłumaczeń
         self.translations = {
             "en": {
-                "control_group": "Binaural Beat Group",
+                "control_group": "Resting State Group",
                 "asmr_group": "ASMR Group",
                 "back": "Back",
             },
