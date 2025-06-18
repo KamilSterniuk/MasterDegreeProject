@@ -20,7 +20,7 @@ class RestWindow(QWidget):
         self.layout.setAlignment(Qt.AlignCenter)
 
         # Header
-        self.header_label = QLabel("Relaxation Phase")
+        self.header_label = QLabel("Faza relaksacji")
         self.header_label.setStyleSheet("font-size: 32px; font-weight: bold; color: white; padding: 10px;")
         self.header_label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.header_label)
@@ -29,11 +29,11 @@ class RestWindow(QWidget):
         self.label = QLabel()
         self.label.setTextFormat(Qt.TextFormat.RichText)  # Set QLabel to interpret HTML
         self.label.setText(
-            "You are about to begin the relaxation phase.<br><br>"
-            "Your task is to rest and focus on the white cross displayed on the screen.<br><br>"
-            "When you hear the sound signal, close your eyes, relax, and wait for the next signal<br>"
-            "to open your eyes.<br><br>"
-            "<b>Press any key to continue.</b>"
+            "Zaraz rozpocznie się faza relaksacji.<br><br>"
+            "Twoim zadaniem jest odpoczynek i skupienie wzroku na białym krzyżu wyświetlonym na ekranie.<br><br>"
+            "Gdy usłyszysz sygnał dźwiękowy, zamknij oczy, zrelaksuj się i czekaj na kolejny sygnał,<br>"
+            "który będzie oznaczał otwarcie oczu.<br><br>"
+            "<b>Naciśnij dowolny klawisz, aby kontynuować.</b>"
         )
         self.label.setStyleSheet("font-size: 24px; font-weight: normal; color: white; padding: 20px;")
         self.label.setAlignment(Qt.AlignCenter)
@@ -82,7 +82,7 @@ class RestWindow(QWidget):
         self.play_sound()
 
         # Wyświetl komunikat o zamknięciu oczu
-        self.label = QLabel("Please close your eyes until you hear the next sound signal.")
+        self.label = QLabel("Zamknij oczy i zrelaksuj się aż do kolejnego sygnału dźwiękowego.")
         self.label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 20px;")
         self.label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.label)
@@ -100,8 +100,9 @@ class RestWindow(QWidget):
         self.label.deleteLater()
 
         self.label = QLabel(
-            "Thank you for completing the relaxation phase.\n"
-            "You will soon perform a task to check your concentration.\n\nPress any key to continue."
+            "Dziękujemy za udział w fazie relaksacji.\n"
+            "Za chwilę wypełnisz krótki kwestionariusz dotyczący Twojego samopoczucia.\n\n"
+            "Naciśnij dowolny klawisz, aby kontynuować."
         )
         self.label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 20px;")
         self.label.setAlignment(Qt.AlignCenter)
@@ -111,5 +112,5 @@ class RestWindow(QWidget):
 
     def event(self, event: QEvent):
         if event.type() == QEvent.KeyPress and self.step == 3:
-            self.main_app.show_ant_instructions()  # Przełączenie na ekran instrukcji ANT
+            self.main_app.show_stai_post_ant()  # Przełączenie na ekran instrukcji ANT
         return super().event(event)

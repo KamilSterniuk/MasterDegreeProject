@@ -104,11 +104,11 @@ class MainApp(QMainWindow):
 
     def show_rest_or_asmr(self):
         """Przełącza na ekran odpoczynku lub wybór ASMR."""
-        # if self.asmr_enabled:
-        #     self.stacked_widget.setCurrentWidget(self.select_instructions)
-        # else:
-        #     self.stacked_widget.setCurrentWidget(self.rest_window)
-        self.stacked_widget.setCurrentWidget(self.select_instructions)
+        if self.asmr_enabled:
+            self.stacked_widget.setCurrentWidget(self.select_instructions)
+        else:
+            self.stacked_widget.setCurrentWidget(self.rest_window)
+        # self.stacked_widget.setCurrentWidget(self.select_instructions)
 
     def show_asmr_select_window(self):
         self.stacked_widget.setCurrentWidget(self.asm_select_window)

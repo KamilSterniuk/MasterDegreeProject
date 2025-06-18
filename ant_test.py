@@ -164,7 +164,7 @@ def main_ant_test():
         os.makedirs(target_folder)
     csv_file_path = os.path.join(target_folder, "ant_results.csv")
 
-    for trial_num in range(144):  # 10 prób
+    for trial_num in range(10):  # 144 prób
         fixation.draw()
         win.flip()
         core.wait(random.uniform(0.4, 1.6))

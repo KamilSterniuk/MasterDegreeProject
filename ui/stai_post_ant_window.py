@@ -25,7 +25,7 @@ class StaiPostAntWindow(QWidget):
 
 
         # Tytuł
-        title_label = QLabel("Kwesrionariusz STAI Post-ASMR")
+        title_label = QLabel("Kwestionariusz STAI Post-ASMR")
         title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white; padding: 15px;")
         title_label.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(title_label)
