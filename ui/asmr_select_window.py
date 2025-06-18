@@ -178,14 +178,17 @@ class AsmrSelectWindow(QWidget):
         self.rating_labels[index].setText(f"Ocena: {value}")
 
     def confirm_selection(self):
-        for player, _, _ in self.players:
-            player.stop()
 
         max_rating = max(self.ratings)
         best_videos = [i for i, rating in enumerate(self.ratings) if rating == max_rating]
 
         # Zapisz oceny do pliku
         csv_file_path = self.save_ratings_to_file(self.ratings, best_videos)
+
+        for player, _, _ in self.players:
+            player.stop()
+
+
 
         if len(best_videos) > 1:
             # Przekazanie ścieżki do pliku do innej sceny programu

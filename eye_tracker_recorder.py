@@ -148,7 +148,7 @@ def calculate_gazeplot(x, y, time_btw, file):
 
 
 def calculate_fixation_statistics(x, y, times, fixation_radius=100):
-    min_points = len(x) / 100
+    min_points = len(x) / 220
     fixations = []
     current_fixation = {'points': [], 'start_time': None, 'end_time': None}
     for i in range(len(x)):
