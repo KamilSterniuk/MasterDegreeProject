@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="ready to use">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="16b361f4-6535-452f-9a15-980e48eb22f3" name="Changes" comment="final version used in lab630">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/ant_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eye_tracker_recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/eye_tracker_recorder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/asmr_select_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/asmr_select_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/settings_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/settings_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/survey_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/survey_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="scenario1" />
+        <entry key="$PROJECT_DIR$" value="lab630_eye_tracker+BB" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,27 +51,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Run Main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ant_instruction_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ant_instructions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ant_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.asmr_select_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.misophonia.executor&quot;: &quot;Run&quot;,
-    &quot;Python.misophonia_instructions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.second_view.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_info.executor&quot;: &quot;Run&quot;,
-    &quot;Python.third_view.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;lab630__eye__tracker+BB&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Student/PycharmProjects/MasterDegreeProject/videos&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Run Main.executor": "Run",
+    "Python.ant_instruction_window.executor": "Run",
+    "Python.ant_instructions.executor": "Run",
+    "Python.ant_test.executor": "Run",
+    "Python.asmr_select_window.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_window.executor": "Run",
+    "Python.misophonia.executor": "Run",
+    "Python.misophonia_instructions.executor": "Run",
+    "Python.second_view.executor": "Run",
+    "Python.test_info.executor": "Run",
+    "Python.third_view.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "lab630__eye__tracker+BB__scenario2",
+    "last_opened_file_path": "C:/Users/Student/PycharmProjects/MasterDegreeProject/videos",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Student\PycharmProjects\MasterDegreeProject\videos" />
@@ -354,7 +353,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741698880600</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="final version used in lab630">
+      <option name="closed" value="true" />
+      <created>1750269516029</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1750269516029</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -381,7 +388,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="STAI interface" />
     <MESSAGE value="STAI transition" />
     <MESSAGE value="asmr selection v1" />
     <MESSAGE value="asmr full playing" />
@@ -406,6 +412,7 @@
     <MESSAGE value="translate v3" />
     <MESSAGE value="translate v4 + stai transfer to do" />
     <MESSAGE value="ready to use" />
-    <option name="LAST_COMMIT_MESSAGE" value="ready to use" />
+    <MESSAGE value="final version used in lab630" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version used in lab630" />
   </component>
 </project>
